@@ -1,0 +1,28 @@
+{
+	"support" : {
+		"email" : "richard@vodden.com"
+	},
+	"require" : {
+		"php" : ">=7.0"
+	},
+	"name" : "rvodden/concert-management-plugin",
+	"homepage" : "http://www.vodden.com/",
+	"license" : "GPL",
+	"authors" : [{
+			"name" : "Richard Vodden",
+			"email" : "richard@vodden.com",
+			"homepage" : "http://www.vodden.com/",
+			"role" : "Creator"
+		}
+	],
+	"keywords" : [
+		"WordPress",
+		"plugins",
+		"music",
+		"concert",
+		"ensemble"
+	],
+	"require-dev" : {
+		"phpunit/phpunit" : "5.7.4"
+	}
+}
