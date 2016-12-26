@@ -18,8 +18,18 @@ abstract class AbstractPostMetadata implements PostMetadata
      */
     public function update_from_array ( $post_id, $array_of_values )
     {
-        $new_value = sanitize_html_class($_POST[$this->key]);
-        update_post_meta($post_id, $this->key, $new_value);
+        $new_value = sanitize_text_field($array_of_values[$this->key]);
+        error_log("Saving post-metadata: " . $this->key . ":" . $new_value);
+        update_post_meta( $post_id, $this->key, $new_value);
+        
+        $parent = wp_is_post_revision($post_id);
+        if ( $parent ) {
+            $original_value = get_post_meta($parent->ID, $this->key, true);
+            
+            if ( false !== $original_value ) {
+                add_metadata($post_id, $this->key, $new_value);
+            }
+        }
     }
 
     /**
@@ -29,7 +39,8 @@ abstract class AbstractPostMetadata implements PostMetadata
      */
     public function read ($post_id)
     {
-        return get_post_meta($post_id, $this->key);
+        error_log("Getting post metadata for : " . $this->key);
+        return get_post_meta($post_id, $this->key, true);
     }
     
     public function get_key () {

@@ -37,7 +37,7 @@ interface MetaBox {
      * @var ConcertManagementLoader $loader Maintains and registers all hooks
      *      for the plugin.
      */
-    public function display($concert, $args);
+    public function display($post);
     
     /**
      * Saves the data which has been entered into the meta-box.
@@ -47,7 +47,7 @@ interface MetaBox {
      * @var ConcertManagementLoader $loader Maintains and registers all hooks
      *      for the plugin.
      */
-    public function save($id);
+    public function save($id, $post);
     
     /**
      * Enqueues dependend scripts
@@ -85,7 +85,7 @@ interface MetaBox {
      * Save post metadata and return it in an array
      *
      */
-    function save_post_metadata($array_of_post_metadata);
+    function save_post_metadata($post_id, $array_of_post_metadata);
 }
 
 ?>

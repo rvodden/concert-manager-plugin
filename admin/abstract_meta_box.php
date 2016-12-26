@@ -67,7 +67,7 @@ abstract class AbstractMetaBox implements MetaBox
     protected function define_admin_hooks ()
     {
         $this->loader->add_action('add_meta_boxes', $this, 'add');
-        $this->loader->add_action('save_post', $this, 'save');
+        $this->loader->add_action('save_post', $this, 'save', 10, 2);
         
         $this->loader->add_action('admin_enqueue_scripts', $this, 
                 'enqueue_scripts');
@@ -85,14 +85,16 @@ abstract class AbstractMetaBox implements MetaBox
                 ), 'concert', 'normal', 'default');
     }
 
-    function display ($post, $args)
+    function display ($post)
     {
-        $post_metadata = $this->load_post_metadata($post->id);
+        error_log("Displaying post number" . $post->ID);
+        $post_metadata = $this->load_post_metadata($post->ID);
+        error_log(implode('|',$post_metadata));
         wp_nonce_field(plugin_basename(__FILE__), $this->get_nonce_name());
         require $this->get_display_file_path();
     }
 
-    function save ($post_id)
+    function save ($post_id, $post)
     {
         error_log("Saving post");
         // do nothing if autosaving
@@ -111,6 +113,8 @@ abstract class AbstractMetaBox implements MetaBox
             error_log("Current user doesn't have edit concert features");
             return;
         }
+        
+        error_log("Recieved post data : " . print_r($_POST) . json_encode($_POST));
         
         $this->save_post_metadata($post_id, $_POST);
     }
@@ -190,21 +194,22 @@ abstract class AbstractMetaBox implements MetaBox
 
     public function load_post_metadata ($post_id)
     {
-        error_log("Loading post metadata");
+        error_log("Loading post metadata from " . $post_id);
         foreach ($this->post_metadata as $post_metadatum) {
             $key = $post_metadatum->get_key();
             $value = $post_metadatum->read($post_id);
-            error_log("Loading post metadata for " . $key ." : " . $value);
+            error_log("Loading post (" . $post_id . ") metadata for " . $key ." : " . $value);
             $metadata_array[$key] = $value;
         }
         
         return $metadata_array;
     }
 
-    public function save_post_metadata ($matadata_array)
+    public function save_post_metadata ($post_id, $metadata_array)
     {
+        error_log("Received metadata : " . json_encode($metadata_array));
         foreach ($this->post_metadata as $post_metadatum) {
-            $post_metadatum->update_from_array($post_metadatum);
+            $post_metadatum->update_from_array($post_id, $metadata_array);
         }
     }
 

@@ -122,22 +122,40 @@ class ConcertManagementLoader {
 	}
 	
 	/**
-	 * Register the filters, actions and post types with WordPress.
+	 * Register the filters and actions with WordPress.
 	 *
 	 * @since 0.0.1
 	 */
 	public function run() {
-		foreach ( $this->filters as $hook ) {
-			add_filter ( $hook ['hook'], array (
-					$hook ['component'],
-					$hook ['callback'] 
-			), $hook ['priority'], $hook ['accepted_args'] );
-		}
-		foreach ( $this->actions as $hook ) {
-			add_action ( $hook ['hook'], array (
-					$hook ['component'],
-					$hook ['callback'] 
-			), $hook ['priority'], $hook ['accepted_args'] );
-		}
+		$this->register_filters($this->filters);
+		$this->register_actions($this->actions);
+	}
+	
+	/**
+	 * Register the filters with WordPress.
+	 *
+	 * @since 0.0.1
+	 */
+	private function register_filters($hooks) {
+	    foreach ( $hooks as $hook ) {
+	        add_filter ( $hook ['hook'], array (
+	                $hook ['component'],
+	                $hook ['callback']
+	        ), $hook ['priority'], $hook ['accepted_args'] );
+	    }
+	}
+	
+	/**
+	 * Register the actions with WordPress.
+	 *
+	 * @since 0.0.1
+	 */
+	private function register_actions($hooks) {
+	    foreach ( $hooks as $hook ) {
+	        add_action ( $hook ['hook'], array (
+	                $hook ['component'],
+	                $hook ['callback']
+	        ), $hook ['priority'], $hook ['accepted_args'] );
+	    }
 	}
 }
