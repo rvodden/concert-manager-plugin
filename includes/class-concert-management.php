@@ -1,4 +1,7 @@
 <?php
+namespace org\eu\brentso\concertmanagement;
+use org\eu\brentso\concertmanagement\{admin, common};
+
 /**
  * The file that defines the core plugin class
  *
@@ -9,7 +12,7 @@
  * @since      0.0.1
  *
  * @package    concert_management
- * @subpackage concert_management/includes
+ * @subpackage concert_management/common
  */
 
 // this means that defining 'WP_DEBUG' to false disables debugging.
@@ -108,27 +111,27 @@ class ConcertManagement {
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once $concert_plugin_path . 'includes/class-concert-management-loader.php';
+		require_once $concert_plugin_path . 'includes/class-loader.php';
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once $concert_plugin_path . 'includes/class-concert-management-i18n.php';
+		require_once $concert_plugin_path . 'includes/class-i18n.php';
 		/**
 		 * The class responsible for defining all actions that are assciated with the concert post type;
 		 */
-		require_once $concert_plugin_path . 'includes/class-concert-management-concert-post-type.php';
+		require_once $concert_plugin_path . 'includes/class-concert-post-type.php';
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once $concert_plugin_path . 'admin/class-concert-management-admin.php';
+		require_once $concert_plugin_path . 'admin/class-admin.php';
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
 		require_once $concert_plugin_path . 'public/class-concert-management-public.php';
 		
-		$this->loader = new ConcertManagementLoader();
+		$this->loader = new common\ConcertManagementLoader();
 	}
 	
 	/**
@@ -141,7 +144,7 @@ class ConcertManagement {
 	 * @access   private
 	 */
 	private function set_locale() {
-		$plugin_i18n = new ConcertManagementi18n();
+		$plugin_i18n = new common\ConcertManagementi18n();
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 	}
 	
@@ -152,7 +155,7 @@ class ConcertManagement {
 	 * @access   private
 	 */
 	private function define_concert_post_type() {
-		$this->plugin_concert_post_type = new ConcertManagementConcertPostType($this->loader);
+		$this->plugin_concert_post_type = new common\ConcertManagementConcertPostType($this->loader);
 	}
 	
 	/**
@@ -163,7 +166,7 @@ class ConcertManagement {
 	 * @access   private
 	 */
 	private function define_admin_hooks() {
-		$plugin_admin = new ConcertManagementAdmin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new admin\Admin( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_options_page' );

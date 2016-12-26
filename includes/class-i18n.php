@@ -1,4 +1,6 @@
 <?php
+namespace org\eu\brentso\concertmanagement\common;
+
 /**
  * Define the internationalization functionality
 *

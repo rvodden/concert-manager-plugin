@@ -1,4 +1,7 @@
 <?php
+use org\eu\brentso\concertmanagement\admin;
+use org\eu\brentso\concertmanagement\common;
+use org\eu\brentso\concertmanagement;
 /*
  Plugin Name: Concert Manager
  Plugin URI: http://www.vodden.com/concertmanager
@@ -39,8 +42,8 @@ if ( defined(WP_DEBUG) ) {
  * This action is documented in includes/class-plugin-name-activator.php
  */
 function activate_concert_management() {
-	require_once constant('CONCERT_PLUGIN_PATH') . 'includes/class-concert-management-activator.php';
-	ConcertManagementActivator::activate();
+	require_once constant('CONCERT_PLUGIN_PATH') . 'includes/class-activator.php';
+	common\ConcertManagementActivator::activate();
 }
 
 
@@ -49,8 +52,8 @@ function activate_concert_management() {
  * This action is documented in includes/class-plugin-name-deactivator.php
  */
 function deactivate_concert_management() {
-	require_once constant('CONCERT_PLUGIN_PATH') . 'includes/class-concert-management-deactivator.php';
-	ConcertManagementDeactivator::deactivate();
+	require_once constant('CONCERT_PLUGIN_PATH') . 'includes/class-deactivator.php';
+	common\ConcertManagementDeactivator::deactivate();
 }
 register_activation_hook( __FILE__, 'activate_concert_management' );
 register_deactivation_hook( __FILE__, 'deactivate_concert_management' );
@@ -72,7 +75,7 @@ require constant('CONCERT_PLUGIN_PATH') . 'includes/class-concert-management.php
  * @since    0.0.1
  */
 function run_concert_management() {
-	$plugin = new ConcertManagement();
+	$plugin = new concertmanagement\ConcertManagement();
 	$plugin->run();
 }
 

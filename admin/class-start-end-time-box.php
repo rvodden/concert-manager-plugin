@@ -1,17 +1,18 @@
 <?php
-require_once 'abstract_meta_box.php';
-require_once 'abstract_post_metadata.php';
-require_once 'class-concert-management-concert-end-time-metadata.php';
-require_once 'class-concert-management-concert-start-time-metadata.php';
-require_once 'class-concert-management-concert-start-date-metadata.php';
+namespace org\eu\brentso\concertmanagement\admin;
+require_once 'abstract-meta-box.php';
+require_once 'abstract-post-metadata.php';
+require_once 'class-end-time-metadata.php';
+require_once 'class-start-time-metadata.php';
+require_once 'class-start-date-metadata.php';
 
-class ConcertManagementConcertStartEndTimeBox extends AbstractMetaBox
+class StartEndTimeBox extends AbstractMetaBox
 {
 
     protected function configure_post_metadata() {
-        $this->add_post_metadata(new ConcertStartTimeMetaData());
-        $this->add_post_metadata(new ConcertEndTimeMetaData());
-        $this->add_post_metadata(new ConcertStartDateMetaData());
+        $this->add_post_metadata(new StartTimeMetaData());
+        $this->add_post_metadata(new EndTimeMetaData());
+        $this->add_post_metadata(new StartDateMetaData());
     }
     
     public function enqueue_scripts ()
@@ -35,3 +36,4 @@ class ConcertManagementConcertStartEndTimeBox extends AbstractMetaBox
         parent::enqueue_styles();
     }
 }
+?>

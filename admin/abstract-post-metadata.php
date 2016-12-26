@@ -1,4 +1,5 @@
 <?php
+namespace org\eu\brentso\concertmanagement\admin;
 
 abstract class AbstractPostMetadata implements PostMetadata
 {

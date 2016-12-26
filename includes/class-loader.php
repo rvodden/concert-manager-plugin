@@ -1,4 +1,6 @@
 <?php
+namespace org\eu\brentso\concertmanagement\common;
+
 /**
  * Register all actions and filters for the plugin
  *

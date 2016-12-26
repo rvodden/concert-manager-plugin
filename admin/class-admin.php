@@ -1,4 +1,5 @@
 <?php
+namespace org\eu\brentso\concertmanagement\admin;
 /**
  * The admin-specific functionality of the concert management plugin.
  *
@@ -19,7 +20,7 @@
  * @subpackage concert-management/admin
  * @author Richard Vodden <richard.vodden@brentso.org.uk>
  */
-class ConcertManagementAdmin {
+class Admin {
 	/**
 	 * The ID of this plugin.
 	 *

@@ -1,4 +1,5 @@
 <?php
+namespace org\eu\brentso\concertmanagement\admin;
 /**
  * Meta Box interface for adding meta-boxes to custom post types.
  *
@@ -87,5 +88,4 @@ interface MetaBox {
      */
     function save_post_metadata($post_id, $array_of_post_metadata);
 }
-
 ?>

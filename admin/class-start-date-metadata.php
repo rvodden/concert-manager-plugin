@@ -1,7 +1,8 @@
 <?php
-require_once 'abstract_post_metadata.php';
+namespace org\eu\brentso\concertmanagement\admin;
+require_once 'abstract-post-metadata.php';
 
-class ConcertStartDateMetaData extends AbstractPostMetadata {
+class StartDateMetaData extends AbstractPostMetadata {
     public function __construct() {
         parent::__construct('concert-start-date');
     }

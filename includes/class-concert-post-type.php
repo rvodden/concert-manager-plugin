@@ -1,4 +1,6 @@
 <?php
+namespace org\eu\brentso\concertmanagement\common;
+use org\eu\brentso\concertmanagement\admin;
 /**
  * Register all actions and filters for the plugin
  *
@@ -36,7 +38,7 @@ class ConcertManagementConcertPostType {
 		$this->load_dependencies ();
 		$this->define_hooks ();
 		$this->define_admin_hooks ();
-		$this->concert_post_type_admin = new ConcertManagementConcertPostTypeAdmin ( $this->loader );
+		$this->concert_post_type_admin = new admin\ConcertPostTypeAdmin ( $this->loader );
 	}
 	private function load_dependencies() {
 		$concert_plugin_path = constant ( 'CONCERT_PLUGIN_PATH' );
@@ -44,7 +46,7 @@ class ConcertManagementConcertPostType {
 		 * The class responsible for implementing the administrative functions of the
 		 * concert post type
 		 */
-		require_once $concert_plugin_path . 'admin/class-concert-management-concert-post-type-admin.php';
+		require_once $concert_plugin_path . 'admin/class-concert-post-type-admin.php';
 	}
 	private function define_hooks() {
 		$this->loader->add_action ( 'init', $this, 'create_concert_post_type' );

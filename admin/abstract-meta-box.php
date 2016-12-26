@@ -1,6 +1,8 @@
 <?php
-require 'interface_meta_box.php';
-require 'interface_post_metadata.php';
+namespace org\eu\brentso\concertmanagement\admin;
+use ReflectionClass;
+require_once 'interface-meta-box.php';
+require_once 'interface-post-metadata.php';
 
 /**
  * This abstract meta box class implements sensible defaults for location of
@@ -128,24 +130,29 @@ abstract class AbstractMetaBox implements MetaBox
     {
         wp_enqueue_script($this->get_style_tag(), $this->get_style_url());
     }
+    
+    protected function get_unqualified_class_name() {
+        $reflect = new ReflectionClass($this);
+        return $reflect->getShortName();
+    }
 
     protected function get_style_url ()
     {
         $concert_plugin_path = constant('CONCERT_PLUGIN_URL');
         $underscored_class_name = $this->convert_from_camel_case_to_dashes(
-                static::class);
+                $this->get_unqualified_class_name());
         return $concert_plugin_path . 'admin/css/' . $underscored_class_name .
                  '.css';
     }
 
     protected function get_style_tag ()
     {
-        return $this->convert_from_camel_case_to_dashes(static::class) . '-style';
+        return $this->convert_from_camel_case_to_dashes($this->get_unqualified_class_name()) . '-style';
     }
 
     protected function get_tag ()
     {
-        return $this->convert_from_camel_case_to_dashes(static::class);
+        return $this->convert_from_camel_case_to_dashes($this->get_unqualified_class_name());
     }
 
     protected function set_title ($title)
@@ -162,26 +169,26 @@ abstract class AbstractMetaBox implements MetaBox
     {
         $concert_plugin_path = constant('CONCERT_PLUGIN_URL');
         $underscored_class_name = $this->convert_from_camel_case_to_dashes(
-                static::class);
+                $this->get_unqualified_class_name());
         return $concert_plugin_path . 'admin/js/' . $underscored_class_name .
                  '.js';
     }
 
     protected function get_script_tag ()
     {
-        return $this->convert_from_camel_case_to_dashes(static::class);
+        return $this->convert_from_camel_case_to_dashes($this->get_unqualified_class_name());
     }
 
     protected function get_nonce_name ()
     {
-        return $this->convert_from_camel_case_to_dashes(static::class) . '-nonce';
+        return $this->convert_from_camel_case_to_dashes($this->get_unqualified_class_name()) . '-nonce';
     }
 
     protected function get_display_file_path ()
     {
         $concert_plugin_path = constant('CONCERT_PLUGIN_PATH');
         return $concert_plugin_path . 'admin/partials/' .
-                 $this->convert_from_camel_case_to_dashes(static::class) .
+                 $this->convert_from_camel_case_to_dashes($this->get_unqualified_class_name()) .
                  '-display.php';
     }
 

@@ -1,4 +1,5 @@
 <?php
+namespace org\eu\brentso\concertmanagement\common;
 /**
  * Fired during plugin activation
 *

@@ -1,5 +1,5 @@
 <?php
-
+namespace org\eu\brentso\concertmanagement\admin;
 /**
  * Admin specific code for the concert post type.
  *
@@ -18,7 +18,7 @@
  * @author Richard Vodden <richard@vodden.com>
  *        
  */
-class ConcertManagementConcertPostTypeAdmin
+class ConcertPostTypeAdmin
 {
 
     /**
@@ -44,8 +44,8 @@ class ConcertManagementConcertPostTypeAdmin
     private function load_dependencies ()
     {
         $concert_plugin_path = constant('CONCERT_PLUGIN_PATH');
-        require_once $concert_plugin_path . 'admin/class-concert-management-concert-start-end-time-box.php';
-        $this->concert_management_concert_start_end_time_box = new ConcertManagementConcertStartEndTimeBox(
+        require_once $concert_plugin_path . 'admin/class-start-end-time-box.php';
+        $this->concert_management_concert_start_end_time_box = new StartEndTimeBox(
                 $this->loader,
                 "Concert Time and Date"
                 );
