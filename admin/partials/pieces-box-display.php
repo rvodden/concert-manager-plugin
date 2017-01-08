@@ -9,7 +9,7 @@
 	<tbody>
 	</tbody>
 </table>
-<input name="concert-pieces" id="concert-pieces" type="hidden" value='<?php echo isset($post_metadata['concert-pieces']) ? $post_metadata['concert-pieces'] : ''; ?>'/>
+<input name="concert-pieces" id="concert-pieces" type="hidden" value='<?php echo isset($metadata['concert-pieces']) ? $metadata['concert-pieces'] : ''; ?>'/>
 <a id="open-dialog">add piece...</a>
 
 <div id="dialog" title="Add a piece to the concert...">

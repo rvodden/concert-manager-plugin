@@ -1,10 +1,10 @@
 <?php
 namespace org\eu\brentso\concertmanagement\admin;
-require_once 'abstract-meta-box.php';
+require_once 'abstract-concert-meta-box.php';
 require_once 'class-pieces-metadata.php';
 
 
-class PiecesBox extends AbstractMetaBox
+class PiecesBox extends AbstractConcertMetaBox
 {
 
     protected function configure_post_metadata ()

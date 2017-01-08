@@ -1,12 +1,11 @@
 <?php
 namespace org\eu\brentso\concertmanagement\admin;
-require_once 'abstract-meta-box.php';
-require_once 'abstract-post-metadata.php';
+require_once 'abstract-concert-meta-box.php';
 require_once 'class-end-time-metadata.php';
 require_once 'class-start-time-metadata.php';
 require_once 'class-start-date-metadata.php';
 
-class StartEndTimeBox extends AbstractMetaBox
+class StartEndTimeBox extends AbstractConcertMetaBox
 {
 
     protected function configure_post_metadata() {

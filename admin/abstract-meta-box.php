@@ -32,6 +32,7 @@ abstract class AbstractMetaBox implements MetaBox
      * @var ConcertManagementLoader $loader Maintains and registers all hooks
      *      for the plugin.
      */
+    // TODO: this is turning into a god class - need to split it up into bits.
     protected $loader;
 
     /**
@@ -44,6 +45,18 @@ abstract class AbstractMetaBox implements MetaBox
      *      for the plugin.
      */
     protected $title;
+    
+    /**
+     * This is the post type to which the meta box pertains. This field is 
+     * used to ensure that the box specific style and scripts are only loaded
+     * on the appropriate post type.
+     *
+     * @since 0.0.1
+     * @access protected
+     * @var ConcertManagementLoader $loader Maintains and registers all hooks
+     *      for the plugin.
+     */
+    protected $post_type;
 
     /**
      * Collection of metadata belonging to the box
@@ -57,12 +70,14 @@ abstract class AbstractMetaBox implements MetaBox
      * @param unknown $loader            
      * @param unknown $title            
      */
-    function __construct ($loader, $title)
+    function __construct ($loader, $title, $post_type)
     {
         $this->set_title($title);
         $this->loader = $loader;
         $this->configure_post_metadata();
         $this->define_admin_hooks();
+        $this->post_type = $post_type;
+        error_log("Post Type : " . $this->get_post_type());
     }
 
     protected abstract function configure_post_metadata ();
@@ -80,19 +95,18 @@ abstract class AbstractMetaBox implements MetaBox
 
     public function add ()
     {
-        // TODO: the post type shouldn't be hardcoded here
         add_meta_box($this->get_tag(), $this->get_title(), 
                 array(
                         $this,
                         'display'
-                ), 'concert', 'normal', 'default');
+                ), $this->get_post_type(), 'normal', 'default');
     }
 
     function display ($post)
     {
-        error_log("Displaying post number" . $post->ID);
-        $post_metadata = $this->load_post_metadata($post->ID);
-        isset($post_metadata) ? error_log(implode('|',$post_metadata)) : error_log("No metadata");
+        error_log("Displaying post number : " . $post->ID);
+        $metadata = $this->load_post_metadata($post->ID);
+        isset($metadata) ? error_log(implode('|',$metadata)) : error_log("No metadata");
         wp_nonce_field(plugin_basename(__FILE__), $this->get_nonce_name());
         require $this->get_display_file_path();
     }
@@ -117,21 +131,44 @@ abstract class AbstractMetaBox implements MetaBox
             return;
         }
         
-        // error_log("Recieved post data : " . print_r($_POST) . json_encode($_POST));
-        
         $this->save_post_metadata($post_id, $_POST);
     }
 
+    /*
+     * Checks that the admin page which is being laoded is appropriate
+     * and if so enqueues the necessary scripts for this metabox
+     */
     public function enqueue_scripts ( $hook_suffix )
     {
-        error_log("Suffix : " . $hook_suffix);
-        wp_enqueue_script($this->get_script_tag(), $this->get_script_url());
+        if ($this->on_post_type_edit_page($hook_suffix )) {
+            wp_enqueue_script($this->get_script_tag(), $this->get_script_url());
+        }
     }
 
+    /*
+     * Checks that the admin page which is being laoded is appropriate
+     * and if so enqueues the necessary styles for this metabox
+     */
     public function enqueue_styles ($hook_suffix)
     {
-        error_log("Suffix : " . $hook_suffix);
-        wp_enqueue_style($this->get_style_tag(), $this->get_style_url());
+        if ($this->on_post_type_edit_page($hook_suffix ) ) {
+            wp_enqueue_style($this->get_style_tag(), $this->get_style_url());
+        }
+    }
+    
+    /*
+     * Check that we are on the edit page which pertains to the post type
+     * which this meta box is associated with.
+     */
+    private function on_post_type_edit_page ($hook_suffix ) {
+        if ( "post.php" == $hook_suffix || "post-new.php" == $hook_suffix ) {
+            $screen = get_current_screen();
+            if (is_object($screen) && ($this->get_post_type() == $screen->post_type)) {
+                return true;
+            }
+        }
+        
+        return false;
     }
     
     protected function get_unqualified_class_name() {
@@ -166,6 +203,11 @@ abstract class AbstractMetaBox implements MetaBox
     protected function get_title ()
     {
         return $this->title;
+    }
+    
+    protected function get_post_type ()
+    {
+        return $this->post_type;
     }
 
     protected function get_script_url ()

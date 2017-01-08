@@ -9,3 +9,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Initial version.
 - Establish initial project structure.
 - Implement Concert Post Type.
+- Add date, start time and end time to concert post type.
+- Add pieces to concert post type.

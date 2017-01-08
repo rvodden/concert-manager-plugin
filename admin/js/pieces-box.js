@@ -1,12 +1,12 @@
 /**
- * most of this needs refactoring because the code duplication is evil
+ * TODO: most of this needs refactoring because the code duplication is evil
  */
 
 var pieces_number = 0;
 
 function populatePiecesTable() {
 	var table = jQuery("#pieces-table");
-	console.log(jQuery("#concert-pieces").val());
+	console.log("Concert Pieces value:" + jQuery("#concert-pieces").val());
 	var data = JSON.parse(jQuery("#concert-pieces").val());
 	
 	jQuery.each(data, function(rowIndex, r) {
@@ -25,19 +25,22 @@ function populatePiecesTable() {
 		row.append(jQuery("<td>").append(
 				jQuery("<span>").addClass("ui-icon ui-icon-closethick").addClass("piece-delete")));
 		table.append(row);
+		pieces_number++;
 	});
 	
-	jQuery(".piece-delete").on("click", function() {
-        var tr = jQuery(this).closest('tr');
-        tr.css("background-color","#FF3700");
-        tr.fadeOut(400, function(){
-            tr.remove();
-        });
-        pieces_number--;
-        return false;
-    });
+	jQuery(".piece-delete").on("click", delete_piece);
 	
 	return table;
+}
+
+function delete_piece() {
+    var tr = jQuery(this).closest('tr');
+    tr.css("background-color","#FF3700");
+    tr.fadeOut(400, function(){
+        tr.remove();
+    });
+    pieces_number--;
+    return false;
 }
 
 function appendTableRow(table, rowData) {
@@ -79,7 +82,7 @@ jQuery(document).ready(function() {
 			},
 			click : function() {
 				appendTableRow(jQuery("#pieces-table"),
-						[jQuery("#composer").val(),jQuery("#piece").val()]);
+						[++pieces_number, jQuery("#composer").val(),jQuery("#piece").val()]);
 				jQuery(this).dialog("close");
 			}
 		} ]
@@ -113,7 +116,7 @@ function generatePiecesData() {
         cols.push(rowIndex+1);
         console.log("Row Number : " + (rowIndex + 1));
         jQuery(this).find('td').each(function (colIndex, c) {
-        	if (colIndex == 0 || colIndex == 1 || colIndex == 2) {
+        	if (colIndex == 1 || colIndex == 2) {
         		console.log(c.textContent);
         		cols.push(c.textContent);
         	}
