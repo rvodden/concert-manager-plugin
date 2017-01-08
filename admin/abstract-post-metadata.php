@@ -11,8 +11,8 @@ abstract class AbstractPostMetadata implements PostMetadata
     }
 
     /**
-     * Takes an array ($key->$value) ostensibly directly from a 
-     * for in a metabox. It checks to see if there is a value
+     * Takes an array ($key->$value) ostensibly directly from an 
+     * input in a metabox. It checks to see if there is a value
      * associated with the instance's key and if so, updates accordingly.
      * 
      * @param unknown $array_of_values

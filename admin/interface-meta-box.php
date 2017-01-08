@@ -58,7 +58,7 @@ interface MetaBox {
      * @var ConcertManagementLoader $loader Maintains and registers all hooks
      *      for the plugin.
      */
-    public function enqueue_scripts();
+    public function enqueue_scripts($hook_suffix);
     
     /**
      * Enqueues dependend styles
@@ -68,7 +68,7 @@ interface MetaBox {
      * @var ConcertManagementLoader $loader Maintains and registers all hooks
      *      for the plugin.
      */
-    public function enqueue_styles();
+    public function enqueue_styles($hook_suffix);
     
     /**
      * Adds post metadata to the meta box

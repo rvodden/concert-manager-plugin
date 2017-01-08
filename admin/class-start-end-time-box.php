@@ -15,17 +15,17 @@ class StartEndTimeBox extends AbstractMetaBox
         $this->add_post_metadata(new StartDateMetaData());
     }
     
-    public function enqueue_scripts ()
+    public function enqueue_scripts ($hook_suffix)
     {
         error_log("Scripts are being enqueued");
         
         wp_enqueue_script('jquery-ui-datepicker');
         wp_enqueue_script('jquery-ui-timepicker', 
                 '//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js');
-        parent::enqueue_scripts();
+        parent::enqueue_scripts($hook_suffix);
     }
 
-    public function enqueue_styles ()
+    public function enqueue_styles ($hook_suffix)
     {
         error_log("Styles are being enqueued");
         wp_enqueue_style('jquery-ui-style', 
@@ -33,7 +33,7 @@ class StartEndTimeBox extends AbstractMetaBox
                 true);
         wp_enqueue_style('jquery-ui-timepicker-style', 
                 '//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css');
-        parent::enqueue_styles();
+        parent::enqueue_styles($hook_suffix);
     }
 }
 ?>

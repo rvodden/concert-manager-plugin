@@ -16,6 +16,7 @@ require_once 'interface-post-metadata.php';
  * - admin/js/example_meta_box.js
  * - admin/css/example_meta_box.css
  *
+ *
  * @since 0.0.1
  */
 abstract class AbstractMetaBox implements MetaBox
@@ -91,7 +92,7 @@ abstract class AbstractMetaBox implements MetaBox
     {
         error_log("Displaying post number" . $post->ID);
         $post_metadata = $this->load_post_metadata($post->ID);
-        error_log(implode('|',$post_metadata));
+        isset($post_metadata) ? error_log(implode('|',$post_metadata)) : error_log("No metadata");
         wp_nonce_field(plugin_basename(__FILE__), $this->get_nonce_name());
         require $this->get_display_file_path();
     }
@@ -104,7 +105,7 @@ abstract class AbstractMetaBox implements MetaBox
             return;
         }
         
-        // do nothing if nonce saved
+        // do nothing if nonce mismatch
         if (! wp_verify_nonce($_POST[$this->get_nonce_name()], 
                 plugin_basename(__FILE__))) {
             error_log("Nonce verification failed");
@@ -116,19 +117,21 @@ abstract class AbstractMetaBox implements MetaBox
             return;
         }
         
-        error_log("Recieved post data : " . print_r($_POST) . json_encode($_POST));
+        // error_log("Recieved post data : " . print_r($_POST) . json_encode($_POST));
         
         $this->save_post_metadata($post_id, $_POST);
     }
 
-    public function enqueue_scripts ()
+    public function enqueue_scripts ( $hook_suffix )
     {
+        error_log("Suffix : " . $hook_suffix);
         wp_enqueue_script($this->get_script_tag(), $this->get_script_url());
     }
 
-    public function enqueue_styles ()
+    public function enqueue_styles ($hook_suffix)
     {
-        wp_enqueue_script($this->get_style_tag(), $this->get_style_url());
+        error_log("Suffix : " . $hook_suffix);
+        wp_enqueue_style($this->get_style_tag(), $this->get_style_url());
     }
     
     protected function get_unqualified_class_name() {
@@ -209,7 +212,7 @@ abstract class AbstractMetaBox implements MetaBox
             $metadata_array[$key] = $value;
         }
         
-        return $metadata_array;
+        return isset($metadata_array) ? $metadata_array : null;
     }
 
     public function save_post_metadata ($post_id, $metadata_array)
