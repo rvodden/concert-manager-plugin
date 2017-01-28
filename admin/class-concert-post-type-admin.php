@@ -1,7 +1,7 @@
 <?php
 namespace org\eu\brentso\concertmanagement\admin;
-require_once $concert_plugin_path . 'admin/class-start-end-time-box.php';
-require_once $concert_plugin_path . 'admin/class-pieces-box.php';
+require_once 'class-start-end-time-box.php';
+require_once 'class-pieces-box.php';
 
 /**
  * Admin specific code for the concert post type.
@@ -47,9 +47,7 @@ class ConcertPostTypeAdmin
     }
 
     private function load_dependencies ()
-    {
-        $concert_plugin_path = constant('CONCERT_PLUGIN_PATH');
-        
+    {   
         $this->start_end_time_box = new StartEndTimeBox($this->loader, 
                 "Concert Time and Date");
         $this->pieces_box = new PiecesBox($this->loader, "Concert Pieces");

@@ -1,4 +1,4 @@
-=== Plugin Name ===
+=== Concert Manager ===
 Contributors: rvodden
 Donate link: http://brentso.org.uk/
 Tags: music, ensemble, concert, event 

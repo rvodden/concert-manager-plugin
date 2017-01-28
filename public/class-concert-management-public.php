@@ -60,11 +60,11 @@ class ConcertManagementPublic {
 		 * defined in Plugin_Name_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Plugin_Name_Loader will then create the relationship
+		 * The ConcertManagementLoader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-		wp_enqueue_style( $this->plugin_name, constant('CONCERT_PLUGIN_PATH') . 'public/css/concert-management-public.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, constant('CONCERT_PLUGIN_URL') . 'public/css/concert-management-public.css', array(), $this->version, 'all' );
 	}
 	/**
 	 * Register the JavaScript for the public-facing side of the site.
@@ -83,7 +83,7 @@ class ConcertManagementPublic {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-		wp_enqueue_script( $this->plugin_name, constant('CONCERT_PLUGIN_PATH') . 'public/js/concert-management-public.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, constant('CONCERT_PLUGIN_URL') . 'public/js/concert-management-public.js', array( 'jquery' ), $this->version, false );
 	}
 }
 ?>

@@ -1,7 +1,7 @@
 /**
  * TODO: most of this needs refactoring because the code duplication is evil
  */
-
+"use strict";
 var pieces_number = 0;
 
 function populatePiecesTable() {
@@ -18,12 +18,8 @@ function populatePiecesTable() {
 					text(c));
 		});
 		
-		row.append(jQuery("<td>").append(
-				jQuery("<span>").addClass("ui-icon ui-icon-arrowthick-1-n").addClass("piece-up")));
-		row.append(jQuery("<td>").append(
-				jQuery("<span>").addClass("ui-icon ui-icon-arrowthick-1-s").addClass("piece-down")));
-		row.append(jQuery("<td>").append(
-				jQuery("<span>").addClass("ui-icon ui-icon-closethick").addClass("piece-delete")));
+		row = append_navigation_links(row);
+		
 		table.append(row);
 		pieces_number++;
 	});
@@ -52,12 +48,7 @@ function appendTableRow(table, rowData) {
 				text(c));
 	});
 
-	lastRow.append(jQuery("<td>").append(
-			jQuery("<span>").addClass("ui-icon ui-icon-arrowthick-1-n").addClass("piece-up")));
-	lastRow.append(jQuery("<td>").append(
-			jQuery("<span>").addClass("ui-icon ui-icon-arrowthick-1-s").addClass("piece-down")));
-	lastRow.append(jQuery("<td>").append(
-			jQuery("<span>").addClass("ui-icon ui-icon-closethick").addClass("piece-delete")));
+	lastRow = append_navigation_links(lastRow);
 	
 	jQuery(".piece-delete").on("click", function() {
         var tr = jQuery(this).closest('tr');
@@ -70,6 +61,17 @@ function appendTableRow(table, rowData) {
     });
 	
 	return lastRow;
+}
+
+function append_navigation_links(row) {
+	row.append(jQuery("<td>").append(
+			jQuery("<span>").addClass("ui-icon ui-icon-arrowthick-1-n").addClass("piece-up")));
+	row.append(jQuery("<td>").append(
+			jQuery("<span>").addClass("ui-icon ui-icon-arrowthick-1-s").addClass("piece-down")));
+	row.append(jQuery("<td>").append(
+			jQuery("<span>").addClass("ui-icon ui-icon-closethick").addClass("piece-delete")));
+	
+	return row;
 }
 
 jQuery(document).ready(function() {

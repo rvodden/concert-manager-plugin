@@ -1,3 +1,4 @@
+"use strict";
 jQuery(document).ready(function() {
 	jQuery('#concert-start-date').datepicker({
 		dateFormat : 'dd/m/yy'

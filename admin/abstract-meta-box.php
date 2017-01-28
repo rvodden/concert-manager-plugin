@@ -45,9 +45,10 @@ abstract class AbstractMetaBox implements MetaBox
      *      for the plugin.
      */
     protected $title;
-    
+
     /**
-     * This is the post type to which the meta box pertains. This field is 
+     * This is the post type to which the meta box pertains.
+     * This field is
      * used to ensure that the box specific style and scripts are only loaded
      * on the appropriate post type.
      *
@@ -84,7 +85,8 @@ abstract class AbstractMetaBox implements MetaBox
 
     protected function define_admin_hooks ()
     {
-        $this->loader->add_action('add_meta_boxes', $this, 'add');
+        $this->loader->add_action('add_meta_boxes_' . $this->post_type, $this, 
+                'add');
         $this->loader->add_action('save_post', $this, 'save', 10, 2);
         
         $this->loader->add_action('admin_enqueue_scripts', $this, 
@@ -106,41 +108,49 @@ abstract class AbstractMetaBox implements MetaBox
     {
         error_log("Displaying post number : " . $post->ID);
         $metadata = $this->load_post_metadata($post->ID);
-        isset($metadata) ? error_log(implode('|',$metadata)) : error_log("No metadata");
+        isset($metadata) ? error_log(implode('|', $metadata)) : error_log(
+                "No metadata");
         wp_nonce_field(plugin_basename(__FILE__), $this->get_nonce_name());
         require $this->get_display_file_path();
     }
 
+    /*
+     * Checks that the admin page which is being saved is the appropriate post
+     * type
+     * and if so enqueues the necessary scripts to save this metabox
+     */
     function save ($post_id, $post)
     {
-        error_log("Saving post");
-        // do nothing if autosaving
-        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
-            return;
+        if ($this->post_type == get_post_type($post_id)) {
+            error_log("Saving post");
+            // do nothing if autosaving
+            if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+                return;
+            }
+            
+            // do nothing if nonce mismatch
+            if (! wp_verify_nonce($_POST[$this->get_nonce_name()], 
+                    plugin_basename(__FILE__))) {
+                error_log("Nonce verification failed");
+                return;
+            }
+            
+            if (! current_user_can('edit_post', $post_id)) {
+                error_log("Current user doesn't have edit concert features");
+                return;
+            }
+            
+            $this->save_post_metadata($post_id, $_POST);
         }
-        
-        // do nothing if nonce mismatch
-        if (! wp_verify_nonce($_POST[$this->get_nonce_name()], 
-                plugin_basename(__FILE__))) {
-            error_log("Nonce verification failed");
-            return;
-        }
-        
-        if (! current_user_can('edit_post', $post_id)) {
-            error_log("Current user doesn't have edit concert features");
-            return;
-        }
-        
-        $this->save_post_metadata($post_id, $_POST);
     }
 
     /*
      * Checks that the admin page which is being laoded is appropriate
      * and if so enqueues the necessary scripts for this metabox
      */
-    public function enqueue_scripts ( $hook_suffix )
+    public function enqueue_scripts ($hook_suffix)
     {
-        if ($this->on_post_type_edit_page($hook_suffix )) {
+        if ($this->on_post_type_edit_page($hook_suffix)) {
             wp_enqueue_script($this->get_script_tag(), $this->get_script_url());
         }
     }
@@ -151,27 +161,30 @@ abstract class AbstractMetaBox implements MetaBox
      */
     public function enqueue_styles ($hook_suffix)
     {
-        if ($this->on_post_type_edit_page($hook_suffix ) ) {
+        if ($this->on_post_type_edit_page($hook_suffix)) {
             wp_enqueue_style($this->get_style_tag(), $this->get_style_url());
         }
     }
-    
+
     /*
      * Check that we are on the edit page which pertains to the post type
      * which this meta box is associated with.
      */
-    private function on_post_type_edit_page ($hook_suffix ) {
-        if ( "post.php" == $hook_suffix || "post-new.php" == $hook_suffix ) {
+    private function on_post_type_edit_page ($hook_suffix)
+    {
+        if ("post.php" == $hook_suffix || "post-new.php" == $hook_suffix) {
             $screen = get_current_screen();
-            if (is_object($screen) && ($this->get_post_type() == $screen->post_type)) {
+            if (is_object($screen) &&
+                     ($this->get_post_type() == $screen->post_type)) {
                 return true;
             }
         }
         
         return false;
     }
-    
-    protected function get_unqualified_class_name() {
+
+    protected function get_unqualified_class_name ()
+    {
         $reflect = new ReflectionClass($this);
         return $reflect->getShortName();
     }
@@ -187,12 +200,14 @@ abstract class AbstractMetaBox implements MetaBox
 
     protected function get_style_tag ()
     {
-        return $this->convert_from_camel_case_to_dashes($this->get_unqualified_class_name()) . '-style';
+        return $this->convert_from_camel_case_to_dashes(
+                $this->get_unqualified_class_name()) . '-style';
     }
 
     protected function get_tag ()
     {
-        return $this->convert_from_camel_case_to_dashes($this->get_unqualified_class_name());
+        return $this->convert_from_camel_case_to_dashes(
+                $this->get_unqualified_class_name());
     }
 
     protected function set_title ($title)
@@ -204,7 +219,7 @@ abstract class AbstractMetaBox implements MetaBox
     {
         return $this->title;
     }
-    
+
     protected function get_post_type ()
     {
         return $this->post_type;
@@ -221,20 +236,22 @@ abstract class AbstractMetaBox implements MetaBox
 
     protected function get_script_tag ()
     {
-        return $this->convert_from_camel_case_to_dashes($this->get_unqualified_class_name());
+        return $this->convert_from_camel_case_to_dashes(
+                $this->get_unqualified_class_name());
     }
 
     protected function get_nonce_name ()
     {
-        return $this->convert_from_camel_case_to_dashes($this->get_unqualified_class_name()) . '-nonce';
+        return $this->convert_from_camel_case_to_dashes(
+                $this->get_unqualified_class_name()) . '-nonce';
     }
 
     protected function get_display_file_path ()
     {
         $concert_plugin_path = constant('CONCERT_PLUGIN_PATH');
         return $concert_plugin_path . 'admin/partials/' .
-                 $this->convert_from_camel_case_to_dashes($this->get_unqualified_class_name()) .
-                 '-display.php';
+                 $this->convert_from_camel_case_to_dashes(
+                        $this->get_unqualified_class_name()) . '-display.php';
     }
 
     public function add_post_metadata (PostMetadata $post_metadatum)
@@ -250,7 +267,9 @@ abstract class AbstractMetaBox implements MetaBox
         foreach ($this->post_metadata as $post_metadatum) {
             $key = $post_metadatum->get_key();
             $value = $post_metadatum->read($post_id);
-            error_log("Loading post (" . $post_id . ") metadata for " . $key ." : " . $value);
+            error_log(
+                    "Loading post (" . $post_id . ") metadata for " . $key .
+                             " : " . $value);
             $metadata_array[$key] = $value;
         }
         

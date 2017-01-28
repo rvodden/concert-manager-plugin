@@ -41,7 +41,16 @@ class ConcertManagementLoader {
 	 */
 	protected $filters;
 	
-	protected $post_types;
+	
+	
+	/**
+	 * The array of post_types registered with WordPress.
+	 *
+	 * @since 0.0.1
+	 * @access protected
+	 * @var array $filters The filters registered with WordPress to fire when the plugin loads.
+	 */
+	protected $shortcodes;
 	
 	/**
 	 * Initialize the collections used to maintain the actions and filters.
@@ -51,7 +60,7 @@ class ConcertManagementLoader {
 	public function __construct() {
 		$this->actions = array ();
 		$this->filters = array ();
-		$this->post_types = array ();
+		$this->shortcodes = array ();
 	}
 	
 	/**
@@ -90,6 +99,10 @@ class ConcertManagementLoader {
 	 */
 	public function add_filter($hook, $component, $callback, $priority = 10, $accepted_args = 1) {
 		$this->filters = $this->add ( $this->filters, $hook, $component, $callback, $priority, $accepted_args );
+	}
+	
+	public function add_shortcode($tag, $component, $callback){
+	    $this->shortcodes [] = array('tag' => $tag, 'function' => array($component, $callback));
 	}
 	
 	/**
@@ -131,6 +144,7 @@ class ConcertManagementLoader {
 	public function run() {
 		$this->register_filters($this->filters);
 		$this->register_actions($this->actions);
+		$this->register_shortcodes($this->shortcodes);
 	}
 	
 	/**
@@ -158,6 +172,17 @@ class ConcertManagementLoader {
 	                $hook ['component'],
 	                $hook ['callback']
 	        ), $hook ['priority'], $hook ['accepted_args'] );
+	    }
+	}
+	
+	/**
+	 * Register the short codes with WordPress.
+	 * 
+	 * @since 0.0.1
+	 */
+	private function register_shortcodes($shortcodes) {
+	    foreach ($shortcodes as $shortcode) {
+	        add_shortcode($shortcode['tag'], $shortcode['function']);
 	    }
 	}
 }

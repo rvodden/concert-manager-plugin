@@ -1,6 +1,7 @@
 <?php
 namespace org\eu\brentso\concertmanagement\common;
 use org\eu\brentso\concertmanagement\admin;
+use org\eu\brentso\concertmanagement;
 
 /**
  * Register all actions and filters for the plugin
@@ -39,6 +40,8 @@ class ConcertManagementConcertPostType
 
     protected $concert_post_type_admin;
 
+    protected $concert_post_type_public;
+
     function __construct ($loader)
     {
         $this->loader = $loader;
@@ -46,6 +49,8 @@ class ConcertManagementConcertPostType
         $this->define_hooks();
         $this->define_admin_hooks();
         $this->concert_post_type_admin = new admin\ConcertPostTypeAdmin(
+                $this->loader);
+        $this->concert_post_type_public = new concertmanagement\ConcertPostTypePublic(
                 $this->loader);
     }
 
@@ -59,6 +64,8 @@ class ConcertManagementConcertPostType
          */
         require_once $concert_plugin_path .
                  'admin/class-concert-post-type-admin.php';
+        require_once $concert_plugin_path .
+                 'public/class-concert-post-type-public.php';
     }
 
     private function define_hooks ()

@@ -93,6 +93,6 @@ class Admin {
 	 * @since 0.0.1
 	 */
 	public function display_options_page() {
-		include_once 'partials/concert-management-admin-display.php';
+		include_once 'partials/admin-display.php';
 	}
 }
