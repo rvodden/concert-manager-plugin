@@ -8,7 +8,7 @@ namespace uk\org\brentso\concertmanagement\common;
  * @since      0.0.1
  *
  * @package    concert_management
- * @subpackage concert_management/includes
+ * @subpackage concert_management/common
  */
 
 /**
@@ -19,7 +19,7 @@ namespace uk\org\brentso\concertmanagement\common;
  * run function to execute the list of actions and filters.
  *
  * @package concert_management
- * @subpackage concert_management/includes
+ * @subpackage concert_management/common
  * @author Richard Vodden <richard@vodden.com>
  */
 class ConcertManagementLoader {

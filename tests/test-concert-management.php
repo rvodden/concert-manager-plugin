@@ -20,8 +20,8 @@ class ConcertManagementTest extends WP_UnitTestCase {
 	
 	function test_sample_string() {
 	
-	    $string = 'Unit tests are sweet';
+	    $string = 'Unit tests are vital';
 	
-	    $this->assertEquals( 'Unit gays are sweet', $string );
+	    $this->assertEquals( 'Unit tests are vital', $string );
 	}
 }

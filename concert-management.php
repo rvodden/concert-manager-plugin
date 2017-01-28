@@ -39,20 +39,20 @@ if ( defined(WP_DEBUG) ) {
 
 /**
  * The code that runs during plugin activation.
- * This action is documented in includes/class-plugin-name-activator.php
+ * This action is documented in common/class-plugin-name-activator.php
  */
 function activate_concert_management() {
-	require_once constant('CONCERT_PLUGIN_PATH') . 'includes/class-activator.php';
+	require_once constant('CONCERT_PLUGIN_PATH') . 'common/class-activator.php';
 	common\ConcertManagementActivator::activate();
 }
 
 
 /**
  * The code that runs during plugin deactivation.
- * This action is documented in includes/class-plugin-name-deactivator.php
+ * This action is documented in common/class-plugin-name-deactivator.php
  */
 function deactivate_concert_management() {
-	require_once constant('CONCERT_PLUGIN_PATH') . 'includes/class-deactivator.php';
+	require_once constant('CONCERT_PLUGIN_PATH') . 'common/class-deactivator.php';
 	common\ConcertManagementDeactivator::deactivate();
 }
 register_activation_hook( __FILE__, 'activate_concert_management' );
@@ -63,7 +63,7 @@ register_deactivation_hook( __FILE__, 'deactivate_concert_management' );
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require constant('CONCERT_PLUGIN_PATH') . 'includes/class-concert-management.php';
+require constant('CONCERT_PLUGIN_PATH') . 'common/class-concert-management.php';
 
 /**
  * Begins execution of the plugin.

@@ -10,14 +10,14 @@ require_once 'class-pieces-box.php';
  * @since 0.0.1
  *       
  * @package concert_management
- * @subpackage concert_management/includes
+ * @subpackage concert_management/common
  */
 
 /**
  * Admin specific code for the concert post type.
  *
  * @package concert_management
- * @subpackage concert_management/includes
+ * @subpackage concert_management/common
  * @author Richard Vodden <richard@vodden.com>
  *        
  */

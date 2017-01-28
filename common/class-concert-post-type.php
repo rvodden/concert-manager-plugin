@@ -10,7 +10,7 @@ use uk\org\brentso\concertmanagement;
  * @since 0.0.1
  *       
  * @package concert_management
- * @subpackage concert_management/includes
+ * @subpackage concert_management/common
  */
 
 /**
@@ -19,7 +19,7 @@ use uk\org\brentso\concertmanagement;
  * TODO: write a description here if we need to
  *
  * @package concert_management
- * @subpackage concert_management/includes
+ * @subpackage concert_management/common
  * @author Richard Vodden <richard@vodden.com>
  *        
  */

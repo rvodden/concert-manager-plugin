@@ -76,8 +76,8 @@ abstract class AbstractMetaBox implements MetaBox
         $this->set_title($title);
         $this->loader = $loader;
         $this->configure_post_metadata();
-        $this->define_admin_hooks();
         $this->post_type = $post_type;
+        $this->define_admin_hooks();
         error_log("Post Type : " . $this->get_post_type());
     }
 
@@ -85,7 +85,7 @@ abstract class AbstractMetaBox implements MetaBox
 
     protected function define_admin_hooks ()
     {
-        $this->loader->add_action('add_meta_boxes_' . $this->post_type, $this, 
+        $this->loader->add_action("add_meta_boxes_{$this->post_type}", $this, 
                 'add');
         $this->loader->add_action('save_post', $this, 'save', 10, 2);
         
