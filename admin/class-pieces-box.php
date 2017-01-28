@@ -1,5 +1,5 @@
 <?php
-namespace org\eu\brentso\concertmanagement\admin;
+namespace uk\org\brentso\concertmanagement\admin;
 require_once 'abstract-concert-meta-box.php';
 require_once 'class-pieces-metadata.php';
 

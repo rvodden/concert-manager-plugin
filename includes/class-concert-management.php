@@ -1,6 +1,6 @@
 <?php
-namespace org\eu\brentso\concertmanagement;
-use org\eu\brentso\concertmanagement\{admin, common};
+namespace uk\org\brentso\concertmanagement;
+use uk\org\brentso\concertmanagement\{admin, common};
 
 /**
  * The file that defines the core plugin class

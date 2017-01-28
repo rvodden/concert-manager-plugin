@@ -1,6 +1,6 @@
 <?php
-namespace org\eu\brentso\concertmanagement;
-use org\eu\brentso\concertmanagement\admin;
+namespace uk\org\brentso\concertmanagement;
+use uk\org\brentso\concertmanagement\admin;
 
 class StartTimeMetaDataPublic {
     

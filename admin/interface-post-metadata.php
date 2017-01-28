@@ -1,5 +1,5 @@
 <?php
-namespace org\eu\brentso\concertmanagement\admin;
+namespace uk\org\brentso\concertmanagement\admin;
 interface PostMetadata {
     public function update_from_array($post_id,$array_of_values);
     public function read($post_id);

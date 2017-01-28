@@ -1,7 +1,7 @@
 <?php
-namespace org\eu\brentso\concertmanagement\common;
-use org\eu\brentso\concertmanagement\admin;
-use org\eu\brentso\concertmanagement;
+namespace uk\org\brentso\concertmanagement\common;
+use uk\org\brentso\concertmanagement\admin;
+use uk\org\brentso\concertmanagement;
 
 /**
  * Register all actions and filters for the plugin

@@ -1,5 +1,5 @@
 <?php
-namespace org\eu\brentso\concertmanagement\common;
+namespace uk\org\brentso\concertmanagement\common;
 /**
  * Fired during plugin deactivation
  *

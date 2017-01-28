@@ -1,5 +1,5 @@
 <?php
-namespace org\eu\brentso\concertmanagement\admin;
+namespace uk\org\brentso\concertmanagement\admin;
 require_once 'class-start-end-time-box.php';
 require_once 'class-pieces-box.php';
 

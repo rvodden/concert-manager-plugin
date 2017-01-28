@@ -1,5 +1,5 @@
 <?php
-namespace org\eu\brentso\concertmanagement\admin;
+namespace uk\org\brentso\concertmanagement\admin;
 /**
  * The admin-specific functionality of the concert management plugin.
  *

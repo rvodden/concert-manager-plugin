@@ -1,5 +1,5 @@
 <?php
-namespace org\eu\brentso\concertmanagement;
+namespace uk\org\brentso\concertmanagement;
 /**
  * The public-facing functionality of the plugin.
 *

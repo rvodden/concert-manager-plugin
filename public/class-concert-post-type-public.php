@@ -1,5 +1,5 @@
 <?php
-namespace org\eu\brentso\concertmanagement;
+namespace uk\org\brentso\concertmanagement;
 require_once 'class-start-time-metadata-public.php';
 
 /**

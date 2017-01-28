@@ -1,5 +1,5 @@
 <?php
-namespace org\eu\brentso\concertmanagement\admin;
+namespace uk\org\brentso\concertmanagement\admin;
 use ReflectionClass;
 require_once 'interface-meta-box.php';
 require_once 'interface-post-metadata.php';

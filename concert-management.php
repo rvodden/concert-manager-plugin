@@ -1,7 +1,7 @@
 <?php
-use org\eu\brentso\concertmanagement\admin;
-use org\eu\brentso\concertmanagement\common;
-use org\eu\brentso\concertmanagement;
+use uk\org\brentso\concertmanagement\admin;
+use uk\org\brentso\concertmanagement\common;
+use uk\org\brentso\concertmanagement;
 /*
  Plugin Name: Concert Manager
  Plugin URI: http://www.vodden.com/concertmanager

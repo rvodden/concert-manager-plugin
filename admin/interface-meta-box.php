@@ -1,5 +1,5 @@
 <?php
-namespace org\eu\brentso\concertmanagement\admin;
+namespace uk\org\brentso\concertmanagement\admin;
 /**
  * Meta Box interface for adding meta-boxes to custom post types.
  *
