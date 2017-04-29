@@ -43,6 +43,7 @@ before_script:
     composer install
 
 script:
+  - echo $JAVA_HOME
   - phpcs --standard=phpcs.ruleset.xml $(find . -name '*.php')
   - phpunit
   - sonar-scanner
