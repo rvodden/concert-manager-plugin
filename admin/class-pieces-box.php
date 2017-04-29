@@ -1,7 +1,7 @@
 <?php
 namespace uk\org\brentso\concertmanagement\admin;
 require_once 'abstract-concert-meta-box.php';
-require_once 'class-pieces-metadata.php';
+require_once constant('CONCERT_PLUGIN_PATH') . 'common/class-pieces-metadata.php';
 
 
 class PiecesBox extends AbstractConcertMetaBox

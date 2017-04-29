@@ -2,7 +2,7 @@
 namespace uk\org\brentso\concertmanagement\admin;
 use ReflectionClass;
 require_once 'interface-meta-box.php';
-require_once 'interface-post-metadata.php';
+require_once constant('CONCERT_PLUGIN_PATH') . 'common/interface-post-metadata.php';
 
 /**
  * This abstract meta box class implements sensible defaults for location of

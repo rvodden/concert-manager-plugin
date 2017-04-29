@@ -1,0 +1,6 @@
+organization=rvodden-github
+projectKey=concert-management
+serverUrl=https://sonarqube.com
+dashboardUrl=https://sonarqube.com/dashboard/index/concert-management
+ceTaskId=AVu5HFv7Z8w2AgDNYKIR
+ceTaskUrl=https://sonarqube.com/api/ce/task?id=AVu5HFv7Z8w2AgDNYKIR

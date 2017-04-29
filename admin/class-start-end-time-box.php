@@ -1,9 +1,9 @@
 <?php
 namespace uk\org\brentso\concertmanagement\admin;
 require_once 'abstract-concert-meta-box.php';
-require_once 'class-end-time-metadata.php';
-require_once 'class-start-time-metadata.php';
-require_once 'class-start-date-metadata.php';
+require_once constant('CONCERT_PLUGIN_PATH') . 'common/class-end-time-metadata.php';
+require_once constant('CONCERT_PLUGIN_PATH') . 'common/class-start-time-metadata.php';
+require_once constant('CONCERT_PLUGIN_PATH') . 'common/class-start-date-metadata.php';
 
 class StartEndTimeBox extends AbstractConcertMetaBox
 {

@@ -53,6 +53,7 @@ local.properties
 # Code Recommenders
 .recommenders/
 
+.sonar_lock
 
 ### Composer ###
 composer.phar

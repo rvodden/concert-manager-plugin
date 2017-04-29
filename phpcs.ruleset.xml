@@ -1,10 +1,15 @@
 <?xml version="1.0"?>
-<ruleset name="WordPress Coding Standards for Plugins">
+<ruleset 
+	xmlns="http://pmd.sf.net/ruleset/1.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
+    xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd"
+	name="WordPress Coding Standards for Plugins">
 	<description>Generally-applicable sniffs for WordPress plugins</description>
-
-	<rule ref="WordPress-Core" />
-	<rule ref="WordPress-Docs" />
-
+	
 	<exclude-pattern>*/node_modules/*</exclude-pattern>
 	<exclude-pattern>*/vendor/*</exclude-pattern>
+	
+	<rule ref="WordPress-Core" />
+	<rule ref="WordPress-Docs" />	
 </ruleset>
