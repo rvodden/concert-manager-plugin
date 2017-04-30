@@ -12,10 +12,9 @@ branches:
 addons:
   apt:
     packages:
-      - oracle-java8-installer
       - oracle-java8-set-default
   sonarqube:
-    organization: "your_organization_key"
+    organization: "rvodden-github"
     token:
       secure: "IL/FI50Ne4LPoUTq7i3uru8xef1fJDXtgcCYUcVrcnx5rPo1dpniqjMOrc7xsO93dacl03zNF+1/yAXFNFS6ddUAqpPSvZm97FpD2WxFxk6UK0uUHyM4Snv0520XUe6Vh3fhs8XFzNpBE2U4VCzfXyDRaVVj2I9VewWyBRzSs6y+favte65i0JnWmELATo2WGfC2cpb5h+MfYw3eCWUOU8Xf/67pA4Kzzg6QrRTJZ7kPd4x/6fKlJS4DjGuBH36kxQR3ICv/dkHOVt+XA++OABpZWzMl92DaPFiyFejj9WiqZMCGoTDFtKEqt73wHc3HuYCr1Gv8PjMJhViIPtjqaswxrfFIuljFBkU1GyPEtFGb+E1aozAg4ds1++rZsH4/v1Lv6hXXqme8FTcOJe/GtFkVayBHSu5WL/lck9XKwVcJlmlBix0b05iMR1mSjqu7wRrSUpqbc3KgK0tqP4msOdgShVeJvlJgFicoTUWFGfSDyR1pilEpnZNkIOs7M+xLNmObh5agXwHP4VJcJUXAsa54wIIpg2yLV3pF1zXvEI90EsmBIw2icMup6XZUUFRRI96odkrco24LI/sXdt1hBXuzcbQ2e5Ok0bPXYoTKCYejyzoMEorCJQMrt7gSRaYE6sCr7RHpfpCErmSAQa0Sq3CTaOhitANjtOZiANDu/7E="
 
@@ -28,11 +27,6 @@ jdk:
 env:
   - WP_VERSION=latest WP_MULTISITE=0
 
-matrix:
-  include:
-    - php: 7.0
-      env: WP_VERSION=latest WP_MULTISITE=1
-
 before_script:
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
   - |
@@ -42,12 +36,12 @@ before_script:
       composer global require "phpunit/phpunit=4.8.*"
     fi
   - |
-    composer global require wp-coding-standards/wpcs
-    phpcs --config-set installed_paths $HOME/.composer/vendor/wp-coding-standards/wpcs
-    composer install
+#    composer global require wp-coding-standards/wpcs
+#    phpcs --config-set installed_paths $HOME/.composer/vendor/wp-coding-standards/wpcs
+#    composer install
 
 script:
   - echo $JAVA_HOME
-  - phpcs --standard=phpcs.ruleset.xml $(find . -name '*.php')
-  - phpunit
+#  - phpcs --standard=phpcs.ruleset.xml $(find . -name '*.php')
+#  - phpunit
   - sonar-scanner
