@@ -1,5 +1,7 @@
 <?php
+
 namespace uk\org\brentso\concertmanagement\common;
+
 /**
  * Fired during plugin deactivation
  *
@@ -20,8 +22,8 @@ namespace uk\org\brentso\concertmanagement\common;
  * @subpackage concert_management/common
  * @author     Richard Vodden <richard@vodden.com>
  */
-class ConcertManagementDeactivator {
-	
+class Deactivator {
+
 	/**
 	 * Short Description. (use period)
 	 *

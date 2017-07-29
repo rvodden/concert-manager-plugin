@@ -10,6 +10,13 @@
 			<directory suffix="-test.php">./tests/admin</directory>
 		</testsuite>
 	</testsuites>
+	<filter>
+        <whitelist>
+            <directory suffix=".php">admin</directory>
+            <directory suffix=".php">public</directory>
+            <directory suffix=".php">.</directory>
+        </whitelist>
+    </filter>
 	<logging>
 		<log type="coverage-clover" target="reports/php/phpunit.coverage.xml" />
 		<log type="junit" target="reports/php/phpunit.xml"

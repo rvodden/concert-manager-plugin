@@ -4,9 +4,8 @@
  *
  * @package Concert_Management
  */
-
 require_once 'vendor/autoload.php';
-//WP_Mock::activateStrictMode(); - doesn't work?!?
+// WP_Mock::activateStrictMode(); - doesn't work?!?
 WP_Mock::setUsePatchwork( true );
 WP_Mock::bootstrap();
 

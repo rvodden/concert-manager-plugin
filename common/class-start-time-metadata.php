@@ -1,10 +1,12 @@
 <?php
-namespace uk\org\brentso\concertmanagement\admin;
-require_once 'abstract-post-metadata.php';
 
-class StartTimeMetaData extends AbstractPostMetadata {
-    public function __construct() {
-        parent::__construct('concert-start-time');
-    }
+namespace uk\org\brentso\concertmanagement\admin;
+
+require_once 'class-abstract-post-metadata.php';
+
+class Start_Time_Metadata extends Abstract_Post_Metadata {
+
+	public function __construct() {
+		parent::__construct( 'concert-start-time' );
+	}
 }
-?>

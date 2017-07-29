@@ -1,6 +1,6 @@
 <?php
+
 namespace uk\org\brentso\concertmanagement;
-use uk\org\brentso\concertmanagement\{admin, common};
 
 /**
  * The file that defines the core plugin class
@@ -16,28 +16,28 @@ use uk\org\brentso\concertmanagement\{admin, common};
  */
 
 // this means that defining 'WP_DEBUG' to false disables debugging.
-if (!defined('WP_DEBUG') ) {
+if ( ! defined( 'WP_DEBUG' ) ) {
 	define( 'WP_DEBUG', true );
 	define( 'WP_DEBUG_LOG', true );
-	error_reporting ( E_STRICT );
+	error_reporting( E_STRICT );
 }
 
 /**
  * The core plugin class.
-*
-* This is used to define internationalization, admin-specific hooks, and
-* public-facing site hooks.
-*
-* Also maintains the unique identifier of this plugin as well as the current
-* version of the plugin.
-*
-* @since      0.0.1
-* @package    concert_management
-* @subpackage concert_management/includes
-* @author     Your Name <email@example.com>
-*/
-class ConcertManagement {
-	
+ *
+ * This is used to define internationalization, admin-specific hooks, and
+ * public-facing site hooks.
+ *
+ * Also maintains the unique identifier of this plugin as well as the current
+ * version of the plugin.
+ *
+ * @since      0.0.1
+ * @package    concert_management
+ * @subpackage concert_management/includes
+ * @author     Your Name <email@example.com>
+ */
+class Concert_Management {
+
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
 	 * the plugin.
@@ -47,7 +47,7 @@ class ConcertManagement {
 	 * @var      ConcertManagementLoader    $loader    Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
-	
+
 	/**
 	 * The unique identifier of this plugin.
 	 *
@@ -56,7 +56,7 @@ class ConcertManagement {
 	 * @var      string    $plugin_name    The string used to uniquely identify this plugin.
 	 */
 	protected $plugin_name;
-	
+
 	/**
 	 * The current version of the plugin.
 	 *
@@ -65,9 +65,9 @@ class ConcertManagement {
 	 * @var      string    $version    The current version of the plugin.
 	 */
 	protected $version;
-	
+
 	protected $plugin_concert_post_type;
-	
+
 	/**
 	 * Define the core functionality of the plugin.
 	 *
@@ -86,14 +86,14 @@ class ConcertManagement {
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 	}
-	
+
 	/**
 	 * Load the required dependencies for this plugin.
 	 *
 	 * Include the following files that make up the plugin:
 	 *
-	 * - ConcertManagementLoader. Orchestrates the hooks of the plugin.
-	 * - ConcertManagementi18n. Defines internationalization functionality.
+	 * - Loader. Orchestrates the hooks of the plugin.
+	 * - i18n. Defines internationalization functionality.
 	 * - ConcertManagementConcertPostType. Defines all hooks for the Concert Post Type.
 	 * - ConcertManagementdmin. Defines all hooks for the admin area.
 	 * - ConcertManagementPublic. Defines all hooks for the public side of the site.
@@ -106,7 +106,7 @@ class ConcertManagement {
 	 * @access   private
 	 */
 	private function load_dependencies() {
-		$concert_plugin_path = constant('CONCERT_PLUGIN_PATH') ;
+		$concert_plugin_path = constant( 'CONCERT_PLUGIN_PATH' );
 		/**
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
@@ -130,10 +130,10 @@ class ConcertManagement {
 		 * side of the site.
 		 */
 		require_once $concert_plugin_path . 'public/class-concert-management-public.php';
-		
-		$this->loader = new common\ConcertManagementLoader();
+
+		$this->loader = new common\Loader();
 	}
-	
+
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
@@ -144,10 +144,10 @@ class ConcertManagement {
 	 * @access   private
 	 */
 	private function set_locale() {
-		$plugin_i18n = new common\ConcertManagementi18n();
+		$plugin_i18n = new common\I18n();
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 	}
-	
+
 	/**
 	 * Register all of the hooks related to concert post type.
 	 *
@@ -155,9 +155,9 @@ class ConcertManagement {
 	 * @access   private
 	 */
 	private function define_concert_post_type() {
-		$this->plugin_concert_post_type = new common\ConcertManagementConcertPostType($this->loader);
+		$this->plugin_concert_post_type = new common\Concert_Post_Type( $this->loader );
 	}
-	
+
 	/**
 	 * Register all of the hooks related to the admin area functionality
 	 * of the plugin.
@@ -171,7 +171,7 @@ class ConcertManagement {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_options_page' );
 	}
-	
+
 	/**
 	 * Register all of the hooks related to the public-facing functionality
 	 * of the plugin.
@@ -180,11 +180,11 @@ class ConcertManagement {
 	 * @access   private
 	 */
 	private function define_public_hooks() {
-		$plugin_public = new ConcertManagementPublic( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new Concert_Management_Public( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 	}
-	
+
 	/**
 	 * Run the loader to execute all of the hooks with WordPress.
 	 *
@@ -193,7 +193,7 @@ class ConcertManagement {
 	public function run() {
 		$this->loader->run();
 	}
-	
+
 	/**
 	 * The name of the plugin used to uniquely identify it within the context of
 	 * WordPress and to define internationalization functionality.
@@ -204,7 +204,7 @@ class ConcertManagement {
 	public function get_plugin_name() {
 		return $this->plugin_name;
 	}
-	
+
 	/**
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
@@ -214,7 +214,7 @@ class ConcertManagement {
 	public function get_loader() {
 		return $this->loader;
 	}
-	
+
 	/**
 	 * Retrieve the version number of the plugin.
 	 *
