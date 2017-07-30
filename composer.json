@@ -19,6 +19,7 @@
 		"plugins",
 		"music",
 		"concert",
+		"band",
 		"ensemble"
 	],
 	"require-dev": {
@@ -38,6 +39,21 @@
 		"respect/validation": "1.1.10",
 		"satooshi/php-coveralls": "1.0.1",
 		"10up/wp_mock": "dev-master",
-		"wp-coding-standards/wpcs": "~0.13"
+		"wordpress/unit-tests": "1.0",
+		"wp-coding-standards/wpcs": "~0.12"
+	},
+	"repositories": [
+	{
+		"type"   : "package",
+		"package": {
+			"name": "wordpress/unit-tests",
+			"version": "1.0",
+			"source" : {
+				"type": "svn",
+				"url": "https://unit-tests.svn.wordpress.org",
+				"reference": "trunk"
+			}
+		}
 	}
+]
 }

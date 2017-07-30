@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5873a5c20e1db393a470a3b33b91db00",
-    "content-hash": "a410084fa391156a2316f5e1068017e5",
+    "hash": "101a2151bd4146a396aed3cb3b97f062",
+    "content-hash": "7f9c60b3290a9b81a50234749e97767f",
     "packages": [],
     "packages-dev": [
         {
@@ -4081,6 +4081,16 @@
                 "tests"
             ],
             "time": "2014-02-12 22:16:49"
+        },
+        {
+            "name": "wordpress/unit-tests",
+            "version": "1.0",
+            "source": {
+                "type": "svn",
+                "url": "https://unit-tests.svn.wordpress.org",
+                "reference": "trunk"
+            },
+            "type": "library"
         },
         {
             "name": "wp-coding-standards/wpcs",

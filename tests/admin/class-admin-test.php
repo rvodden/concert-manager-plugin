@@ -1,5 +1,4 @@
 <?php
-use PHPUnit\Framework\TestCase;
 use uk\org\brentso\concertmanagement\admin;
 
 require_once 'admin/class-admin.php';
@@ -12,9 +11,10 @@ require_once 'admin/class-admin.php';
  * been enqueued. Not really a unit test, more integration, but its a test
  * and so its staying here.
  *
- * @package concertmanagement\admin
+ * @package uk\org\brentso\concertmanagement\admin
  */
-class Admin_Test extends TestCase {
+
+class Admin_Test extends PHPUnit_Framework_TestCase {
 
 	private $plugin_name = 'concert-management';
 
@@ -23,20 +23,24 @@ class Admin_Test extends TestCase {
 	private $undertest;
 
 	function setUp() {
-		$this->undertest = new admin\Admin( $this->plugin_name, $this->version_number );
-		define( 'CONCERT_PLUGIN_URL', 'file_location' );
-
-		\WP_Mock::setUp();
+		WP_Mock::setUp();
 	}
 
 	function test_enqueue_styles() {
-		\WP_Mock::wpFunction( 'wp_enqueue_style', array(
+
+		$this->undertest = new admin\Admin( $this->plugin_name, $this->version_number );
+
+		WP_Mock::wpFunction( 'wp_enqueue_style', array(
 			'times' => 1,
 		) );
+
 		$this->undertest->enqueue_styles();
+
 	}
 
+
 	function tearDown() {
-		\WP_Mock::tearDown();
+		WP_Mock::tearDown();
 	}
 }
+

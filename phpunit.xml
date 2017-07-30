@@ -1,25 +1,33 @@
 <?xml version="1.0"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/5.7/phpunit.xsd"
-	bootstrap="tests/bootstrap.php" backupGlobals="false" colors="true"
-	convertErrorsToExceptions="true" convertNoticesToExceptions="true"
+	bootstrap="tests/bootstrap.php"
+	backupGlobals="false" colors="true"
+	convertErrorsToExceptions="true"
+	convertNoticesToExceptions="true"
 	convertWarningsToExceptions="true">
 	<testsuites>
 		<testsuite name="Concert Managemet Test Suite">
-			<directory suffix="-test.php">./tests/</directory>
-			<directory suffix="-test.php">./tests/admin</directory>
+			<directory suffix="-test.php">./tests/*</directory>
+			<directory suffix="-test.php">./tests/admin/*</directory>
 		</testsuite>
 	</testsuites>
 	<filter>
-        <whitelist>
-            <directory suffix=".php">admin</directory>
-            <directory suffix=".php">public</directory>
-            <directory suffix=".php">.</directory>
-        </whitelist>
-    </filter>
+		<whitelist>
+			<directory suffix=".php">./</directory>
+			<exclude>
+				<directory>./vendor</directory>
+				<directory>./admin/css</directory>
+				<directory>./admin/js</directory>
+				<directory>./admin/partials</directory>
+				<directory>./common/css</directory>
+				<directory>./common/js</directory>
+				<directory>./common/partials</directory>
+			</exclude>
+		</whitelist>
+	</filter>
 	<logging>
 		<log type="coverage-clover" target="reports/php/phpunit.coverage.xml" />
-		<log type="junit" target="reports/php/phpunit.xml"
-			logIncompleteSkipped="false" />
+		<log type="junit" target="reports/php/phpunit.xml" logIncompleteSkipped="true" />
 	</logging>
 </phpunit>
