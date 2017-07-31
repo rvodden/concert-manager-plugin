@@ -7,7 +7,7 @@ require_once 'admin/class-abstract-meta-box.php';
 require_once 'common/class-loader.php';
 
 class Abstract_Meta_Box_Test extends \PHPUnit_Framework_TestCase {
-	private $underTest;
+	private $under_test;
 
 	function setUp() {
 		\WP_Mock::setUp();
@@ -17,19 +17,19 @@ class Abstract_Meta_Box_Test extends \PHPUnit_Framework_TestCase {
 
 		$loader = new common\Loader();
 
-		$this->underTest = $this->getMockForAbstractClass(Abstract_Meta_Box::class,
+		$this->under_test = $this->getMockForAbstractClass(Abstract_Meta_Box::class,
 			array(
 				$loader,
-				"Mock Title",
-				"mock_post_type",
+				'Mock Title',
+				'mock_post_type',
 			)
-			);
+		);
 
-		\WP_Mock::expectActionAdded( 'add_meta_boxes_mock_post_type', array($this->underTest, 'add') );
-		\WP_Mock::expectActionAdded( 'save_post', array($this->underTest, 'save') , 10 , 2 );
-		\WP_Mock::expectActionAdded( 'admin_enqueue_scripts', array($this->underTest, 'enqueue_styles') );
+		\WP_Mock::expectActionAdded( 'add_meta_boxes_mock_post_type', array( $this->under_test, 'add' ) );
+		\WP_Mock::expectActionAdded( 'save_post', array( $this->under_test, 'save' ) , 10 , 2 );
+		\WP_Mock::expectActionAdded( 'admin_enqueue_scripts', array( $this->under_test, 'enqueue_styles' ) );
 
-		$this->underTest->init();
+		$this->under_test->init();
 		$loader->run();
 
 		\WP_Mock::assertHooksAdded();
