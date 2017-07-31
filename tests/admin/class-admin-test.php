@@ -38,6 +38,30 @@ class Admin_Test extends PHPUnit_Framework_TestCase {
 
 	}
 
+	function test_enqueue_scripts() {
+
+		$this->undertest = new admin\Admin( $this->plugin_name, $this->version_number );
+
+		WP_Mock::wpFunction( 'wp_enqueue_script', array(
+			'times' => 1,
+		) );
+
+		$this->undertest->enqueue_scripts();
+
+	}
+
+	function test_add_options_page() {
+
+		$this->undertest = new admin\Admin( $this->plugin_name, $this->version_number );
+
+		WP_Mock::wpFunction( 'add_options_page', array(
+			'times' => 1,
+		) );
+
+		$this->undertest->add_options_page();
+
+	}
+
 
 	function tearDown() {
 		WP_Mock::tearDown();

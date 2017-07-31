@@ -2,8 +2,6 @@
 
 namespace uk\org\brentso\concertmanagement\admin;
 
-use ReflectionClass;
-
 require_once 'interface-meta-box.php';
 require_once constant( 'CONCERT_PLUGIN_PATH' ) . 'common/interface-post-metadata.php';
 
@@ -84,6 +82,27 @@ abstract class Abstract_Meta_Box implements Interface_Meta_Box {
 
 	protected abstract function configure_post_metadata();
 
+	/* returns the url for the style sheets for this display box */
+	protected abstract function get_style_url();
+
+	/* returns the tags for the style sheets for this display box */
+	protected abstract function get_style_tag();
+
+	/* returns the url for the javascript for this display box */
+	protected abstract function get_script_url();
+
+	/* returns the tags for the javascript for this display box */
+	protected abstract function get_script_tag();
+
+	/* returns the tags for the javascript for this post type box */
+	protected abstract function get_tag();
+
+	/* returns the nonce name for this meta box */
+	protected abstract function get_nonce_name();
+
+	/* returns the nonce name for this meta box */
+	protected abstract function get_display_file_path();
+
 	protected function define_admin_hooks() {
 		$this->loader->add_action( "add_meta_boxes_{$this->post_type}", $this, 'add' );
 		$this->loader->add_action( 'save_post', $this, 'save', 10, 2 );
@@ -103,6 +122,9 @@ abstract class Abstract_Meta_Box implements Interface_Meta_Box {
 		);
 	}
 
+	/*
+	 * Displays the metabox, with the associated data from the post supplied
+	 */
 	function display( $post ) {
 		error_log( 'Displaying post number : ' . $post->ID );
 		$metadata = $this->load_post_metadata( $post->ID );
@@ -174,25 +196,6 @@ abstract class Abstract_Meta_Box implements Interface_Meta_Box {
 		return false;
 	}
 
-	protected function get_unqualified_class_name() {
-		$reflect = new ReflectionClass( $this );
-		return $reflect->getShortName();
-	}
-
-	protected function get_style_url() {
-		$concert_plugin_path = constant( 'CONCERT_PLUGIN_URL' );
-		$underscored_class_name = $this->convert_from_camel_case_to_dashes( $this->get_unqualified_class_name() );
-		return $concert_plugin_path . 'admin/css/' . $underscored_class_name . '.css';
-	}
-
-	protected function get_style_tag() {
-		return $this->convert_from_camel_case_to_dashes( $this->get_unqualified_class_name() ) . '-style';
-	}
-
-	protected function get_tag() {
-		return $this->convert_from_camel_case_to_dashes( $this->get_unqualified_class_name() );
-	}
-
 	protected function set_title( $title ) {
 		$this->title = $title;
 	}
@@ -205,31 +208,9 @@ abstract class Abstract_Meta_Box implements Interface_Meta_Box {
 		return $this->post_type;
 	}
 
-	protected function get_script_url() {
-		$concert_plugin_path = constant( 'CONCERT_PLUGIN_URL' );
-		$underscored_class_name = $this->convert_from_camel_case_to_dashes( $this->get_unqualified_class_name() );
-		return $concert_plugin_path . 'admin/js/' . $underscored_class_name . '.js';
-	}
-
-	protected function get_script_tag() {
-		return $this->convert_from_camel_case_to_dashes( $this->get_unqualified_class_name() );
-	}
-
-	protected function get_nonce_name() {
-		return $this->convert_from_camel_case_to_dashes( $this->get_unqualified_class_name() ) . '-nonce';
-	}
-
-	protected function get_display_file_path() {
-		$concert_plugin_path = constant( 'CONCERT_PLUGIN_PATH' );
-		return $concert_plugin_path . 'admin/partials/' . $this->convert_from_camel_case_to_dashes(
-			$this->get_unqualified_class_name()
-		) . '-display.php';
-	}
-
 	public function add_post_metadata( Interface_Post_Metadata $post_metadatum ) {
-		$this->post_metadata[] = $post_metadatum; // this is horrid PHP notation
-																								// for "add post_metadatum on
-																								// the end of post_metadata
+		// this is horrid PHP notation for "add post_metadatum on the end of post_metadata
+		$this->post_metadata[] = $post_metadatum;
 	}
 
 	public function load_post_metadata( $post_id ) {
@@ -249,19 +230,5 @@ abstract class Abstract_Meta_Box implements Interface_Meta_Box {
 		foreach ( $this->post_metadata as $post_metadatum ) {
 			$post_metadatum->update_from_array( $post_id, $metadata_array );
 		}
-	}
-
-	/* TODO: this lot should be shunted out to a helper class */
-	private static function convert_from_camel_case_to_dashes( $input ) {
-		return self::convert_from_camel_case_to_padding( $input, '-' );
-	}
-
-	private static function convert_from_camel_case_to_padding( $input, $pad ) {
-		preg_match_all( '!([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)!', $input, $matches );
-		$ret = $matches[0];
-		foreach ( $ret as &$match ) {
-			$match = strtoupper( $match ) ? strtolower( $match ) : lcfirst( $match ) == $match;
-		}
-		return implode( $pad, $ret );
 	}
 }
