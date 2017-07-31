@@ -43,6 +43,6 @@ before_script:
 
 script:
   - echo $JAVA_HOME
-  - phpcs --standard=phpcs.ruleset.xml $(find . -name '*.php')
+  - phpcs --standard=phpcs.ruleset.xml $(find . -name '*.php' -not -path './vendor/*')
   - phpunit
   - sonar-scanner
