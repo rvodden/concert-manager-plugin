@@ -49,5 +49,8 @@ class Concert_Post_Type_Admin {
 	private function load_dependencies() {
 		$this->start_end_time_box = new Start_End_Time_Box( $this->loader, 'Concert Time and Date' );
 		$this->pieces_box = new Pieces_Box( $this->loader, 'Concert Pieces' );
+
+		$this->start_end_time_box->init();
+		$this->pieces_box->init();
 	}
 }

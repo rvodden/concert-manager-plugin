@@ -74,10 +74,13 @@ abstract class Abstract_Meta_Box implements Interface_Meta_Box {
 	function __construct( $loader, $title, $post_type ) {
 		$this->set_title( $title );
 		$this->loader = $loader;
-		$this->configure_post_metadata();
 		$this->post_type = $post_type;
-		$this->define_admin_hooks();
 		error_log( 'Post Type : ' . $this->get_post_type() );
+	}
+
+	public function init() {
+		$this->configure_post_metadata();
+		$this->define_admin_hooks();
 	}
 
 	protected abstract function configure_post_metadata();
@@ -135,8 +138,7 @@ abstract class Abstract_Meta_Box implements Interface_Meta_Box {
 
 	/*
 	 * Checks that the admin page which is being saved is the appropriate post
-	 * type
-	 * and if so enqueues the necessary scripts to save this metabox
+	 * type and if so enqueues the necessary scripts to save this metabox
 	 */
 	function save( $post_id, $post ) {
 		if ( get_post_type( $post_id ) == $this->post_type ) {
