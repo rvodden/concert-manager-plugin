@@ -50,7 +50,6 @@ abstract class Abstract_Autodisplay_Meta_Box extends Abstract_Meta_Box {
 		) . '-display.php';
 	}
 
-	/* TODO: this lot should be shunted out to a helper class */
 	private static function convert_from_camel_case_to_dashes( $input ) {
 		return self::convert_from_camel_case_to_padding( $input, '-' );
 	}

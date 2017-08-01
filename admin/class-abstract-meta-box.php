@@ -32,7 +32,6 @@ abstract class Abstract_Meta_Box implements Interface_Meta_Box {
 	 * @var ConcertManagement_Loader $loader Maintains and registers all hooks
 	 *      for the plugin.
 	 */
-	// TODO: this is turning into a god class - need to split it up into bits.
 	protected $loader;
 
 	/**

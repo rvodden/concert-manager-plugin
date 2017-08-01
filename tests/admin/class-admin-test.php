@@ -24,6 +24,16 @@ class Admin_Test extends \PHPUnit_Framework_TestCase {
 
 	function setUp() {
 		\WP_Mock::setUp();
+
+		\WP_Mock::userFunction( '__', array(
+			'return_arg' => 0,
+		) );
+		\WP_Mock::userFunction( 'esc_attr', array(
+			'return_arg' => 0,
+		) );
+		\WP_Mock::userFunction( 'esc_html', array(
+			'return_arg' => 0,
+		) );
 	}
 
 	function test_enqueue_styles() {
@@ -61,7 +71,6 @@ class Admin_Test extends \PHPUnit_Framework_TestCase {
 		$this->undertest->add_options_page();
 
 	}
-
 
 	function tearDown() {
 		\WP_Mock::tearDown();
