@@ -23,11 +23,13 @@
 				<directory>./common/css</directory>
 				<directory>./common/js</directory>
 				<directory>./common/partials</directory>
+				<directory>./tests</directory>
 			</exclude>
 		</whitelist>
 	</filter>
 	<logging>
 		<log type="coverage-clover" target="reports/php/phpunit.coverage.xml" />
+		<log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
 		<log type="junit" target="reports/php/phpunit.xml" logIncompleteSkipped="true" />
 	</logging>
 </phpunit>

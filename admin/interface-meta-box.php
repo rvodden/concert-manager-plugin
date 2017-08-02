@@ -2,6 +2,8 @@
 
 namespace uk\org\brentso\concertmanagement\admin;
 
+use uk\org\brentso\concertmanagement\common;
+
 /**
  * Meta Box interface for adding meta-boxes to custom post types.
  *
@@ -76,7 +78,7 @@ interface Interface_Meta_Box {
 	 * Adds post metadata to the meta box
 	 *
 	 */
-	function add_post_metadata( Interface_Post_Metadata $post_metadatum );
+	function add_post_metadata( common\Interface_Post_Metadata $post_metadatum );
 
 	/**
 	 * Load post metadata and return it in an array

@@ -2,6 +2,8 @@
 
 namespace uk\org\brentso\concertmanagement\admin;
 
+use uk\org\brentso\concertmanagement\common;
+
 require_once 'interface-meta-box.php';
 require_once constant( 'CONCERT_PLUGIN_PATH' ) . 'common/interface-post-metadata.php';
 
@@ -209,7 +211,7 @@ abstract class Abstract_Meta_Box implements Interface_Meta_Box {
 		return $this->post_type;
 	}
 
-	public function add_post_metadata( Interface_Post_Metadata $post_metadatum ) {
+	public function add_post_metadata( common\Interface_Post_Metadata $post_metadatum ) {
 		// this is horrid PHP notation for "add post_metadatum on the end of post_metadata
 		$this->post_metadata[] = $post_metadatum;
 	}

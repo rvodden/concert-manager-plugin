@@ -1,6 +1,6 @@
 <?php
 
-namespace uk\org\brentso\concertmanagement\admin;
+namespace uk\org\brentso\concertmanagement\common;
 
 abstract class Abstract_Post_Metadata implements Interface_Post_Metadata {
 

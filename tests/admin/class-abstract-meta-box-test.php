@@ -5,6 +5,7 @@ namespace uk\org\brentso\concertmanagement\admin;
 use uk\org\brentso\concertmanagement\common;
 
 require_once 'admin/class-abstract-meta-box.php';
+require_once 'common/class-abstract-post-metadata.php';
 require_once 'common/class-loader.php';
 
 class Abstract_Meta_Box_Test extends \PHPUnit_Framework_TestCase {
@@ -58,6 +59,27 @@ class Abstract_Meta_Box_Test extends \PHPUnit_Framework_TestCase {
 		));
 
 		$this->under_test->add();
+	}
+
+	function test_added_metadata_is_then_loaded() {
+		$loader = $this->getMockBuilder( common\Loader::class )->setMethods( [ 'get_tag' ] )->getMock();
+
+		$post_metadata = $this->getMockBuilder( common\Abstract_Post_Metadata::class )
+			->disableOriginalConstructor()
+			->setMethods( [ 'read', 'get_key' ] )->getMock();
+		$post_metadata->expects( $this->any() )->method( 'get_key' )->willReturn( 'mock_key' );
+		$post_metadata->expects( $this->any() )->method( 'read' )->willReturn( 'mock_value' );
+
+		$this->under_test = $this->getMockForAbstractClass(
+			Abstract_Meta_Box::class,
+			array( $loader, 'Mock Title', 'mock_post_type' )
+		);
+
+		$this->under_test->add_post_metadata( $post_metadata );
+
+		$this->assertEquals( $this->under_test->load_post_metadata( 1 ), array(
+			'mock_key' => 'mock_value',
+		));
 	}
 
 	function tearDown() {
