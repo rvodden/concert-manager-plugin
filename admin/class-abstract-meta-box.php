@@ -199,15 +199,15 @@ abstract class Abstract_Meta_Box implements Interface_Meta_Box {
 		return false;
 	}
 
-	protected function set_title( $title ) {
+	public function set_title( $title ) {
 		$this->title = $title;
 	}
 
-	protected function get_title() {
+	public function get_title() {
 		return $this->title;
 	}
 
-	protected function get_post_type() {
+	public function get_post_type() {
 		return $this->post_type;
 	}
 
@@ -234,4 +234,5 @@ abstract class Abstract_Meta_Box implements Interface_Meta_Box {
 			$post_metadatum->update_from_array( $post_id, $metadata_array );
 		}
 	}
+
 }

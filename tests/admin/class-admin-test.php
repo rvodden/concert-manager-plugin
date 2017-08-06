@@ -1,6 +1,8 @@
 <?php
 namespace uk\org\brentso\concertmanagement\admin;
 
+use uk\org\brentso\concertmanagement\tests\helpers;
+
 require_once 'admin/class-admin.php';
 
 /**
@@ -14,7 +16,7 @@ require_once 'admin/class-admin.php';
  * @package uk\org\brentso\concertmanagement\admin
  */
 
-class Admin_Test extends \PHPUnit_Framework_TestCase {
+class Admin_Test extends helpers\Concert_Test_Case {
 
 	private $plugin_name = 'concert-management';
 
@@ -70,6 +72,14 @@ class Admin_Test extends \PHPUnit_Framework_TestCase {
 
 		$this->undertest->add_options_page();
 
+	}
+
+	function test_display_options_page() {
+		$this->expectOutputString( "<h1>Concert Management Settings</h1>\n<h2>Section One</h2>\n" );
+
+		$this->undertest = new Admin( $this->plugin_name, $this->version_number );
+
+		$this->undertest->display_options_page();
 	}
 
 	function tearDown() {

@@ -3,12 +3,13 @@
 namespace uk\org\brentso\concertmanagement\admin;
 
 use uk\org\brentso\concertmanagement\common;
+use uk\org\brentso\concertmanagement\tests\helpers;
 
 require_once 'admin/class-abstract-meta-box.php';
 require_once 'common/class-abstract-post-metadata.php';
 require_once 'common/class-loader.php';
 
-class Abstract_Meta_Box_Test extends \PHPUnit_Framework_TestCase {
+class Abstract_Meta_Box_Test extends helpers\Concert_Test_Case {
 
 	private $under_test;
 

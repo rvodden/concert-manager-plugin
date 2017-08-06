@@ -111,4 +111,5 @@ class Admin {
 	public function display_options_page() {
 		include_once 'partials/admin-display.php';
 	}
+
 }
