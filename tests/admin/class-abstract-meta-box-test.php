@@ -113,7 +113,7 @@ class Abstract_Meta_Box_Test extends helpers\Concert_Test_Case {
 		$this->under_test = $this->getMockForAbstractClass(
 			Abstract_Meta_Box::class,
 			array( $loader, 'Mock Title', 'mock_post_type' )
-			);
+		);
 		$this->under_test->method( 'get_style_tag' )->willReturn( 'mock_post_type' );
 
 		$screen = $this->getMockBuilder( \WP_Screen::class )->getMock();
