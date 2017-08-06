@@ -29,6 +29,7 @@
 		"satooshi/php-coveralls": "1.0.1",
 		"10up/wp_mock": "dev-master",
 		"wp-coding-standards/wpcs": "~0.13",
-		"squizlabs/php_codesniffer": "2.*"
+		"squizlabs/php_codesniffer": "2.*",
+		"dealerdirect/phpcodesniffer-composer-installer": "^0.4.1"
 	}
 }
