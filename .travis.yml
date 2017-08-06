@@ -19,7 +19,7 @@ env:
 
 before_script:
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
-  - export PATH="$(pwd)/vendor/bin"
+  - export PATH="$(pwd)/vendor/bin:$PATH"
   - composer install
 
 script:
