@@ -5,12 +5,12 @@ use uk\org\brentso\concertmanagement;
 
 /*
  * Plugin Name: Concert Manager
- * Plugin URI: http://www.vodden.com/concertmanager
- * Description: This is to make maintaining musical ensembles websites much more easily!
+ * Plugin URI: https://github.com/rvodden/concert-manager-plugin
+ * Description: This is to make maintaining musical ensembles websites much more simple!
  * Version: 0.0.1
  * Author: Richard Vodden
  * Author URI: http://www.vodden.com/
- * License: GPL
+ * License: GPL3
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain: concert-management
  * Domain Path: /languages
@@ -54,6 +54,7 @@ function deactivate_concert_management() {
 	require_once constant( 'CONCERT_PLUGIN_PATH' ) . 'common/class-deactivator.php';
 	common\ConcertManagementDeactivator::deactivate();
 }
+
 register_activation_hook( __FILE__, 'activate_concert_management' );
 register_deactivation_hook( __FILE__, 'deactivate_concert_management' );
 

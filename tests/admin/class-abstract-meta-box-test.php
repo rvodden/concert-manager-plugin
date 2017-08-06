@@ -14,7 +14,7 @@ class Abstract_Meta_Box_Test extends helpers\Concert_Test_Case {
 	private $under_test;
 
 	function setUp() {
-
+		\WP_Mock::setUp();
 	}
 
 	function test_define_admin_hooks() {
@@ -44,7 +44,6 @@ class Abstract_Meta_Box_Test extends helpers\Concert_Test_Case {
 			Abstract_Meta_Box::class,
 			array( $loader, 'Mock Title', 'mock_post_type' )
 		);
-
 		$this->under_test->method( 'get_tag' )->willReturn( 'mock_tag' );
 
 		\WP_Mock::userFunction( 'add_meta_box', array(
@@ -62,28 +61,77 @@ class Abstract_Meta_Box_Test extends helpers\Concert_Test_Case {
 		$this->under_test->add();
 	}
 
-	function test_added_metadata_is_then_loaded() {
+	function test_styles_are_enqueued_if_on_post_type_edit_page() {
 		$loader = $this->getMockBuilder( common\Loader::class )->setMethods( [ 'get_tag' ] )->getMock();
-
-		$post_metadata = $this->getMockBuilder( common\Abstract_Post_Metadata::class )
-			->disableOriginalConstructor()
-			->setMethods( [ 'read', 'get_key' ] )->getMock();
-		$post_metadata->expects( $this->any() )->method( 'get_key' )->willReturn( 'mock_key' );
-		$post_metadata->expects( $this->any() )->method( 'read' )->willReturn( 'mock_value' );
 
 		$this->under_test = $this->getMockForAbstractClass(
 			Abstract_Meta_Box::class,
 			array( $loader, 'Mock Title', 'mock_post_type' )
 		);
+		$this->under_test->method( 'get_style_tag' )->willReturn( 'mock_post_type' );
 
-		$this->under_test->add_post_metadata( $post_metadata );
+		$screen = $this->getMockBuilder( \WP_Screen::class )->getMock();
+		$screen->post_type = 'mock_post_type';
 
-		$this->assertEquals( $this->under_test->load_post_metadata( 1 ), array(
-			'mock_key' => 'mock_value',
+		\WP_Mock::userFunction('get_current_screen', array(
+			'return' => $screen,
 		));
+
+		\WP_Mock::userFunction('wp_enqueue_style', array(
+			'times' => '1',
+		));
+
+		$this->under_test->enqueue_styles( 'post.php' );
 	}
 
-	function tearDown() {
+	function test_styles_are_not_enqueued_if_not_on_post_type_edit_page() {
+		$loader = $this->getMockBuilder( common\Loader::class )->setMethods( [ 'get_tag' ] )->getMock();
 
+		$this->under_test = $this->getMockForAbstractClass(
+			Abstract_Meta_Box::class,
+			array( $loader, 'Mock Title', 'mock_post_type' )
+		);
+		$this->under_test->method( 'get_style_tag' )->willReturn( 'wrong_post_type' );
+
+		$screen = $this->getMockBuilder( \WP_Screen::class )->getMock();
+		$screen->post_type = 'wrong_post_type';
+
+		\WP_Mock::userFunction('get_current_screen', array(
+			'return' => $screen,
+		));
+
+		\WP_Mock::userFunction('wp_enqueue_style', array(
+			'times' => '0',
+		));
+
+		$this->under_test->enqueue_styles( 'post.php' );
+	}
+
+	function test_scripts_are_enqueued_if_on_post_type_edit_page() {
+		$loader = $this->getMockBuilder( common\Loader::class )->setMethods( [ 'get_tag' ] )->getMock();
+
+		$this->under_test = $this->getMockForAbstractClass(
+			Abstract_Meta_Box::class,
+			array( $loader, 'Mock Title', 'mock_post_type' )
+			);
+		$this->under_test->method( 'get_style_tag' )->willReturn( 'mock_post_type' );
+
+		$screen = $this->getMockBuilder( \WP_Screen::class )->getMock();
+		$screen->post_type = 'mock_post_type';
+
+		\WP_Mock::userFunction('get_current_screen', array(
+			'return' => $screen,
+		));
+
+		\WP_Mock::userFunction('wp_enqueue_script', array(
+			'times' => '1',
+		));
+
+		$this->under_test->enqueue_scripts( 'post.php' );
+	}
+
+
+	function tearDown() {
+		\WP_Mock::tearDown();
 	}
 }
