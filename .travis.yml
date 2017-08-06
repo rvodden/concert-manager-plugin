@@ -19,8 +19,8 @@ env:
 
 before_script:
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
-  - 
-    composer install
+  - export PATH="$(pwd)/vendor/bin"
+  - composer install
 
 script:
   - echo $JAVA_HOME
