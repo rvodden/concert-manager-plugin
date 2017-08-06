@@ -11,33 +11,15 @@ branches:
   only:
     - master
     
-addons:
-  apt:
-    packages:
-      - oracle-java8-set-default
-  sonarqube:
-    organization: "rvodden-github"
-    token:
-      secure: "byGUY+LRd2g6ZpP5q4pYZMuoE5ztp/DkeT//mdv9fNg/LF55jkdtsdbWNBRKpwXDw9xETT1cINXzsH6iaCQJrsQhmKOuxV1lc6/oNI02V6sWjvqZrmhQK6Fd6pblMJhb8CqHQmaXVqGSKuBnKnbrxD+qV3R9VuSil193bXThpm2XrybBChUQsGi5U9L/QvL45dC5DyN5H1Tg9bgU6/owwGxR1Kz4cTm8ZdeCeiM/1ScigCI4rgI61Sgffb/OxIORaItS3aa+HW9jACRUpNI0WNegq2jhllQ5c6Oqw7z3Ek1cZG5YKnyY9iFkpVav7yxmG9rYOx1GXfeorH8LvMHao2WyylEFccbdyctgkhUxbO3qYbxFt8pF/dt1MMdH9GV4m+WAzFk3xtHpB0c+1DPEpdKc4IHIBiNrf/rOi4VtifF8538FreYLjXgJF87/ftQUqtNZGGfW+hm0oNVFuOprOTOr3RWlEWuAk7pGrG4h08OWoZk5O9cMa1sdDNz7tK4YirSnb2Z2f5/3iRykNpGpoZzcgpUIMV1Abe5btdBFFfMmTsFCSuXabgN/TMxmBPJehuWaRlkrLXv1jQcpvUpRvNlCVGa1mA9eC2Lgk4C8BSorMWEHjPqVo/b9polSZCyXjx7qYWHZM+LplHXIXgHlzm+uw69DPFq7V6WDZw/BBOM="
 php:
   - 7.0
   
-jdk:
-  - oraclejdk8
-
 env:
   - WP_VERSION=latest WP_MULTISITE=0
 
 before_script:
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
   - |
-    if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.0" ]]; then
-      composer global require "phpunit/phpunit=5.6.*"
-    else
-      composer global require "phpunit/phpunit=4.8.*"
-    fi
-  - |
-    composer global require wp-coding-standards/wpcs
     phpcs --config-set installed_paths $HOME/.composer/vendor/wp-coding-standards/wpcs
     composer install
 

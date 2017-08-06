@@ -6,8 +6,9 @@
 		"php": ">=7.0"
 	},
 	"name": "rvodden/concert-management-plugin",
+	"description": "Wordpress plugin to manage concerts and similar semi-regular events",
 	"homepage": "http://www.vodden.com/",
-	"license": "GPL",
+	"license": "GPL-3.0",
 	"authors": [{
 		"name": "Richard Vodden",
 		"email": "richard@vodden.com",
@@ -24,36 +25,9 @@
 	],
 	"require-dev": {
 		"phpunit/phpunit": "5.7.4",
-		"phing/phing": "2.15.2",
-		"phpunit/dbunit": "2.0.3",
-		"phpunit/phpunit-selenium": "3.0.2",
-		"whatthejeff/fab-phpunit-resultprinter": "1.1.0",
-		"whatthejeff/nyancat-phpunit-resultprinter": "1.2.0",
-		"behat/behat": "3.2.2",
-		"behat/mink": "1.7.1",
-		"behat/mink-goutte-driver": "1.2.1",
-		"behat/mink-zombie-driver": "1.4.0",
-		"behat/mink-extension": "2.2",
-		"behat/mink-selenium2-driver": "1.3.1",
-		"facebook/webdriver": "1.2.0",
 		"respect/validation": "1.1.10",
 		"satooshi/php-coveralls": "1.0.1",
 		"10up/wp_mock": "dev-master",
-		"wordpress/unit-tests": "1.0",
-		"wp-coding-standards/wpcs": "~0.12"
-	},
-	"repositories": [
-	{
-		"type"   : "package",
-		"package": {
-			"name": "wordpress/unit-tests",
-			"version": "1.0",
-			"source" : {
-				"type": "svn",
-				"url": "https://unit-tests.svn.wordpress.org",
-				"reference": "trunk"
-			}
-		}
+		"wp-coding-standards/wpcs": "~0.13"
 	}
-]
 }
