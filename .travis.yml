@@ -45,4 +45,4 @@ script:
   - echo $JAVA_HOME
   - phpcs --standard=phpcs.ruleset.xml $(find . -name '*.php' -not -path './vendor/*')
   - phpunit
-  - sonar-scanner
+  - travis_retry php vendor/bin/coveralls --verbose --coverage_clover=reports/php/phpunit.coverage.xml
