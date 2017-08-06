@@ -130,6 +130,56 @@ class Abstract_Meta_Box_Test extends helpers\Concert_Test_Case {
 		$this->under_test->enqueue_scripts( 'post.php' );
 	}
 
+	function test_that_added_post_metadata_is_loaded() {
+		$loader = $this->getMockBuilder( common\Loader::class )->setMethods( [ 'get_tag' ] )->getMock();
+
+		$this->under_test = $this->getMockForAbstractClass(
+			Abstract_Meta_Box::class,
+			array( $loader, 'Mock Title', 'mock_post_type' )
+		);
+
+		$metadata_mock = $this->getMockForAbstractClass( common\Interface_Post_Metadata::class );
+		$metadata_mock->method( 'get_key' )->willReturn( 'mock_key' );
+		$metadata_mock->method( 'read' )->willReturn( 'mock_value' );
+
+		$metadata_array = array(
+			'mock_key' => 'mock_value',
+		);
+
+		$this->under_test->add_post_metadata( $metadata_mock );
+
+		$metadata_return = $this->under_test->load_post_metadata( 1 );
+
+		$this->assertEquals( $metadata_array, $metadata_return );
+	}
+
+	function test_that_saved_post_metadata_has_new_value_when_loaded() {
+		$loader = $this->getMockBuilder( common\Loader::class )->setMethods( [ 'get_tag' ] )->getMock();
+
+		$this->under_test = $this->getMockForAbstractClass(
+			Abstract_Meta_Box::class,
+			array( $loader, 'Mock Title', 'mock_post_type' )
+		);
+
+		$metadata_mock = $this->getMockForAbstractClass( common\Interface_Post_Metadata::class );
+		$metadata_mock->method( 'get_key' )->willReturn( 'mock_key' );
+		$metadata_mock->method( 'read' )->willReturn( 'mock_value' );
+		$metadata_mock->expects( $this->once() )
+			->method( 'update_from_array' )
+			->willReturn( 'mock_value' );
+
+		$metadata_array = array(
+			'mock_key' => 'mock_value_2',
+		);
+
+		$this->under_test->add_post_metadata( $metadata_mock );
+
+		$this->under_test->save_post_metadata( 1, $metadata_array );
+
+		$metadata_return = $this->under_test->load_post_metadata( 1 );
+
+	}
+
 
 	function tearDown() {
 		\WP_Mock::tearDown();
