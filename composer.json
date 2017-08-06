@@ -28,6 +28,7 @@
 		"respect/validation": "1.1.10",
 		"satooshi/php-coveralls": "1.0.1",
 		"10up/wp_mock": "dev-master",
-		"wp-coding-standards/wpcs": "~0.13"
+		"wp-coding-standards/wpcs": "~0.13",
+		"squizlabs/php_codesniffer": "*"
 	}
 }
