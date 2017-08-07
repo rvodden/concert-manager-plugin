@@ -109,7 +109,7 @@ abstract class Abstract_Meta_Box implements Interface_Meta_Box {
 
 	protected function define_admin_hooks() {
 		$this->loader->add_action( "add_meta_boxes_{$this->post_type}", $this, 'add' );
-		$this->loader->add_action( 'save_post', $this, 'save', 10, 2 );
+		$this->loader->add_action( 'save_post_{$this->post_type}', $this, 'save', 10, 2 );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $this, 'enqueue_scripts' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $this, 'enqueue_styles' );
@@ -133,7 +133,7 @@ abstract class Abstract_Meta_Box implements Interface_Meta_Box {
 		error_log( 'Displaying post number : ' . $post->ID );
 		$metadata = $this->load_post_metadata( $post->ID );
 		isset( $metadata ) ? error_log( implode( '|', $metadata ) ) : error_log( 'No metadata' );
-		wp_nonce_field( plugin_basename( __FILE__ ), $this->get_nonce_name() );
+		//wp_nonce_field( plugin_basename( __FILE__ ), $this->get_nonce_name() );
 		require $this->get_display_file_path();
 	}
 
@@ -142,26 +142,25 @@ abstract class Abstract_Meta_Box implements Interface_Meta_Box {
 	 * type and if so enqueues the necessary scripts to save this metabox
 	 */
 	function save( $post_id, $post ) {
-		if ( get_post_type( $post_id ) == $this->post_type ) {
-			error_log( 'Saving post' );
-			// do nothing if autosaving
-			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-				return;
-			}
-
-			// do nothing if nonce mismatch
-			if ( ! wp_verify_nonce( $_POST[ $this->get_nonce_name() ], plugin_basename( __FILE__ ) ) ) {
-				error_log( 'Nonce verification failed' );
-				return;
-			}
-
-			if ( ! current_user_can( 'edit_post', $post_id ) ) {
-				error_log( 'Current user doesn\'t have edit concert features' );
-				return;
-			}
-
-			$this->save_post_metadata( $post_id, $_POST );
+		error_log( 'Saving post' );
+		// do nothing if autosaving
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return;
 		}
+
+		/*
+		if ( ! wp_verify_nonce( $_POST[ $this->get_nonce_name() ], plugin_basename( __FILE__ ) ) ) {
+			error_log( 'Nonce verification failed' );
+			return;
+		}
+		*/
+
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			error_log( 'Current user doesn\'t have edit concert features' );
+			return;
+		}
+
+		$this->save_post_metadata( $post_id, $_POST );
 	}
 
 	/*

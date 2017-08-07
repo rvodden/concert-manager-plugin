@@ -38,7 +38,6 @@ class Concert_Post_Type_Admin {
 	protected $loader;
 
 	protected $start_end_time_box;
-
 	protected $pieces_box;
 
 	function __construct( $loader ) {
