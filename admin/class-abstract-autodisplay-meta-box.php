@@ -8,8 +8,6 @@ require_once 'class-abstract-meta-box.php';
 
 abstract class Abstract_Autodisplay_Meta_Box extends Abstract_Meta_Box {
 
-
-
 	protected function get_style_url() {
 		$concert_plugin_path = constant( 'CONCERT_PLUGIN_URL' );
 		$underscored_class_name = $this->convert_from_camel_case_to_dashes( $this->get_unqualified_class_name() );

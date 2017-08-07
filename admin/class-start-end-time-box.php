@@ -1,6 +1,7 @@
 <?php
 
 namespace uk\org\brentso\concertmanagement\admin;
+use uk\org\brentso\concertmanagement\common;
 
 require_once 'class-abstract-concert-meta-box.php';
 require_once constant( 'CONCERT_PLUGIN_PATH' ) . 'common/class-end-time-metadata.php';
@@ -10,9 +11,9 @@ require_once constant( 'CONCERT_PLUGIN_PATH' ) . 'common/class-start-date-metada
 class Start_End_Time_Box extends Abstract_Concert_Meta_Box {
 
 	protected function configure_post_metadata() {
-		$this->add_post_metadata( new Start_Time_Metadata() );
-		$this->add_post_metadata( new End_Time_Metadata() );
-		$this->add_post_metadata( new Start_Date_Metadata() );
+		$this->add_post_metadata( new common\Start_Time_Metadata() );
+		$this->add_post_metadata( new common\End_Time_Metadata() );
+		$this->add_post_metadata( new common\Start_Date_Metadata() );
 	}
 
 	public function enqueue_scripts( $hook_suffix ) {

@@ -2,7 +2,7 @@
 
 namespace uk\org\brentso\concertmanagement;
 
-use uk\org\brentso\concertmanagement\admin;
+use uk\org\brentso\concertmanagement\common;
 
 class Start_Time_Metadata_Public {
 
@@ -15,7 +15,7 @@ class Start_Time_Metadata_Public {
 	function __construct( $loader ) {
 		$this->loader = $loader;
 		$this->key = 'concert-start-time';
-		$this->start_date_metadata = new admin\Start_Date_Metadata();
+		$this->start_date_metadata = new common\Start_Date_Metadata();
 		$this->define_hooks();
 	}
 

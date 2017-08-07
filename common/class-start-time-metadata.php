@@ -1,6 +1,6 @@
 <?php
 
-namespace uk\org\brentso\concertmanagement\admin;
+namespace uk\org\brentso\concertmanagement\common;
 
 require_once 'class-abstract-post-metadata.php';
 
