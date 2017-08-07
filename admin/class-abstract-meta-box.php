@@ -109,7 +109,7 @@ abstract class Abstract_Meta_Box implements Interface_Meta_Box {
 
 	protected function define_admin_hooks() {
 		$this->loader->add_action( "add_meta_boxes_{$this->post_type}", $this, 'add' );
-		$this->loader->add_action( 'save_post_{$this->post_type}', $this, 'save', 10, 2 );
+		$this->loader->add_action( "save_post_{$this->post_type}", $this, 'save', 10, 2 );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $this, 'enqueue_scripts' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $this, 'enqueue_styles' );

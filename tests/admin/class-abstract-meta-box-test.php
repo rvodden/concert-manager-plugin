@@ -29,7 +29,7 @@ class Abstract_Meta_Box_Test extends helpers\Concert_Test_Case {
 
 		$loader->expects( $this->exactly( 4 ) )->method( 'add_action' )->withConsecutive(
 			[ 'add_meta_boxes_mock_post_type', $this->under_test, 'add', 10, 1 ],
-			[ 'save_post', $this->under_test, 'save', 10, 2 ],
+			[ 'save_post_mock_post_type', $this->under_test, 'save', 10, 2 ],
 			[ 'admin_enqueue_scripts', $this->under_test, 'enqueue_scripts', 10, 1 ],
 			[ 'admin_enqueue_scripts', $this->under_test, 'enqueue_styles', 10, 1 ]
 		);
