@@ -28,6 +28,7 @@
 				<directory>./common/css</directory>
 				<directory>./common/js</directory>
 				<directory>./common/partials</directory>
+				<directory>./features</directory>
 				<directory>./tests</directory>
 			</exclude>
 		</whitelist>
