@@ -30,6 +30,17 @@
 		"10up/wp_mock": "0.2.*",
 		"wp-coding-standards/wpcs": "~0.13",
 		"squizlabs/php_codesniffer": "2.*",
-		"dealerdirect/phpcodesniffer-composer-installer": "*"
+		"dealerdirect/phpcodesniffer-composer-installer": "*",
+		"behat/behat": "*",
+		"behat/mink": "*",
+		"behat/mink-extension": "*",
+		"behat/mink-selenium2-driver": "*",
+		"sensiolabs/behat-page-object-extension": "*",
+		"symfony/debug": "*"
+	},
+	"autoload": {
+		"psr-4": {
+			"uk\\org\\brentso\\concertmanagement\\" : ""
+		}
 	}
 }

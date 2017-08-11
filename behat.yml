@@ -1,0 +1,16 @@
+default:
+    suites:
+        default:
+            filters:
+                tags: "~@ignore"
+            contexts: 
+                - uk\org\brentso\concertmanagement\features\bootstrap\FeatureContext
+    extensions:
+        SensioLabs\Behat\PageObjectExtension:
+            namespaces:
+                page: 
+                    - uk\org\brentso\concertmanagement\features\pages
+        Behat\MinkExtension:
+            base_url: http://wordpress.dev:8081
+            selenium2: 
+               browser: chrome

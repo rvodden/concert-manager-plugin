@@ -1,8 +1,9 @@
+@ignore
 Feature: Concert Entry
 	In order to plublicise the concert
 	As an orchestra manager
 	I need to be able to create a new concert
-	
+
 Scenario: Conert title has a sensible default.
 
 Given the orchestra manager visits the concert entry page

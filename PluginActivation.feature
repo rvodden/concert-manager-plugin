@@ -1,8 +1,9 @@
+@ignore
 Feature: Plugin Activation
 	In order to plublicise the concert
 	As an orchestra manager
 	I need to be able to create a new concert
-	
+
 Scenario: The Plugin should be listed on the plugins page
 
 Given the plugin is installed
