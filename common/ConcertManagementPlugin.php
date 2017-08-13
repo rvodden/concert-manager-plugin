@@ -82,7 +82,7 @@ class ConcertManagementPlugin {
 	 *
 	 * @since    0.0.1
 	 */
-	public function __construct(Loader $loader) {
+	public function __construct( Loader $loader ) {
 		$this->plugin_name = 'concert-management';
 		$this->version = '0.0.1';
 		$this->loader = $loader;

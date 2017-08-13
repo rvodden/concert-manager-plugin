@@ -68,7 +68,7 @@ register_deactivation_hook( __FILE__, 'deactivate_concert_management' );
  */
 function run_concert_management() {
 	$loader = new common\Loader();
-	$plugin = new common\ConcertManagementPlugin($loader);
+	$plugin = new common\ConcertManagementPlugin( $loader );
 	$plugin->run();
 }
 
