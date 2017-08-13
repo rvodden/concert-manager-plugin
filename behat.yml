@@ -1,16 +1,29 @@
 default:
-    suites:
-        default:
-            filters:
-                tags: "~@ignore"
-            contexts: 
-                - uk\org\brentso\concertmanagement\features\bootstrap\FeatureContext
-    extensions:
-        SensioLabs\Behat\PageObjectExtension:
-            namespaces:
-                page: 
-                    - uk\org\brentso\concertmanagement\features\pages
-        Behat\MinkExtension:
-            base_url: http://wordpress.dev:8081
-            selenium2: 
-               browser: chrome
+  suites:
+    default:
+      filters:
+        tags: "~@ignore"
+      contexts: 
+        - uk\org\brentso\concertmanagement\features\bootstrap\FeatureContext
+        - PaulGibbs\WordpressBehatExtension\Context\ContentContext
+        - PaulGibbs\WordpressBehatExtension\Context\DashboardContext
+        - PaulGibbs\WordpressBehatExtension\Context\SiteContext
+        - PaulGibbs\WordpressBehatExtension\Context\UserContext
+        - PaulGibbs\WordpressBehatExtension\Context\WordpressContext
+  extensions:
+    SensioLabs\Behat\PageObjectExtension:
+      namespaces:
+        page: 
+          - uk\org\brentso\concertmanagement\features\pages
+    Behat\MinkExtension:
+      base_url: http://wordpress.dev:8081
+      selenium2: 
+         browser: chrome
+    PaulGibbs\WordpressBehatExtension:
+      default_driver: wpcli
+      path: /Users/voddenr/Sites/wordpress/
+      users:
+        admin:
+          username: 'testadmin'
+          password: '*zlGWWiHumMK1L8e5fqy4(NA'
+

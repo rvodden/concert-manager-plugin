@@ -36,8 +36,8 @@
 		"behat/mink" : "*",
 		"behat/mink-extension" : "*",
 		"behat/mink-selenium2-driver" : "*",
-		"sensiolabs/behat-page-object-extension" : "*",
-		"symfony/debug" : "*"
+		"symfony/debug" : "*",
+		"paulgibbs/behat-wordpress-extension": "^0.7.0"
 	},
 	"autoload" : {
 		"psr-4" : {

@@ -11,7 +11,7 @@ class Dashboard extends Page {
 	protected $path = '/wp-admin/';
 
 	protected $elements = array (
-		'Concert Posts Menu Item' => 'div#menu-posts-concert'
+		'Concert Posts Menu Item' => 'li#menu-posts-concert'
 	);
 
 	public function concert_post_type_exists() {

@@ -82,37 +82,14 @@ class ConcertManagementPlugin {
 	 *
 	 * @since    0.0.1
 	 */
-	public function __construct() {
+	public function __construct(Loader $loader) {
 		$this->plugin_name = 'concert-management';
 		$this->version = '0.0.1';
-		$this->load_dependencies();
+		$this->loader = $loader;
 		$this->set_locale();
 		$this->define_concert_post_type();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
-	}
-
-	/**
-	 * Load the required dependencies for this plugin.
-	 *
-	 * Include the following files that make up the plugin:
-	 *
-	 * - Loader. Orchestrates the hooks of the plugin.
-	 * - i18n. Defines internationalization functionality.
-	 * - ConcertManagementConcertPostType. Defines all hooks for the Concert Post Type.
-	 * - ConcertManagementdmin. Defines all hooks for the admin area.
-	 * - ConcertManagementPublic. Defines all hooks for the public side of the site.
-	 *
-	 *
-	 * Create an instance of the loader which will be used to register the hooks
-	 * with WordPress.
-	 *
-	 * @since    0.0.1
-	 * @access   private
-	 */
-	private function load_dependencies() {
-		$concert_plugin_path = constant( 'CONCERT_PLUGIN_PATH' );
-		$this->loader = new Loader();
 	}
 
 	/**

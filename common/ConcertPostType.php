@@ -47,22 +47,10 @@ class ConcertPostType {
 
 	function __construct( $loader ) {
 		$this->loader = $loader;
-		$this->load_dependencies();
 		$this->define_hooks();
 		$this->define_admin_hooks();
 		$this->concert_post_type_admin = new admin\ConcertPostTypeAdmin( $this->loader );
 		$this->concert_post_type_public = new concertmanagement\ConcertPostTypePublic( $this->loader );
-	}
-
-	private function load_dependencies() {
-		$concert_plugin_path = constant( 'CONCERT_PLUGIN_PATH' );
-		/**
-		 * Since we have an autoloader we don't need this!
-		 *
-		 *
-		 * TODO: factor out
-		 */
-
 	}
 
 	private function define_hooks() {
