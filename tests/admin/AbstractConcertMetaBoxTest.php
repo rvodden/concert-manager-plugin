@@ -16,6 +16,6 @@ class AbstractConcertMetaBoxTest extends helpers\ConcertTestCase {
 			array( $loader, 'Mock Title', 'mock_post_type' )
 		);
 
-		$this->assertEquals( $this->under_test->get_post_type(), 'concert' );
+		$this->assertEquals( $this->under_test->getPostType(), 'concert' );
 	}
 }

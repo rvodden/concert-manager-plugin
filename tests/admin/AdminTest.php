@@ -44,7 +44,7 @@ class AdminTest extends helpers\ConcertTestCase {
 			'times' => 1,
 		) );
 
-		$this->undertest->enqueue_styles();
+		$this->undertest->enqueueStyles();
 	}
 
 	public function testEnqueueScripts() {
@@ -55,7 +55,7 @@ class AdminTest extends helpers\ConcertTestCase {
 			'times' => 1,
 		) );
 
-		$this->undertest->enqueue_scripts();
+		$this->undertest->enqueueScripts();
 	}
 
 	public function testAddOptionsPage() {
@@ -66,7 +66,7 @@ class AdminTest extends helpers\ConcertTestCase {
 			'times' => 1,
 		) );
 
-		$this->undertest->add_options_page();
+		$this->undertest->addOptionsPage();
 	}
 
 	public function testDisplayOptionsPage() {
@@ -74,7 +74,7 @@ class AdminTest extends helpers\ConcertTestCase {
 
 		$this->undertest = new Admin( $this->plugin_name, $this->version_number );
 
-		$this->undertest->display_options_page();
+		$this->undertest->displayOptionsPage();
 	}
 
 	public function tearDown() {

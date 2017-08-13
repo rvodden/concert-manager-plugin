@@ -227,7 +227,7 @@ abstract class AbstractMetaBox implements MetaBoxInterface {
 	public function savePostMetadata( $post_id, $metadata_array ) {
 		error_log( 'Received metadata : ' . json_encode( $metadata_array ) );
 		foreach ( $this->post_metadata as $post_metadatum ) {
-			$post_metadatum->update_from_array( $post_id, $metadata_array );
+			$post_metadatum->updateFromArray( $post_id, $metadata_array );
 		}
 	}
 }
