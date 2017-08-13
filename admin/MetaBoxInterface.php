@@ -4,8 +4,6 @@ namespace uk\org\brentso\concertmanagement\admin;
 
 use uk\org\brentso\concertmanagement\common;
 
-require_once constant( 'CONCERT_PLUGIN_PATH' ) . 'vendor/autoload.php';
-
 /**
  * Meta Box interface for adding meta-boxes to custom post types.
  *
@@ -64,7 +62,7 @@ interface MetaBoxInterface {
 	 * @var common\Loader $loader Maintains and registers all hooks
 	 *      for the plugin.
 	 */
-	public function enqueue_scripts( $hook_suffix );
+	public function enqueueScripts( $hook_suffix );
 
 	/**
 	 * Enqueues dependend styles
@@ -74,23 +72,23 @@ interface MetaBoxInterface {
 	 * @var common\Loader $loader Maintains and registers all hooks
 	 *      for the plugin.
 	 */
-	public function enqueue_styles( $hook_suffix );
+	public function enqueueStyles( $hook_suffix );
 
 	/**
 	 * Adds post metadata to the meta box
 	 *
 	 */
-	function add_post_metadata( common\PostMetadataInterface $post_metadatum );
+	public function addPostMetadata( common\PostMetadataInterface $post_metadatum );
 
 	/**
 	 * Load post metadata and return it in an array
 	 *
 	 */
-	function load_post_metadata( $post_id );
+	public function loadPostMetadata( $post_id );
 
 	/**
 	 * Save post metadata and return it in an array
 	 *
 	 */
-	function save_post_metadata( $post_id, $array_of_post_metadata );
+	public function savePostMetadata( $post_id, $array_of_post_metadata );
 }

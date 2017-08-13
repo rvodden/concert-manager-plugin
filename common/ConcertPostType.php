@@ -5,8 +5,6 @@ namespace uk\org\brentso\concertmanagement\common;
 use uk\org\brentso\concertmanagement\admin;
 use uk\org\brentso\concertmanagement;
 
-require_once constant( 'CONCERT_PLUGIN_PATH' ) . 'vendor/autoload.php';
-
 /**
  * Register all actions and filters for the plugin
  *
@@ -45,23 +43,23 @@ class ConcertPostType {
 
 	protected $concert_post_type_public;
 
-	function __construct( $loader ) {
+	public function __construct( $loader ) {
 		$this->loader = $loader;
-		$this->define_hooks();
-		$this->define_admin_hooks();
+		$this->defineHooks();
+		$this->defineAdminHooks();
 		$this->concert_post_type_admin = new admin\ConcertPostTypeAdmin( $this->loader );
 		$this->concert_post_type_public = new concertmanagement\ConcertPostTypePublic( $this->loader );
 	}
 
-	private function define_hooks() {
-		$this->loader->add_action( 'init', $this, 'create_concert_post_type' );
+	private function defineHooks() {
+		$this->loader->addAction( 'init', $this, 'createConcertPostType' );
 		error_log( 'Creating Concert Post Type Init Hook' );
 	}
 
-	private function define_admin_hooks() {
+	private function defineAdminHooks() {
 	}
 
-	function create_concert_post_type() {
+	public function createConcertPostType() {
 		error_log( 'Creating Concert Post Type' );
 
 		$labels = array(

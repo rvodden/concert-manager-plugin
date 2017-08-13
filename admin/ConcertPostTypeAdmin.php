@@ -4,8 +4,6 @@ namespace uk\org\brentso\concertmanagement\admin;
 
 use uk\org\brentso\concertmanagement\common;
 
-require_once constant( 'CONCERT_PLUGIN_PATH' ) . 'vendor/autoload.php';
-
 /**
  * Admin specific code for the concert post type.
  *
@@ -41,12 +39,12 @@ class ConcertPostTypeAdmin {
 	protected $start_end_time_box;
 	protected $pieces_box;
 
-	function __construct( $loader ) {
+	public function __construct( $loader ) {
 		$this->loader = $loader;
-		$this->load_dependencies();
+		$this->loadDependencies();
 	}
 
-	private function load_dependencies() {
+	private function loadDependencies() {
 		$this->start_end_time_box = new StartEndTimeBox( $this->loader, 'Concert Time and Date' );
 		$this->pieces_box = new PiecesBox( $this->loader, 'Concert Pieces' );
 

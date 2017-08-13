@@ -6,17 +6,15 @@ use WP_Scripts;
 use uk\org\brentso\concertmanagement\common;
 use uk\org\brentso\concertmanagement\tests\helpers;
 
-require_once constant( 'CONCERT_PLUGIN_PATH' ) . 'vendor/autoload.php';
-
-class AbstractMetaBoxTest extends helpers\Concert_Test_Case {
+class AbstractMetaBoxTest extends helpers\ConcertTestCase {
 
 	private $under_test;
 
-	function setUp() {
+	public function setUp() {
 		\WP_Mock::setUp();
 	}
 
-	function test_define_admin_hooks() {
+	public function testDefineAdminHooks() {
 		$loader = $this->getMockBuilder( common\Loader::class )->setMethods( [ 'add_action' ] )->getMock();
 
 		$this->under_test = $this->getMockForAbstractClass(
@@ -36,7 +34,7 @@ class AbstractMetaBoxTest extends helpers\Concert_Test_Case {
 		$this->under_test->init();
 	}
 
-	function test_add() {
+	public function testAdd() {
 		$loader = $this->getMockBuilder( common\Loader::class )->setMethods( [ 'get_tag' ] )->getMock();
 
 		$this->under_test = $this->getMockForAbstractClass(
@@ -60,7 +58,7 @@ class AbstractMetaBoxTest extends helpers\Concert_Test_Case {
 		$this->under_test->add();
 	}
 
-	function test_styles_are_enqueued_if_on_post_type_edit_page() {
+	public function testStylesAreEnqueuedIfOnPostTypeEditPage() {
 		$loader = $this->getMockBuilder( common\Loader::class )->setMethods( [ 'get_tag' ] )->getMock();
 
 		$this->under_test = $this->getMockForAbstractClass(
@@ -83,7 +81,7 @@ class AbstractMetaBoxTest extends helpers\Concert_Test_Case {
 		$this->under_test->enqueue_styles( 'post.php' );
 	}
 
-	function test_styles_are_not_enqueued_if_not_on_post_type_edit_page() {
+	public function testStylesAreNotEnqueuedIfNotOnPostTypeEditPage() {
 		$loader = $this->getMockBuilder( common\Loader::class )->setMethods( [ 'get_tag' ] )->getMock();
 
 		$this->under_test = $this->getMockForAbstractClass(
@@ -106,7 +104,7 @@ class AbstractMetaBoxTest extends helpers\Concert_Test_Case {
 		$this->under_test->enqueue_styles( 'post.php' );
 	}
 
-	function test_scripts_are_enqueued_if_on_post_type_edit_page() {
+	public function testScriptsAreEnqueuedIfOnPostTypeEditPage() {
 		$loader = $this->getMockBuilder( common\Loader::class )->setMethods( [ 'get_tag' ] )->getMock();
 
 		$this->under_test = $this->getMockForAbstractClass(
@@ -129,7 +127,7 @@ class AbstractMetaBoxTest extends helpers\Concert_Test_Case {
 		$this->under_test->enqueue_scripts( 'post.php' );
 	}
 
-	function test_that_added_post_metadata_is_loaded() {
+	public function testThatAddedPostMetadataIsLoaded() {
 		$loader = $this->getMockBuilder( common\Loader::class )->setMethods( [ 'get_tag' ] )->getMock();
 
 		$this->under_test = $this->getMockForAbstractClass(
@@ -152,7 +150,7 @@ class AbstractMetaBoxTest extends helpers\Concert_Test_Case {
 		$this->assertEquals( $metadata_array, $metadata_return );
 	}
 
-	function test_that_saved_post_metadata_has_new_value_when_loaded() {
+	public function testThatSavedPostMetadataHasNewValueWhenLoaded() {
 		$loader = $this->getMockBuilder( common\Loader::class )->setMethods( [ 'get_tag' ] )->getMock();
 
 		$this->under_test = $this->getMockForAbstractClass(
@@ -176,11 +174,10 @@ class AbstractMetaBoxTest extends helpers\Concert_Test_Case {
 		$this->under_test->save_post_metadata( 1, $metadata_array );
 
 		$metadata_return = $this->under_test->load_post_metadata( 1 );
-
 	}
 
 
-	function tearDown() {
+	public function tearDown() {
 		\WP_Mock::tearDown();
 	}
 }

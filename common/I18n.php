@@ -2,8 +2,6 @@
 
 namespace uk\org\brentso\concertmanagement\common;
 
-require_once constant( 'CONCERT_PLUGIN_PATH' ) . 'vendor/autoload.php';
-
 /**
  * Define the internationalization functionality
  *
@@ -35,7 +33,7 @@ class I18n {
 	 *
 	 * @since    1.0.0
 	 */
-	public function load_plugin_textdomain() {
+	public function loadPluginTextdomain() {
 		load_plugin_textdomain(
 			'plugin-name',
 			false,

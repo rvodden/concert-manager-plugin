@@ -4,8 +4,6 @@ namespace uk\org\brentso\concertmanagement\admin;
 
 use uk\org\brentso\concertmanagement\common;
 
-require_once constant( 'CONCERT_PLUGIN_PATH' ) . 'vendor/autoload.php';
-
 /**
  * This abstract meta box class implements sensible defaults for location of
  * css and js files and loads them.
@@ -71,55 +69,55 @@ abstract class AbstractMetaBox implements MetaBoxInterface {
 	 * @param common\Loader $loader
 	 * @param string $title
 	 */
-	function __construct( $loader, $title, $post_type ) {
-		$this->set_title( $title );
+	public function __construct( $loader, $title, $post_type ) {
+		$this->setTitle( $title );
 		$this->loader = $loader;
 		$this->post_type = $post_type;
-		error_log( 'Post Type : ' . $this->get_post_type() );
+		error_log( 'Post Type : ' . $this->getPostType() );
 	}
 
 	public function init() {
-		$this->configure_post_metadata();
-		$this->define_admin_hooks();
+		$this->configurePostMetadata();
+		$this->defineAdminHooks();
 	}
 
-	protected abstract function configure_post_metadata();
+	abstract protected function configurePostMetadata();
 
 	/* returns the url for the style sheets for this display box */
-	protected abstract function get_style_url();
+	abstract protected function getStyleUrl();
 
 	/* returns the tags for the style sheets for this display box */
-	protected abstract function get_style_tag();
+	abstract protected function getStyleTag();
 
 	/* returns the url for the javascript for this display box */
-	protected abstract function get_script_url();
+	abstract protected function getScriptUrl();
 
 	/* returns the tags for the javascript for this display box */
-	protected abstract function get_script_tag();
+	abstract protected function getScriptTag();
 
 	/* returns the tags for the javascript for this post type box */
-	protected abstract function get_tag();
+	abstract protected function getTag();
 
 	/* returns the nonce name for this meta box */
-	protected abstract function get_nonce_name();
+	abstract protected function getNonceName();
 
 	/* returns the nonce name for this meta box */
-	protected abstract function get_display_file_path();
+	abstract protected function getDisplayFilePath();
 
-	protected function define_admin_hooks() {
-		$this->loader->add_action( "add_meta_boxes_{$this->post_type}", $this, 'add' );
-		$this->loader->add_action( "save_post_{$this->post_type}", $this, 'save', 10, 2 );
+	protected function defineAdminHooks() {
+		$this->loader->addAction( "add_meta_boxes_{$this->post_type}", $this, 'add' );
+		$this->loader->addAction( "save_post_{$this->post_type}", $this, 'save', 10, 2 );
 
-		$this->loader->add_action( 'admin_enqueue_scripts', $this, 'enqueue_scripts' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $this, 'enqueue_styles' );
+		$this->loader->addAction( 'admin_enqueue_scripts', $this, 'enqueueScripts' );
+		$this->loader->addAction( 'admin_enqueue_scripts', $this, 'enqueueStyles' );
 	}
 
 	public function add() {
 		add_meta_box(
-			$this->get_tag(),
-			$this->get_title(),
+			$this->getTag(),
+			$this->getTitle(),
 			array( $this, 'display' ),
-			$this->get_post_type(),
+			$this->getPostType(),
 			'normal',
 			'default'
 		);
@@ -128,19 +126,19 @@ abstract class AbstractMetaBox implements MetaBoxInterface {
 	/*
 	 * Displays the metabox, with the associated data from the post supplied
 	 */
-	function display( $post ) {
+	public function display( $post ) {
 		error_log( 'Displaying post number : ' . $post->ID );
-		$metadata = $this->load_post_metadata( $post->ID );
+		$metadata = $this->loadPostMetadata( $post->ID );
 		isset( $metadata ) ? error_log( implode( '|', $metadata ) ) : error_log( 'No metadata' );
 		//wp_nonce_field( plugin_basename( __FILE__ ), $this->get_nonce_name() );
-		require $this->get_display_file_path();
+		require $this->getDisplayFilePath();
 	}
 
 	/*
 	 * Checks that the admin page which is being saved is the appropriate post
 	 * type and if so enqueues the necessary scripts to save this metabox
 	 */
-	function save( $post_id, $post ) {
+	public function save( $post_id, $post ) {
 		error_log( 'Saving post' );
 		// do nothing if autosaving
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
@@ -159,16 +157,16 @@ abstract class AbstractMetaBox implements MetaBoxInterface {
 			return;
 		}
 
-		$this->save_post_metadata( $post_id, $_POST );
+		$this->savePostMetadata( $post_id, $_POST );
 	}
 
 	/*
 	 * Checks that the admin page which is being laoded is appropriate
 	 * and if so enqueues the necessary scripts for this metabox
 	 */
-	public function enqueue_scripts( $hook_suffix ) {
-		if ( $this->on_post_type_edit_page( $hook_suffix ) ) {
-			wp_enqueue_script( $this->get_script_tag(), $this->get_script_url() );
+	public function enqueueScripts( $hook_suffix ) {
+		if ( $this->onPostTypeEditPage( $hook_suffix ) ) {
+			wp_enqueue_script( $this->getScriptTag(), $this->getScriptUrl() );
 		}
 	}
 
@@ -176,9 +174,9 @@ abstract class AbstractMetaBox implements MetaBoxInterface {
 	 * Checks that the admin page which is being laoded is appropriate
 	 * and if so enqueues the necessary styles for this metabox
 	 */
-	public function enqueue_styles( $hook_suffix ) {
-		if ( $this->on_post_type_edit_page( $hook_suffix ) ) {
-			wp_enqueue_style( $this->get_style_tag(), $this->get_style_url() );
+	public function enqueueStyles( $hook_suffix ) {
+		if ( $this->onPostTypeEditPage( $hook_suffix ) ) {
+			wp_enqueue_style( $this->getStyleTag(), $this->getStyleUrl() );
 		}
 	}
 
@@ -186,10 +184,10 @@ abstract class AbstractMetaBox implements MetaBoxInterface {
 	 * Check that we are on the edit page which pertains to the post type
 	 * which this meta box is associated with.
 	 */
-	private function on_post_type_edit_page( $hook_suffix ) {
+	private function onPostTypeEditPage( $hook_suffix ) {
 		if ( 'post.php' == $hook_suffix || 'post-new.php' == $hook_suffix ) {
 			$screen = get_current_screen();
-			if ( is_object( $screen ) && ( $this->get_post_type() == $screen->post_type ) ) {
+			if ( is_object( $screen ) && ( $this->getPostType() == $screen->post_type ) ) {
 				return true;
 			}
 		}
@@ -197,27 +195,27 @@ abstract class AbstractMetaBox implements MetaBoxInterface {
 		return false;
 	}
 
-	public function set_title( $title ) {
+	public function setTitle( $title ) {
 		$this->title = $title;
 	}
 
-	public function get_title() {
+	public function getTitle() {
 		return $this->title;
 	}
 
-	public function get_post_type() {
+	public function getPostType() {
 		return $this->post_type;
 	}
 
-	public function add_post_metadata( common\PostMetadataInterface $post_metadatum ) {
+	public function addPostMetadata( common\PostMetadataInterface $post_metadatum ) {
 		// this is horrid PHP notation for "add post_metadatum on the end of post_metadata
 		$this->post_metadata[] = $post_metadatum;
 	}
 
-	public function load_post_metadata( $post_id ) {
+	public function loadPostMetadata( $post_id ) {
 		error_log( 'Loading post metadata from ' . $post_id );
 		foreach ( $this->post_metadata as $post_metadatum ) {
-			$key = $post_metadatum->get_key();
+			$key = $post_metadatum->getKey();
 			$value = $post_metadatum->read( $post_id );
 			error_log( 'Loading post (' . $post_id . ') metadata for ' . $key . ' : ' . $value );
 			$metadata_array[ $key ] = $value;
@@ -226,11 +224,10 @@ abstract class AbstractMetaBox implements MetaBoxInterface {
 		return isset( $metadata_array ) ? $metadata_array : null;
 	}
 
-	public function save_post_metadata( $post_id, $metadata_array ) {
+	public function savePostMetadata( $post_id, $metadata_array ) {
 		error_log( 'Received metadata : ' . json_encode( $metadata_array ) );
 		foreach ( $this->post_metadata as $post_metadatum ) {
 			$post_metadatum->update_from_array( $post_id, $metadata_array );
 		}
 	}
-
 }

@@ -2,8 +2,6 @@
 
 namespace uk\org\brentso\concertmanagement;
 
-require_once constant( 'CONCERT_PLUGIN_PATH' ) . 'vendor/autoload.php';
-
 /**
  * This class is responsible for displaying the post type on the public page
  * @author voddenr
@@ -25,12 +23,12 @@ class ConcertPostTypePublic {
 
 	protected $start_time_metadata_public;
 
-	function __construct( $loader ) {
+	public function __construct( $loader ) {
 		$this->loader = $loader;
-		$this->load_dependencies();
+		$this->loadDependencies();
 	}
 
-	private function load_dependencies() {
+	private function loadDependencies() {
 		$this->start_time_metadata_public = new StartTimeMetadataPublic( $this->loader );
 	}
 }

@@ -3,8 +3,6 @@ namespace uk\org\brentso\concertmanagement\admin;
 
 use uk\org\brentso\concertmanagement\tests\helpers;
 
-require_once 'admin/Admin.php';
-
 /**
  * TestAdmin
  *
@@ -16,7 +14,7 @@ require_once 'admin/Admin.php';
  * @package uk\org\brentso\concertmanagement\admin
  */
 
-class Admin_Test extends helpers\Concert_Test_Case {
+class AdminTest extends helpers\ConcertTestCase {
 
 	private $plugin_name = 'concert-management';
 
@@ -24,7 +22,7 @@ class Admin_Test extends helpers\Concert_Test_Case {
 
 	private $undertest;
 
-	function setUp() {
+	public function setUp() {
 		\WP_Mock::setUp();
 
 		\WP_Mock::userFunction( '__', array(
@@ -38,7 +36,7 @@ class Admin_Test extends helpers\Concert_Test_Case {
 		) );
 	}
 
-	function test_enqueue_styles() {
+	public function testEnqueueStyles() {
 
 		$this->undertest = new Admin( $this->plugin_name, $this->version_number );
 
@@ -47,10 +45,9 @@ class Admin_Test extends helpers\Concert_Test_Case {
 		) );
 
 		$this->undertest->enqueue_styles();
-
 	}
 
-	function test_enqueue_scripts() {
+	public function testEnqueueScripts() {
 
 		$this->undertest = new Admin( $this->plugin_name, $this->version_number );
 
@@ -59,10 +56,9 @@ class Admin_Test extends helpers\Concert_Test_Case {
 		) );
 
 		$this->undertest->enqueue_scripts();
-
 	}
 
-	function test_add_options_page() {
+	public function testAddOptionsPage() {
 
 		$this->undertest = new Admin( $this->plugin_name, $this->version_number );
 
@@ -71,10 +67,9 @@ class Admin_Test extends helpers\Concert_Test_Case {
 		) );
 
 		$this->undertest->add_options_page();
-
 	}
 
-	function test_display_options_page() {
+	public function testDisplayOptionsPage() {
 		$this->expectOutputString( "<h1>Concert Management Settings</h1>\n<h2>Section One</h2>\n" );
 
 		$this->undertest = new Admin( $this->plugin_name, $this->version_number );
@@ -82,8 +77,7 @@ class Admin_Test extends helpers\Concert_Test_Case {
 		$this->undertest->display_options_page();
 	}
 
-	function tearDown() {
+	public function tearDown() {
 		\WP_Mock::tearDown();
 	}
 }
-

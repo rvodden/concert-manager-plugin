@@ -4,8 +4,9 @@
  *
  * @package Concert_Management
  */
+
 require_once 'vendor/autoload.php';
-require_once 'tests/helpers/class-concert-test-case.php';
+
 
 WP_Mock::activateStrictMode();
 WP_Mock::setUsePatchwork( true );
@@ -17,4 +18,3 @@ define( 'CONCERT_PLUGIN_URL', 'http://wordpress.dev/wp-content/plugins/concert-m
 define( 'CONCERT_PLUGIN_PATH', './' );
 
 //Mock out global functions
-

@@ -2,8 +2,6 @@
 
 namespace uk\org\brentso\concertmanagement;
 
-require_once constant( 'CONCERT_PLUGIN_PATH' ) . 'vendor/autoload.php';
-
 /**
  * The public-facing functionality of the plugin.
  *
@@ -60,7 +58,7 @@ class ConcertManagementPublic {
 	 *
 	 * @since    0.0.1
 	 */
-	public function enqueue_styles() {
+	public function enqueueStyles() {
 		/**
 		 * This function is provided for demonstration purposes only.
 		 *
@@ -86,7 +84,7 @@ class ConcertManagementPublic {
 	 *
 	 * @since    0.0.1
 	 */
-	public function enqueue_scripts() {
+	public function enqueueScripts() {
 		/**
 		 * This function is provided for demonstration purposes only.
 		 *

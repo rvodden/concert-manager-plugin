@@ -2,8 +2,6 @@
 
 namespace uk\org\brentso\concertmanagement\admin;
 
-require_once constant( 'CONCERT_PLUGIN_PATH' ) . 'vendor/autoload.php';
-
 /**
  * The admin-specific functionality of the concert management plugin.
  *
@@ -63,7 +61,7 @@ class Admin {
 	 *
 	 * @since 0.0.1
 	 */
-	public function enqueue_styles() {
+	public function enqueueStyles() {
 		$concert_plugin_url = constant( 'CONCERT_PLUGIN_URL' );
 		wp_enqueue_style(
 			$this->plugin_name,
@@ -79,7 +77,7 @@ class Admin {
 	 *
 	 * @since 0.0.1
 	 */
-	public function enqueue_scripts() {
+	public function enqueueScripts() {
 		$concert_plugin_url = constant( 'CONCERT_PLUGIN_URL' );
 		wp_enqueue_script(
 			$this->plugin_name,
@@ -95,7 +93,7 @@ class Admin {
 	 *
 	 * @since 0.0.1
 	 */
-	public function add_options_page() {
+	public function addOptionsPage() {
 		$this->plugin_screen_hook_suffix = add_options_page(
 			__( 'Concert Management Settings', 'CONCERT_TEXT_DOMAIN' ),
 			__( 'Concert Management', 'CONCERT_TEXT_DOMAIN' ),
@@ -110,8 +108,7 @@ class Admin {
 	 *
 	 * @since 0.0.1
 	 */
-	public function display_options_page() {
+	public function displayOptionsPage() {
 		include_once 'partials/admin-display.php';
 	}
-
 }

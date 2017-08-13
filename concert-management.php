@@ -4,6 +4,7 @@ use uk\org\brentso\concertmanagement\common;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+
 /*
  * Plugin Name: Concert Manager
  * Plugin URI: https://github.com/rvodden/concert-manager-plugin
@@ -16,6 +17,13 @@ require_once __DIR__ . '/vendor/autoload.php';
  * Text Domain: concert-management
  * Domain Path: /languages
  */
+
+// this means that defining 'WP_DEBUG' to false disables debugging.
+if ( ! defined( 'WP_DEBUG' ) ) {
+	define( 'WP_DEBUG', true );
+	define( 'WP_DEBUG_LOG', true );
+	error_reporting( E_STRICT );
+}
 
 define( 'CONCERT_TEXT_DOMAIN', 'concert-management' );
 define( 'CONCERT_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
@@ -67,8 +75,8 @@ register_deactivation_hook( __FILE__, 'deactivate_concert_management' );
  * @since    0.0.1
  */
 function run_concert_management() {
-	$loader = new common\Loader();
-	$plugin = new common\ConcertManagementPlugin( $loader );
+	$plugin = common\ConcertManagementPluginFactory::createPlugin();
+	$plugin->init();
 	$plugin->run();
 }
 

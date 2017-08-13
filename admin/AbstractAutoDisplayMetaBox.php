@@ -4,55 +4,53 @@ namespace uk\org\brentso\concertmanagement\admin;
 
 use ReflectionClass;
 
-require_once constant( 'CONCERT_PLUGIN_PATH' ) . 'vendor/autoload.php';
-
 abstract class AbstractAutodisplayMetaBox extends AbstractMetaBox {
 
-	protected function get_style_url() {
+	protected function getStyleUrl() {
 		$concert_plugin_path = constant( 'CONCERT_PLUGIN_URL' );
-		$underscored_class_name = $this->convert_from_camel_case_to_dashes( $this->get_unqualified_class_name() );
+		$underscored_class_name = $this->convertFromCamelCaseToDashes( $this->getUnqualifiedClassName() );
 		return $concert_plugin_path . 'admin/css/' . $underscored_class_name . '.css';
 	}
 
-	protected function get_style_tag() {
-		return $this->convert_from_camel_case_to_dashes( $this->get_unqualified_class_name() ) . '-style';
+	protected function getStyleTag() {
+		return $this->convertFromCamelCaseToDashes( $this->getUnqualifiedClassName() ) . '-style';
 	}
 
-	protected function get_tag() {
-		return $this->convert_from_camel_case_to_dashes( $this->get_unqualified_class_name() );
+	protected function getTag() {
+		return $this->convertFromCamelCaseToDashes( $this->getUnqualifiedClassName() );
 	}
 
-	protected function get_unqualified_class_name() {
+	protected function getUnqualifiedClassName() {
 		$reflect = new ReflectionClass( $this );
 		return $reflect->getShortName();
 	}
 
-	protected function get_script_url() {
+	protected function getScriptUrl() {
 		$concert_plugin_path = constant( 'CONCERT_PLUGIN_URL' );
-		$underscored_class_name = $this->convert_from_camel_case_to_dashes( $this->get_unqualified_class_name() );
+		$underscored_class_name = $this->convertFromCamelCaseToDashes( $this->getUnqualifiedClassName() );
 		return $concert_plugin_path . 'admin/js/' . $underscored_class_name . '.js';
 	}
 
-	protected function get_script_tag() {
-		return $this->convert_from_camel_case_to_dashes( $this->get_unqualified_class_name() );
+	protected function getScriptTag() {
+		return $this->convertFromCamelCaseToDashes( $this->getUnqualifiedClassName() );
 	}
 
-	protected function get_nonce_name() {
-		return $this->convert_from_camel_case_to_dashes( $this->get_unqualified_class_name() ) . '-nonce';
+	protected function getNonceName() {
+		return $this->convertFromCamelCaseToDashes( $this->getUnqualifiedClassName() ) . '-nonce';
 	}
 
-	protected function get_display_file_path() {
+	protected function getDisplayFilePath() {
 		$concert_plugin_path = constant( 'CONCERT_PLUGIN_PATH' );
-		return $concert_plugin_path . 'admin/partials/' . $this->convert_from_camel_case_to_dashes(
-			$this->get_unqualified_class_name()
+		return $concert_plugin_path . 'admin/partials/' . $this->convertFromCamelCaseToDashes(
+			$this->getUnqualifiedClassName()
 		) . '-display.php';
 	}
 
-	private static function convert_from_camel_case_to_dashes( $input ) {
-		return self::convert_from_camel_case_to_padding( $input, '-' );
+	private static function convertFromCamelCaseToDashes( $input ) {
+		return self::convertFromCamelCaseToPadding( $input, '-' );
 	}
 
-	private static function convert_from_camel_case_to_padding( $input, $pad ) {
+	private static function convertFromCamelCaseToPadding( $input, $pad ) {
 		preg_match_all( '!([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)!', $input, $matches );
 		$ret = $matches[0];
 		foreach ( $ret as &$match ) {
@@ -60,5 +58,4 @@ abstract class AbstractAutodisplayMetaBox extends AbstractMetaBox {
 		}
 		return implode( $pad, $ret );
 	}
-
 }

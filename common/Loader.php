@@ -2,8 +2,6 @@
 
 namespace uk\org\brentso\concertmanagement\common;
 
-require_once constant( 'CONCERT_PLUGIN_PATH' ) . 'vendor/autoload.php';
-
 /**
  * Register all actions and filters for the plugin
  *
@@ -80,7 +78,7 @@ class Loader {
 	 * @param int $accepted_args
 	 *     Optional. The number of arguments that should be passed to the $callback. Default is 1.
 	 */
-	public function add_action( $hook, $component, $callback, $priority = 10, $accepted_args = 1 ) {
+	public function addAction( $hook, $component, $callback, $priority = 10, $accepted_args = 1 ) {
 		$this->actions = $this->add( $this->actions, $hook, $component, $callback, $priority, $accepted_args );
 	}
 
@@ -99,11 +97,11 @@ class Loader {
 	 * @param int $accepted_args
 	 *      Optional. The number of arguments that should be passed to the $callback. Default is 1
 	 */
-	public function add_filter( $hook, $component, $callback, $priority = 10, $accepted_args = 1 ) {
+	public function addFilter( $hook, $component, $callback, $priority = 10, $accepted_args = 1 ) {
 		$this->filters = $this->add( $this->filters, $hook, $component, $callback, $priority, $accepted_args );
 	}
 
-	public function add_shortcode( $tag, $component, $callback ) {
+	public function addShortcode( $tag, $component, $callback ) {
 		$this->shortcodes[] = array(
 			'tag' => $tag,
 			'function' => array( $component, $callback ),
@@ -147,9 +145,9 @@ class Loader {
 	 * @since 0.0.1
 	 */
 	public function run() {
-		$this->register_filters( $this->filters );
-		$this->register_actions( $this->actions );
-		$this->register_shortcodes( $this->shortcodes );
+		$this->registerFilters( $this->filters );
+		$this->registerActions( $this->actions );
+		$this->registerShortcodes( $this->shortcodes );
 	}
 
 	/**
@@ -157,7 +155,7 @@ class Loader {
 	 *
 	 * @since 0.0.1
 	 */
-	private function register_filters( $hooks ) {
+	private function registerFilters( $hooks ) {
 		foreach ( $hooks as $hook ) {
 			add_filter(
 				$hook['hook'],
@@ -173,7 +171,7 @@ class Loader {
 	 *
 	 * @since 0.0.1
 	 */
-	private function register_actions( $hooks ) {
+	private function registerActions( $hooks ) {
 		foreach ( $hooks as $hook ) {
 			add_action(
 				$hook['hook'],
@@ -189,7 +187,7 @@ class Loader {
 	 *
 	 * @since 0.0.1
 	 */
-	private function register_shortcodes( $shortcodes ) {
+	private function registerShortcodes( $shortcodes ) {
 		foreach ( $shortcodes as $shortcode ) {
 			add_shortcode( $shortcode['tag'], $shortcode['function'] );
 		}

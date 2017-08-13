@@ -2,8 +2,6 @@
 
 namespace uk\org\brentso\concertmanagement;
 
-require_once constant( 'CONCERT_PLUGIN_PATH' ) . 'vendor/autoload.php';
-
 class StartTimeMetadataPublic {
 
 	protected $loader;
@@ -12,15 +10,15 @@ class StartTimeMetadataPublic {
 
 	protected $key;
 
-	function __construct( common\Loader $loader ) {
+	public function __construct( common\Loader $loader ) {
 		$this->loader = $loader;
 		$this->key = 'concert-start-time';
 		$this->start_date_metadata = new common\StartDateMetadata();
-		$this->define_hooks();
+		$this->defineHooks();
 	}
 
-	public function define_hooks() {
-		$this->loader->add_shortcode( $this->key, $this, 'shortcode_concert_start_time' );
+	public function defineHooks() {
+		$this->loader->addShortcode( $this->key, $this, 'shortcodeConcertStartTime' );
 	}
 
 	public function display() {
@@ -32,7 +30,7 @@ class StartTimeMetadataPublic {
 		return $this->start_date_metadata->read();
 	}
 
-	public function shortcode_concert_start_time( $attributes, $content = null ) {
+	public function shortcodeConcertStartTime( $attributes, $content = null ) {
 		$processed_attributes = shortcode_atts( array(
 			'id' => 'latest',
 		), $attributes );

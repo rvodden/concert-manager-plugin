@@ -2,8 +2,6 @@
 
 namespace uk\org\brentso\concertmanagement\common;
 
-require_once constant( 'CONCERT_PLUGIN_PATH' ) . '/vendor/autoload.php';
-
 use uk\org\brentso\concertmanagement;
 use uk\org\brentso\concertmanagement\admin;
 
@@ -20,13 +18,6 @@ use uk\org\brentso\concertmanagement\admin;
  * @subpackage concert_management/common
  */
 
-// this means that defining 'WP_DEBUG' to false disables debugging.
-if ( ! defined( 'WP_DEBUG' ) ) {
-	define( 'WP_DEBUG', true );
-	define( 'WP_DEBUG_LOG', true );
-	error_reporting( E_STRICT );
-}
-
 /**
  * The core plugin class.
  *
@@ -42,16 +33,6 @@ if ( ! defined( 'WP_DEBUG' ) ) {
  * @author     Your Name <email@example.com>
  */
 class ConcertManagementPlugin {
-
-	/**
-	 * The loader that's responsible for maintaining and registering all hooks that power
-	 * the plugin.
-	 *
-	 * @since    0.0.1
-	 * @access   protected
-	 * @var      Loader    $loader    Maintains and registers all hooks for the plugin.
-	 */
-	protected $loader;
 
 	/**
 	 * The unique identifier of this plugin.
@@ -73,6 +54,13 @@ class ConcertManagementPlugin {
 
 	protected $plugin_concert_post_type;
 
+	/*
+	 *
+	 */
+	protected $loader;
+	protected $concertManagementPublic;
+	protected $i18n;
+
 	/**
 	 * Define the core functionality of the plugin.
 	 *
@@ -82,28 +70,36 @@ class ConcertManagementPlugin {
 	 *
 	 * @since    0.0.1
 	 */
-	public function __construct( Loader $loader ) {
-		$this->plugin_name = 'concert-management';
-		$this->version = '0.0.1';
+	public function __construct(
+			Loader $loader,
+			concertmanagement\ConcertManagementPublic $concertManagementPublic,
+			admin\Admin $admin,
+			I18n $i18n
+		) {
 		$this->loader = $loader;
-		$this->set_locale();
-		$this->define_concert_post_type();
-		$this->define_admin_hooks();
-		$this->define_public_hooks();
+		$this->concertManagementPublic = $concertManagementPublic;
+		$this->admin = $admin;
+		$this->i18n = $i18n;
+	}
+
+	public function init() {
+		$this->setLocale();
+		$this->defineConcertPostType();
+		$this->defineAdminHooks();
+		$this->definePublicHooks();
 	}
 
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the Plugin_Name_i18n class in order to set the domain and to register the hook
+	 * Uses the I18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
 	 * @since    0.0.1
 	 * @access   private
 	 */
-	private function set_locale() {
-		$plugin_i18n = new I18n();
-		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
+	private function setLocale() {
+		$this->loader->addAction( 'plugins_loaded', $this->i18n, 'loadPluginTextdomain' );
 	}
 
 	/**
@@ -112,7 +108,7 @@ class ConcertManagementPlugin {
 	 * @since    0.0.1
 	 * @access   private
 	 */
-	private function define_concert_post_type() {
+	private function defineConcertPostType() {
 		$this->plugin_concert_post_type = new ConcertPostType( $this->loader );
 	}
 
@@ -123,11 +119,10 @@ class ConcertManagementPlugin {
 	 * @since    0.0.1
 	 * @access   private
 	 */
-	private function define_admin_hooks() {
-		$plugin_admin = new admin\Admin( $this->get_plugin_name(), $this->get_version() );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_options_page' );
+	private function defineAdminHooks() {
+		$this->loader->addAction( 'admin_enqueue_scripts', $this->admin, 'enqueueStyles' );
+		$this->loader->addAction( 'admin_enqueue_scripts', $this->admin, 'enqueueScripts' );
+		$this->loader->addAction( 'admin_menu', $this->admin, 'addOptionsPage' );
 	}
 
 	/**
@@ -137,10 +132,9 @@ class ConcertManagementPlugin {
 	 * @since    0.0.1
 	 * @access   private
 	 */
-	private function define_public_hooks() {
-		$plugin_public = new concertmanagement\ConcertManagementPublic( $this->get_plugin_name(), $this->get_version() );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+	private function definePublicHooks() {
+		$this->loader->addAction( 'wp_enqueue_scripts', $this->concertManagementPublic, 'enqueueStyles' );
+		$this->loader->addAction( 'wp_enqueue_scripts', $this->concertManagementPublic, 'enqueueScripts' );
 	}
 
 	/**
@@ -159,7 +153,7 @@ class ConcertManagementPlugin {
 	 * @since     0.0.1
 	 * @return    string    The name of the plugin.
 	 */
-	public function get_plugin_name() {
+	public function getPluginName() {
 		return $this->plugin_name;
 	}
 
@@ -169,7 +163,7 @@ class ConcertManagementPlugin {
 	 * @since     0.0.1
 	 * @return    Loader    Orchestrates the hooks of the plugin.
 	 */
-	public function get_loader() {
+	public function getLoader() {
 		return $this->loader;
 	}
 
@@ -179,8 +173,7 @@ class ConcertManagementPlugin {
 	 * @since     0.0.1
 	 * @return    string    The version number of the plugin.
 	 */
-	public function get_version() {
+	public function getVersion() {
 		return $this->version;
 	}
 }
-
