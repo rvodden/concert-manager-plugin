@@ -58,7 +58,8 @@ class ConcertPostType {
 		$concert_plugin_path = constant( 'CONCERT_PLUGIN_PATH' );
 		/**
 		 * Since we have an autoloader we don't need this!
-		 * 
+		 *
+		 *
 		 * TODO: factor out
 		 */
 

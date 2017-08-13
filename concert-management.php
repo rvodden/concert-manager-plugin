@@ -2,7 +2,7 @@
 
 use uk\org\brentso\concertmanagement\common;
 
-require_once __DIR__.'/vendor/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
 /*
  * Plugin Name: Concert Manager
