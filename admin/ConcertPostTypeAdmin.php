@@ -2,8 +2,9 @@
 
 namespace uk\org\brentso\concertmanagement\admin;
 
-require_once 'class-start-end-time-box.php';
-require_once 'class-pieces-box.php';
+use uk\org\brentso\concertmanagement\common;
+
+require_once constant( 'CONCERT_PLUGIN_PATH' ) . 'vendor/autoload.php';
 
 /**
  * Admin specific code for the concert post type.
@@ -23,7 +24,7 @@ require_once 'class-pieces-box.php';
  * @author Richard Vodden <richard@vodden.com>
  *
  */
-class Concert_Post_Type_Admin {
+class ConcertPostTypeAdmin {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks
@@ -32,7 +33,7 @@ class Concert_Post_Type_Admin {
 	 *
 	 * @since 0.0.1
 	 * @access protected
-	 * @var ConcertManagementLoader $loader Maintains and registers all hooks
+	 * @var common\Loader $loader Maintains and registers all hooks
 	 *      for the plugin.
 	 */
 	protected $loader;
@@ -46,8 +47,8 @@ class Concert_Post_Type_Admin {
 	}
 
 	private function load_dependencies() {
-		$this->start_end_time_box = new Start_End_Time_Box( $this->loader, 'Concert Time and Date' );
-		$this->pieces_box = new Pieces_Box( $this->loader, 'Concert Pieces' );
+		$this->start_end_time_box = new StartEndTimeBox( $this->loader, 'Concert Time and Date' );
+		$this->pieces_box = new PiecesBox( $this->loader, 'Concert Pieces' );
 
 		$this->start_end_time_box->init();
 		$this->pieces_box->init();

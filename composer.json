@@ -1,21 +1,22 @@
 {
-	"support": {
-		"email": "richard@vodden.com"
+	"support" : {
+		"email" : "richard@vodden.com"
 	},
-	"require": {
-		"php": ">=7.0"
+	"require" : {
+		"php" : ">=7.0"
 	},
-	"name": "rvodden/concert-management-plugin",
-	"description": "Wordpress plugin to manage concerts and similar semi-regular events",
-	"homepage": "http://www.vodden.com/",
-	"license": "GPL-3.0",
-	"authors": [{
-		"name": "Richard Vodden",
-		"email": "richard@vodden.com",
-		"homepage": "http://www.vodden.com/",
-		"role": "Creator"
-	}],
-	"keywords": [
+	"name" : "rvodden/concert-management-plugin",
+	"description" : "Wordpress plugin to manage concerts and similar semi-regular events",
+	"homepage" : "http://www.vodden.com/",
+	"license" : "GPL-3.0",
+	"authors" : [{
+			"name" : "Richard Vodden",
+			"email" : "richard@vodden.com",
+			"homepage" : "http://www.vodden.com/",
+			"role" : "Creator"
+		}
+	],
+	"keywords" : [
 		"WordPress",
 		"plugins",
 		"music",
@@ -23,24 +24,28 @@
 		"band",
 		"ensemble"
 	],
-	"require-dev": {
-		"phpunit/phpunit": "*",
-		"respect/validation": "*",
-		"satooshi/php-coveralls": "*",
-		"10up/wp_mock": "0.2.*",
-		"wp-coding-standards/wpcs": "~0.13",
-		"squizlabs/php_codesniffer": "2.*",
-		"dealerdirect/phpcodesniffer-composer-installer": "*",
-		"behat/behat": "*",
-		"behat/mink": "*",
-		"behat/mink-extension": "*",
-		"behat/mink-selenium2-driver": "*",
-		"sensiolabs/behat-page-object-extension": "*",
-		"symfony/debug": "*"
+	"require-dev" : {
+		"phpunit/phpunit" : "*",
+		"respect/validation" : "*",
+		"satooshi/php-coveralls" : "*",
+		"10up/wp_mock" : "0.2.*",
+		"wp-coding-standards/wpcs" : "~0.13",
+		"squizlabs/php_codesniffer" : "2.*",
+		"dealerdirect/phpcodesniffer-composer-installer" : "*",
+		"behat/behat" : "*",
+		"behat/mink" : "*",
+		"behat/mink-extension" : "*",
+		"behat/mink-selenium2-driver" : "*",
+		"sensiolabs/behat-page-object-extension" : "*",
+		"symfony/debug" : "*"
 	},
-	"autoload": {
-		"psr-4": {
-			"uk\\org\\brentso\\concertmanagement\\" : ""
+	"autoload" : {
+		"psr-4" : {
+			"uk\\org\\brentso\\concertmanagement\\" : "public",
+			"uk\\org\\brentso\\concertmanagement\\admin\\" : "admin",
+			"uk\\org\\brentso\\concertmanagement\\common\\" : "common",
+			"uk\\org\\brentso\\concertmanagement\\features\\" : "features",
+			"uk\\org\\brentso\\concertmanagement\\tests\\" : "tests"
 		}
 	}
 }

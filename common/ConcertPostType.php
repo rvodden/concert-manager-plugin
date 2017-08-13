@@ -5,6 +5,8 @@ namespace uk\org\brentso\concertmanagement\common;
 use uk\org\brentso\concertmanagement\admin;
 use uk\org\brentso\concertmanagement;
 
+require_once constant( 'CONCERT_PLUGIN_PATH' ) . 'vendor/autoload.php';
+
 /**
  * Register all actions and filters for the plugin
  *
@@ -25,7 +27,7 @@ use uk\org\brentso\concertmanagement;
  * @author Richard Vodden <richard@vodden.com>
  *
  */
-class Concert_Post_Type {
+class ConcertPostType {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks
@@ -34,7 +36,7 @@ class Concert_Post_Type {
 	 *
 	 * @since 0.0.1
 	 * @access protected
-	 * @var ConcertManagementLoader $loader Maintains and registers all hooks
+	 * @var Loader $loader Maintains and registers all hooks
 	 *      for the plugin.
 	 */
 	protected $loader;
@@ -48,19 +50,18 @@ class Concert_Post_Type {
 		$this->load_dependencies();
 		$this->define_hooks();
 		$this->define_admin_hooks();
-		$this->concert_post_type_admin = new admin\Concert_Post_Type_Admin( $this->loader );
-		$this->concert_post_type_public = new concertmanagement\Concert_Post_Type_Public( $this->loader );
+		$this->concert_post_type_admin = new admin\ConcertPostTypeAdmin( $this->loader );
+		$this->concert_post_type_public = new concertmanagement\ConcertPostTypePublic( $this->loader );
 	}
 
 	private function load_dependencies() {
 		$concert_plugin_path = constant( 'CONCERT_PLUGIN_PATH' );
 		/**
-		 * The class responsible for implementing the administrative functions
-		 * of the
-		 * concert post type
+		 * Since we have an autoloader we don't need this!
+		 * 
+		 * TODO: factor out
 		 */
-		require_once $concert_plugin_path . 'admin/class-concert-post-type-admin.php';
-		require_once $concert_plugin_path . 'public/class-concert-post-type-public.php';
+
 	}
 
 	private function define_hooks() {

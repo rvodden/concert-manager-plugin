@@ -2,6 +2,8 @@
 
 namespace uk\org\brentso\concertmanagement;
 
+require_once constant( 'CONCERT_PLUGIN_PATH' ) . 'vendor/autoload.php';
+
 /**
  * The public-facing functionality of the plugin.
  *
@@ -21,7 +23,7 @@ namespace uk\org\brentso\concertmanagement;
  * @subpackage concert_management/public
  * @author     Richard Vodden <richard@vodden.com>
  */
-class Concert_Management_Public {
+class ConcertManagementPublic {
 
 	/**
 	 * The ID of this plugin.

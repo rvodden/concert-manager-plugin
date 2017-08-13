@@ -1,7 +1,8 @@
 <?php
-use uk\org\brentso\concertmanagement\admin;
+
 use uk\org\brentso\concertmanagement\common;
-use uk\org\brentso\concertmanagement;
+
+require_once __DIR__.'/vendor/autoload.php';
 
 /*
  * Plugin Name: Concert Manager
@@ -22,7 +23,7 @@ define( 'CONCERT_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
-	die();
+	trigger_error( 'This plugin should not be run outside of WordPress', E_USER_ERROR );
 }
 
 // Setup extra debug logging.
@@ -42,8 +43,7 @@ if ( defined( WP_DEBUG ) ) {
  * This action is documented in common/class-plugin-name-activator.php
  */
 function activate_concert_management() {
-	require_once constant( 'CONCERT_PLUGIN_PATH' ) . 'common/class-activator.php';
-	common\ConcertManagementActivator::activate();
+	common\Activator::activate();
 }
 
 /**
@@ -51,18 +51,11 @@ function activate_concert_management() {
  * This action is documented in common/class-plugin-name-deactivator.php
  */
 function deactivate_concert_management() {
-	require_once constant( 'CONCERT_PLUGIN_PATH' ) . 'common/class-deactivator.php';
-	common\ConcertManagementDeactivator::deactivate();
+	common\Deactivator::deactivate();
 }
 
 register_activation_hook( __FILE__, 'activate_concert_management' );
 register_deactivation_hook( __FILE__, 'deactivate_concert_management' );
-
-/**
- * The core plugin class that is used to define internationalization,
- * admin-specific hooks, and public-facing site hooks.
- */
-require constant( 'CONCERT_PLUGIN_PATH' ) . 'common/class-concert-management.php';
 
 /**
  * Begins execution of the plugin.
@@ -74,7 +67,7 @@ require constant( 'CONCERT_PLUGIN_PATH' ) . 'common/class-concert-management.php
  * @since    0.0.1
  */
 function run_concert_management() {
-	$plugin = new concertmanagement\Concert_Management();
+	$plugin = new common\ConcertManagementPlugin();
 	$plugin->run();
 }
 

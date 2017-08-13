@@ -11,7 +11,10 @@
 	<exclude-pattern>*-display*</exclude-pattern>
 
 	<config name="installed_paths" value="vendor/wp-coding-standards/wpcs" />
-	<rule ref="WordPress-Core" />
+	<rule ref="WordPress-Core" >
+		<exclude name="PEAR.NamingConventions.ValidClassName"/>
+		<exclude name="WordPress.Files.FileName"/>
+	</rule>
 	<!--
 	<rule ref="WordPress-Docs" />
 	<rule ref="WordPress-Extra" /> -->

@@ -2,14 +2,14 @@
 
 namespace uk\org\brentso\concertmanagement;
 
-require_once 'class-start-time-metadata-public.php';
+require_once constant( 'CONCERT_PLUGIN_PATH' ) . 'vendor/autoload.php';
 
 /**
  * This class is responsible for displaying the post type on the public page
  * @author voddenr
  *
  */
-class Concert_Post_Type_Public {
+class ConcertPostTypePublic {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks
@@ -18,7 +18,7 @@ class Concert_Post_Type_Public {
 	 *
 	 * @since 0.0.1
 	 * @access protected
-	 * @var ConcertManagementLoader $loader Maintains and registers all hooks
+	 * @var common\Loader $loader Maintains and registers all hooks
 	 *      for the plugin.
 	 */
 	protected $loader;
@@ -31,6 +31,6 @@ class Concert_Post_Type_Public {
 	}
 
 	private function load_dependencies() {
-		$this->start_time_metadata_public = new Start_Time_Metadata_Public( $this->loader );
+		$this->start_time_metadata_public = new StartTimeMetadataPublic( $this->loader );
 	}
 }

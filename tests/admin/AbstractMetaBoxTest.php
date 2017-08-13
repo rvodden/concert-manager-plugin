@@ -2,14 +2,13 @@
 
 namespace uk\org\brentso\concertmanagement\admin;
 
+use WP_Scripts;
 use uk\org\brentso\concertmanagement\common;
 use uk\org\brentso\concertmanagement\tests\helpers;
 
-require_once 'admin/class-abstract-meta-box.php';
-require_once 'common/class-abstract-post-metadata.php';
-require_once 'common/class-loader.php';
+require_once constant( 'CONCERT_PLUGIN_PATH' ) . 'vendor/autoload.php';
 
-class Abstract_Meta_Box_Test extends helpers\Concert_Test_Case {
+class AbstractMetaBoxTest extends helpers\Concert_Test_Case {
 
 	private $under_test;
 
@@ -21,7 +20,7 @@ class Abstract_Meta_Box_Test extends helpers\Concert_Test_Case {
 		$loader = $this->getMockBuilder( common\Loader::class )->setMethods( [ 'add_action' ] )->getMock();
 
 		$this->under_test = $this->getMockForAbstractClass(
-			Abstract_Meta_Box::class,
+			AbstractMetaBox::class,
 			array( $loader, 'Mock Title', 'mock_post_type' )
 		);
 
@@ -41,7 +40,7 @@ class Abstract_Meta_Box_Test extends helpers\Concert_Test_Case {
 		$loader = $this->getMockBuilder( common\Loader::class )->setMethods( [ 'get_tag' ] )->getMock();
 
 		$this->under_test = $this->getMockForAbstractClass(
-			Abstract_Meta_Box::class,
+			AbstractMetaBox::class,
 			array( $loader, 'Mock Title', 'mock_post_type' )
 		);
 		$this->under_test->method( 'get_tag' )->willReturn( 'mock_tag' );
@@ -65,12 +64,12 @@ class Abstract_Meta_Box_Test extends helpers\Concert_Test_Case {
 		$loader = $this->getMockBuilder( common\Loader::class )->setMethods( [ 'get_tag' ] )->getMock();
 
 		$this->under_test = $this->getMockForAbstractClass(
-			Abstract_Meta_Box::class,
+			AbstractMetaBox::class,
 			array( $loader, 'Mock Title', 'mock_post_type' )
 		);
 		$this->under_test->method( 'get_style_tag' )->willReturn( 'mock_post_type' );
 
-		$screen = $this->getMockBuilder( \WP_Screen::class )->getMock();
+		$screen = $this->getMockBuilder( WP_Scripts::class )->getMock();
 		$screen->post_type = 'mock_post_type';
 
 		\WP_Mock::userFunction('get_current_screen', array(
@@ -88,12 +87,12 @@ class Abstract_Meta_Box_Test extends helpers\Concert_Test_Case {
 		$loader = $this->getMockBuilder( common\Loader::class )->setMethods( [ 'get_tag' ] )->getMock();
 
 		$this->under_test = $this->getMockForAbstractClass(
-			Abstract_Meta_Box::class,
+			AbstractMetaBox::class,
 			array( $loader, 'Mock Title', 'mock_post_type' )
 		);
 		$this->under_test->method( 'get_style_tag' )->willReturn( 'wrong_post_type' );
 
-		$screen = $this->getMockBuilder( \WP_Screen::class )->getMock();
+		$screen = $this->getMockBuilder( WP_Scripts::class )->getMock();
 		$screen->post_type = 'wrong_post_type';
 
 		\WP_Mock::userFunction('get_current_screen', array(
@@ -111,12 +110,12 @@ class Abstract_Meta_Box_Test extends helpers\Concert_Test_Case {
 		$loader = $this->getMockBuilder( common\Loader::class )->setMethods( [ 'get_tag' ] )->getMock();
 
 		$this->under_test = $this->getMockForAbstractClass(
-			Abstract_Meta_Box::class,
+			AbstractMetaBox::class,
 			array( $loader, 'Mock Title', 'mock_post_type' )
 		);
 		$this->under_test->method( 'get_style_tag' )->willReturn( 'mock_post_type' );
 
-		$screen = $this->getMockBuilder( \WP_Screen::class )->getMock();
+		$screen = $this->getMockBuilder( WP_Scripts::class )->getMock();
 		$screen->post_type = 'mock_post_type';
 
 		\WP_Mock::userFunction('get_current_screen', array(
@@ -134,11 +133,11 @@ class Abstract_Meta_Box_Test extends helpers\Concert_Test_Case {
 		$loader = $this->getMockBuilder( common\Loader::class )->setMethods( [ 'get_tag' ] )->getMock();
 
 		$this->under_test = $this->getMockForAbstractClass(
-			Abstract_Meta_Box::class,
+			AbstractMetaBox::class,
 			array( $loader, 'Mock Title', 'mock_post_type' )
 		);
 
-		$metadata_mock = $this->getMockForAbstractClass( common\Interface_Post_Metadata::class );
+		$metadata_mock = $this->getMockForAbstractClass( common\PostMetadataInterface::class );
 		$metadata_mock->method( 'get_key' )->willReturn( 'mock_key' );
 		$metadata_mock->method( 'read' )->willReturn( 'mock_value' );
 
@@ -157,11 +156,11 @@ class Abstract_Meta_Box_Test extends helpers\Concert_Test_Case {
 		$loader = $this->getMockBuilder( common\Loader::class )->setMethods( [ 'get_tag' ] )->getMock();
 
 		$this->under_test = $this->getMockForAbstractClass(
-			Abstract_Meta_Box::class,
+			AbstractMetaBox::class,
 			array( $loader, 'Mock Title', 'mock_post_type' )
 		);
 
-		$metadata_mock = $this->getMockForAbstractClass( common\Interface_Post_Metadata::class );
+		$metadata_mock = $this->getMockForAbstractClass( common\PostMetadataInterface::class );
 		$metadata_mock->method( 'get_key' )->willReturn( 'mock_key' );
 		$metadata_mock->method( 'read' )->willReturn( 'mock_value' );
 		$metadata_mock->expects( $this->once() )

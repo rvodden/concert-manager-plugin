@@ -4,6 +4,8 @@ namespace uk\org\brentso\concertmanagement\admin;
 
 use uk\org\brentso\concertmanagement\common;
 
+require_once constant( 'CONCERT_PLUGIN_PATH' ) . 'vendor/autoload.php';
+
 /**
  * Meta Box interface for adding meta-boxes to custom post types.
  *
@@ -22,14 +24,14 @@ use uk\org\brentso\concertmanagement\common;
  * @author Richard Vodden <richard@vodden.com>
  *
  */
-interface Interface_Meta_Box {
+interface MetaBoxInterface {
 
 	/**
 	 * Registers the events necessary to add the metabox to the admin page.
 	 *
 	 * @since 0.0.1
 	 * @access protected
-	 * @var ConcertManagementLoader $loader Maintains and registers all hooks
+	 * @var common\Loader $loader Maintains and registers all hooks
 	 *      for the plugin.
 	 */
 	public function add();
@@ -39,7 +41,7 @@ interface Interface_Meta_Box {
 	 *
 	 * @since 0.0.1
 	 * @access protected
-	 * @var ConcertManagementLoader $loader Maintains and registers all hooks
+	 * @var common\Loader $loader Maintains and registers all hooks
 	 *      for the plugin.
 	 */
 	public function display( $post );
@@ -49,7 +51,7 @@ interface Interface_Meta_Box {
 	 *
 	 * @since 0.0.1
 	 * @access protected
-	 * @var ConcertManagementLoader $loader Maintains and registers all hooks
+	 * @var common\Loader $loader Maintains and registers all hooks
 	 *      for the plugin.
 	 */
 	public function save( $id, $post );
@@ -59,7 +61,7 @@ interface Interface_Meta_Box {
 	 *
 	 * @since 0.0.1
 	 * @access protected
-	 * @var ConcertManagementLoader $loader Maintains and registers all hooks
+	 * @var common\Loader $loader Maintains and registers all hooks
 	 *      for the plugin.
 	 */
 	public function enqueue_scripts( $hook_suffix );
@@ -69,7 +71,7 @@ interface Interface_Meta_Box {
 	 *
 	 * @since 0.0.1
 	 * @access protected
-	 * @var ConcertManagementLoader $loader Maintains and registers all hooks
+	 * @var common\Loader $loader Maintains and registers all hooks
 	 *      for the plugin.
 	 */
 	public function enqueue_styles( $hook_suffix );
@@ -78,7 +80,7 @@ interface Interface_Meta_Box {
 	 * Adds post metadata to the meta box
 	 *
 	 */
-	function add_post_metadata( common\Interface_Post_Metadata $post_metadatum );
+	function add_post_metadata( common\PostMetadataInterface $post_metadatum );
 
 	/**
 	 * Load post metadata and return it in an array

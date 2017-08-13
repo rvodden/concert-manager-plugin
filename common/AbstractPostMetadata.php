@@ -2,7 +2,9 @@
 
 namespace uk\org\brentso\concertmanagement\common;
 
-abstract class Abstract_Post_Metadata implements Interface_Post_Metadata {
+require_once constant( 'CONCERT_PLUGIN_PATH' ) . 'vendor/autoload.php';
+
+abstract class AbstractPostMetadata implements PostMetadataInterface {
 
 	private $key;
 
@@ -15,7 +17,7 @@ abstract class Abstract_Post_Metadata implements Interface_Post_Metadata {
 	 * input in a metabox. It checks to see if there is a value
 	 * associated with the instance's key and if so, updates accordingly.
 	 *
-	 * @param unknown $array_of_values
+	 * @param array $array_of_values
 	 */
 	public function update_from_array( $post_id, $array_of_values ) {
 		$new_value = sanitize_text_field( $array_of_values[ $this->key ] );
@@ -34,8 +36,8 @@ abstract class Abstract_Post_Metadata implements Interface_Post_Metadata {
 
 	/**
 	 *
-	 * @param unknown $post_id
-	 * @return mixed|boolean|string|unknown
+	 * @param integer $post_id
+	 * @return mixed|array|boolean|string|integer
 	 */
 	public function read( $post_id ) {
 		error_log( 'Getting post metadata for : ' . $this->key );

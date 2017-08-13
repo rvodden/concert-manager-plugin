@@ -2,7 +2,9 @@
 
 namespace uk\org\brentso\concertmanagement\common;
 
-interface Interface_Post_Metadata {
+require_once constant( 'CONCERT_PLUGIN_PATH' ) . 'vendor/autoload.php';
+
+interface PostMetadataInterface {
 
 	public function update_from_array( $post_id, $array_of_values );
 

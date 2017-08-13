@@ -2,6 +2,8 @@
 
 namespace uk\org\brentso\concertmanagement\common;
 
+require_once constant( 'CONCERT_PLUGIN_PATH' ) . 'vendor/autoload.php';
+
 /**
  * Register all actions and filters for the plugin
  *

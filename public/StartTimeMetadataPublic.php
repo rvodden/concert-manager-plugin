@@ -2,9 +2,9 @@
 
 namespace uk\org\brentso\concertmanagement;
 
-use uk\org\brentso\concertmanagement\common;
+require_once constant( 'CONCERT_PLUGIN_PATH' ) . 'vendor/autoload.php';
 
-class Start_Time_Metadata_Public {
+class StartTimeMetadataPublic {
 
 	protected $loader;
 
@@ -12,10 +12,10 @@ class Start_Time_Metadata_Public {
 
 	protected $key;
 
-	function __construct( $loader ) {
+	function __construct( common\Loader $loader ) {
 		$this->loader = $loader;
 		$this->key = 'concert-start-time';
-		$this->start_date_metadata = new common\Start_Date_Metadata();
+		$this->start_date_metadata = new common\StartDateMetadata();
 		$this->define_hooks();
 	}
 

@@ -2,9 +2,9 @@
 
 namespace uk\org\brentso\concertmanagement\common;
 
-require_once 'class-abstract-post-metadata.php';
+require_once constant( 'CONCERT_PLUGIN_PATH' ) . 'vendor/autoload.php';
 
-class End_Time_Metadata extends Abstract_Post_Metadata {
+class EndTimeMetadata extends AbstractPostMetadata {
 
 	public function __construct() {
 		parent::__construct( 'concert-end-time' );

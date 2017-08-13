@@ -3,7 +3,7 @@ namespace uk\org\brentso\concertmanagement\admin;
 
 use uk\org\brentso\concertmanagement\tests\helpers;
 
-require_once 'admin/class-admin.php';
+require_once 'admin/Admin.php';
 
 /**
  * TestAdmin

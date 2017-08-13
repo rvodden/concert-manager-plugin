@@ -2,6 +2,8 @@
 
 namespace uk\org\brentso\concertmanagement\admin;
 
+require_once constant( 'CONCERT_PLUGIN_PATH' ) . 'vendor/autoload.php';
+
 /**
  * The admin-specific functionality of the concert management plugin.
  *

@@ -1,6 +1,11 @@
 <?php
 
-namespace uk\org\brentso\concertmanagement;
+namespace uk\org\brentso\concertmanagement\common;
+
+require_once constant( 'CONCERT_PLUGIN_PATH' ) . '/vendor/autoload.php';
+
+use uk\org\brentso\concertmanagement;
+use uk\org\brentso\concertmanagement\admin;
 
 /**
  * The file that defines the core plugin class
@@ -36,7 +41,7 @@ if ( ! defined( 'WP_DEBUG' ) ) {
  * @subpackage concert_management/includes
  * @author     Your Name <email@example.com>
  */
-class Concert_Management {
+class ConcertManagementPlugin {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -44,7 +49,7 @@ class Concert_Management {
 	 *
 	 * @since    0.0.1
 	 * @access   protected
-	 * @var      ConcertManagementLoader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -107,31 +112,7 @@ class Concert_Management {
 	 */
 	private function load_dependencies() {
 		$concert_plugin_path = constant( 'CONCERT_PLUGIN_PATH' );
-		/**
-		 * The class responsible for orchestrating the actions and filters of the
-		 * core plugin.
-		 */
-		require_once $concert_plugin_path . 'common/class-loader.php';
-		/**
-		 * The class responsible for defining internationalization functionality
-		 * of the plugin.
-		 */
-		require_once $concert_plugin_path . 'common/class-i18n.php';
-		/**
-		 * The class responsible for defining all actions that are assciated with the concert post type;
-		 */
-		require_once $concert_plugin_path . 'common/class-concert-post-type.php';
-		/**
-		 * The class responsible for defining all actions that occur in the admin area.
-		 */
-		require_once $concert_plugin_path . 'admin/class-admin.php';
-		/**
-		 * The class responsible for defining all actions that occur in the public-facing
-		 * side of the site.
-		 */
-		require_once $concert_plugin_path . 'public/class-concert-management-public.php';
-
-		$this->loader = new common\Loader();
+		$this->loader = new Loader();
 	}
 
 	/**
@@ -144,7 +125,7 @@ class Concert_Management {
 	 * @access   private
 	 */
 	private function set_locale() {
-		$plugin_i18n = new common\I18n();
+		$plugin_i18n = new I18n();
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 	}
 
@@ -155,7 +136,7 @@ class Concert_Management {
 	 * @access   private
 	 */
 	private function define_concert_post_type() {
-		$this->plugin_concert_post_type = new common\Concert_Post_Type( $this->loader );
+		$this->plugin_concert_post_type = new ConcertPostType( $this->loader );
 	}
 
 	/**
@@ -180,7 +161,7 @@ class Concert_Management {
 	 * @access   private
 	 */
 	private function define_public_hooks() {
-		$plugin_public = new Concert_Management_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new concertmanagement\ConcertManagementPublic( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 	}
@@ -209,7 +190,7 @@ class Concert_Management {
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
 	 * @since     0.0.1
-	 * @return    Plugin_Name_Loader    Orchestrates the hooks of the plugin.
+	 * @return    Loader    Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader() {
 		return $this->loader;

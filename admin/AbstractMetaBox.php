@@ -4,8 +4,7 @@ namespace uk\org\brentso\concertmanagement\admin;
 
 use uk\org\brentso\concertmanagement\common;
 
-require_once 'interface-meta-box.php';
-require_once constant( 'CONCERT_PLUGIN_PATH' ) . 'common/interface-post-metadata.php';
+require_once constant( 'CONCERT_PLUGIN_PATH' ) . 'vendor/autoload.php';
 
 /**
  * This abstract meta box class implements sensible defaults for location of
@@ -22,7 +21,7 @@ require_once constant( 'CONCERT_PLUGIN_PATH' ) . 'common/interface-post-metadata
  *
  * @since 0.0.1
  */
-abstract class Abstract_Meta_Box implements Interface_Meta_Box {
+abstract class AbstractMetaBox implements MetaBoxInterface {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks
@@ -31,7 +30,7 @@ abstract class Abstract_Meta_Box implements Interface_Meta_Box {
 	 *
 	 * @since 0.0.1
 	 * @access protected
-	 * @var ConcertManagement_Loader $loader Maintains and registers all hooks
+	 * @var common\Loader $loader Maintains and registers all hooks
 	 *      for the plugin.
 	 */
 	protected $loader;
@@ -42,7 +41,7 @@ abstract class Abstract_Meta_Box implements Interface_Meta_Box {
 	 *
 	 * @since 0.0.1
 	 * @access protected
-	 * @var ConcertManagement_Loader $loader Maintains and registers all hooks
+	 * @var common\Loader $loader Maintains and registers all hooks
 	 *      for the plugin.
 	 */
 	protected $title;
@@ -55,7 +54,7 @@ abstract class Abstract_Meta_Box implements Interface_Meta_Box {
 	 *
 	 * @since 0.0.1
 	 * @access protected
-	 * @var ConcertManagement_Loader $loader Maintains and registers all hooks
+	 * @var common\Loader $loader Maintains and registers all hooks
 	 *      for the plugin.
 	 */
 	protected $post_type;
@@ -69,8 +68,8 @@ abstract class Abstract_Meta_Box implements Interface_Meta_Box {
 
 	/**
 	 *
-	 * @param unknown $loader
-	 * @param unknown $title
+	 * @param common\Loader $loader
+	 * @param string $title
 	 */
 	function __construct( $loader, $title, $post_type ) {
 		$this->set_title( $title );
@@ -210,7 +209,7 @@ abstract class Abstract_Meta_Box implements Interface_Meta_Box {
 		return $this->post_type;
 	}
 
-	public function add_post_metadata( common\Interface_Post_Metadata $post_metadatum ) {
+	public function add_post_metadata( common\PostMetadataInterface $post_metadatum ) {
 		// this is horrid PHP notation for "add post_metadatum on the end of post_metadata
 		$this->post_metadata[] = $post_metadatum;
 	}

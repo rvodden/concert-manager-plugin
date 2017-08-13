@@ -4,9 +4,9 @@ namespace uk\org\brentso\concertmanagement\admin;
 
 use ReflectionClass;
 
-require_once 'class-abstract-meta-box.php';
+require_once constant( 'CONCERT_PLUGIN_PATH' ) . 'vendor/autoload.php';
 
-abstract class Abstract_Autodisplay_Meta_Box extends Abstract_Meta_Box {
+abstract class AbstractAutodisplayMetaBox extends AbstractMetaBox {
 
 	protected function get_style_url() {
 		$concert_plugin_path = constant( 'CONCERT_PLUGIN_URL' );
