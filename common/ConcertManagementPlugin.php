@@ -2,6 +2,7 @@
 
 namespace uk\org\brentso\concertmanagement\common;
 
+use common\PostTypeInterface;
 use uk\org\brentso\concertmanagement;
 use uk\org\brentso\concertmanagement\admin;
 
@@ -60,6 +61,7 @@ class ConcertManagementPlugin {
 	protected $loader;
 	protected $concertManagementPublic;
 	protected $i18n;
+	protected $postTypeInterface;
 
 	/**
 	 * Define the core functionality of the plugin.
@@ -74,17 +76,19 @@ class ConcertManagementPlugin {
 			Loader $loader,
 			concertmanagement\ConcertManagementPublic $concertManagementPublic,
 			admin\Admin $admin,
-			I18n $i18n
+			I18n $i18n,
+			PostTypeInterface $postTypeInterface
 		) {
 		$this->loader = $loader;
 		$this->concertManagementPublic = $concertManagementPublic;
 		$this->admin = $admin;
 		$this->i18n = $i18n;
+		$this->postTypeInterface = $postTypeInterface;
 	}
 
 	public function init() {
 		$this->setLocale();
-		$this->defineConcertPostType();
+		$this->definePostType();
 		$this->defineAdminHooks();
 		$this->definePublicHooks();
 	}
@@ -108,8 +112,9 @@ class ConcertManagementPlugin {
 	 * @since    0.0.1
 	 * @access   private
 	 */
-	private function defineConcertPostType() {
-		$this->plugin_concert_post_type = new ConcertPostType( $this->loader );
+	private function definePostType() {
+		// TODO : call the init function when it exists
+		//$this->plugin_concert_post_type = new ConcertPostType( $this->loader );
 	}
 
 	/**

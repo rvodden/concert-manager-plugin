@@ -15,6 +15,7 @@
 		<testsuite name="Concert Managemet Test Suite">
 			<directory suffix="Test.php">./tests/*</directory>
 			<directory suffix="Test.php">./tests/admin/*</directory>
+			<directory suffix="Test.php">./tests/common/*</directory>
 		</testsuite>
 	</testsuites>
 	<filter>

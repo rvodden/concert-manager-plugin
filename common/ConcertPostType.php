@@ -2,6 +2,7 @@
 
 namespace uk\org\brentso\concertmanagement\common;
 
+use common\PostTypeInterface;
 use uk\org\brentso\concertmanagement\admin;
 use uk\org\brentso\concertmanagement;
 
@@ -25,7 +26,7 @@ use uk\org\brentso\concertmanagement;
  * @author Richard Vodden <richard@vodden.com>
  *
  */
-class ConcertPostType {
+class ConcertPostType implements PostTypeInterface {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks
@@ -52,14 +53,14 @@ class ConcertPostType {
 	}
 
 	private function defineHooks() {
-		$this->loader->addAction( 'init', $this, 'createConcertPostType' );
+		$this->loader->addAction( 'init', $this, 'createPostType' );
 		error_log( 'Creating Concert Post Type Init Hook' );
 	}
 
 	private function defineAdminHooks() {
 	}
 
-	public function createConcertPostType() {
+	public function createPostType() {
 		error_log( 'Creating Concert Post Type' );
 
 		$labels = array(
