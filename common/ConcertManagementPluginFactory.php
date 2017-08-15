@@ -20,7 +20,7 @@ class ConcertManagementPluginFactory {
 		$concertManagementPublic = new ConcertManagementPublic( $plugin_name, $plugin_version );
 		$admin = new Admin( $plugin_name, $plugin_version );
 		$i18n = new I18n();
-		$concertPostType = new ConcertPostType();
+		$concertPostType = new ConcertPostType($loader);
 		
 		$concertManagementPlugin = new ConcertManagementPlugin(
 			$loader,

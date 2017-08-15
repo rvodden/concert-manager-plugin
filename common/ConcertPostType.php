@@ -2,7 +2,6 @@
 
 namespace uk\org\brentso\concertmanagement\common;
 
-use common\PostTypeInterface;
 use uk\org\brentso\concertmanagement\admin;
 use uk\org\brentso\concertmanagement;
 
