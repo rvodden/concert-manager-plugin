@@ -40,7 +40,7 @@ class AdminTest extends helpers\ConcertTestCase {
 
 		$this->undertest = new Admin( $this->plugin_name, $this->version_number );
 
-		\WP_Mock::wpFunction( 'wp_enqueue_style', array(
+		\WP_Mock::userFunction( 'wp_enqueue_style', array(
 			'times' => 1,
 		) );
 
@@ -51,7 +51,7 @@ class AdminTest extends helpers\ConcertTestCase {
 
 		$this->undertest = new Admin( $this->plugin_name, $this->version_number );
 
-		\WP_Mock::wpFunction( 'wp_enqueue_script', array(
+		\WP_Mock::userFunction( 'wp_enqueue_script', array(
 			'times' => 1,
 		) );
 
@@ -62,7 +62,7 @@ class AdminTest extends helpers\ConcertTestCase {
 
 		$this->undertest = new Admin( $this->plugin_name, $this->version_number );
 
-		\WP_Mock::wpFunction( 'add_options_page', array(
+		\WP_Mock::userFunction( 'add_options_page', array(
 			'times' => 1,
 		) );
 

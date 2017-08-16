@@ -4,7 +4,6 @@ namespace uk\org\brentso\concertmanagement\common;
 use uk\org\brentso\concertmanagement\tests\helpers\ConcertTestCase;
 use uk\org\brentso\concertmanagement\admin\Admin;
 use uk\org\brentso\concertmanagement\ConcertManagementPublic;
-use common\PostTypeInterface;
 
 /**
  * ConcertManagementPlugin test case.

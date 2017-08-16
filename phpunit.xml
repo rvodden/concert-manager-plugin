@@ -16,6 +16,7 @@
 			<directory suffix="Test.php">./tests/*</directory>
 			<directory suffix="Test.php">./tests/admin/*</directory>
 			<directory suffix="Test.php">./tests/common/*</directory>
+			<directory suffix="Test.php">./tests/public/*</directory>
 		</testsuite>
 	</testsuites>
 	<filter>
