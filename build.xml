@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model xlink:href="/usr/share/php5/PEAR/data/phing/etc/phing-grammar.rng"
+            type="application/xml"
+            schematypens="http://relaxng.org/ns/structure/1.0" ?>
+<project name="concert-management" default="test">
+
+	<property name="vendordir" value="${project.basedir}/vendor" />
+	<property name="vendorbindir" value="${vendordir}/bin" />
+	<property name="reportdir" value="${project.basedir}/reports" />
+	<property name="autoloaderpath" value="${vendordir}/autoload.php" />
+	<property name="phpunitbootstrappath" value="${project.basedir}/tests/bootstrap.php" />
+
+	<target name="test" depends="autoloader" description="Runs all tests">
+		<phingcall target="unittest" />
+		<phingcall target="codesniffer" />
+	</target>
+
+	<target name="autoloader" description="Loads composer autoloader">
+		<autoloader autoloaderpath="${autoloaderpath}" />
+	</target>
+
+	<target name="unittest" description="Run tests with PHPUnit">
+		<coverage-setup database="./reports/coverage.db">
+			<fileset dir=".">
+				<patternset>
+					<include name="**/*.php" />
+					<exclude name="vendor/**" />
+					<exclude name="*.js" />
+					<exclude name="*.css" />
+					<exclude name="*-display.php" />
+				</patternset>
+			</fileset>
+		</coverage-setup>
+		<phpunit printsummary="true" codecoverage="true"
+			bootstrap="${phpunitbootstrappath}">
+			<formatter todir="${reportdir}" outfile="phphunit.xml"
+				type="xml" />
+			<formatter todir="${reportdir}" outfile="phphunit.coverage.xml"
+				type="clover" />
+			<batchtest>
+				<fileset dir="tests">
+					<include name="**/*Test.php" />
+				</fileset>
+			</batchtest>
+		</phpunit>
+	</target>
+
+	<target name="codesniffer" description="Sniff php code format of single file">
+		<foreach param="codesnifferfilename" target="codesniffer-onefile">
+			<fileset dir=".">
+				<include name="**/*.php" />
+				<exclude name="vendor/**" />
+				<exclude name="*.js" />
+				<exclude name="*.css" />
+				<exclude name="*-display.php" />
+			</fileset>
+		</foreach>
+	</target>
+
+	<target name="codesniffer-onefile" description="Sniff php code format of single file">
+		<echo message="${codesnifferfilename}" />
+		<exec executable="vendor/bin/phpcs" logoutput="true">
+			<arg value="--standard=phpcs.ruleset.xml" />
+			<arg file="${codesnifferfilename}" />
+		</exec>
+	</target>
+
+	<target name="clean" description="Cleanup build artifacts">
+		<delete dir="${vendordir}" />
+		<delete dir="${reportdir}" />
+		<delete file="${composerlockpath}" />
+	</target>
+
+</project>
