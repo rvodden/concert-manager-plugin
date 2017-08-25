@@ -20,10 +20,7 @@ env:
 before_script:
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
   - export PATH="$(pwd)/vendor/bin:$PATH"
-  - composer install
 
 script:
-  - echo $JAVA_HOME
-  - phpcs --standard=phpcs.ruleset.xml $(find . -name '*.php' -not -path './vendor/*')
-  - phpunit
+  - composer install
   - travis_retry php vendor/bin/coveralls --verbose --coverage_clover=reports/php/phpunit.coverage.xml
