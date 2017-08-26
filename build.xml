@@ -6,7 +6,7 @@
 
 	<property name="vendordir" value="${project.basedir}/vendor" />
 	<property name="vendorbindir" value="${vendordir}/bin" />
-	<property name="reportdir" value="${project.basedir}/reports" />
+	<property name="reportsdir" value="${project.basedir}/reports" />
 	<property name="autoloaderpath" value="${vendordir}/autoload.php" />
 	<property name="phpunitbootstrappath" value="${project.basedir}/tests/bootstrap.php" />
 
@@ -19,7 +19,7 @@
 		<autoloader autoloaderpath="${autoloaderpath}" />
 	</target>
 
-	<target name="unittest" description="Run tests with PHPUnit">
+	<target name="unittest" depends="createreportsdirectory" description="Run tests with PHPUnit">
 		<coverage-setup database="./reports/coverage.db">
 			<fileset dir=".">
 				<patternset>
@@ -33,9 +33,9 @@
 		</coverage-setup>
 		<phpunit printsummary="true" codecoverage="true"
 			bootstrap="${phpunitbootstrappath}">
-			<formatter todir="${reportdir}" outfile="phphunit.xml"
+			<formatter todir="${reportsdir}" outfile="phphunit.xml"
 				type="xml" />
-			<formatter todir="${reportdir}" outfile="phphunit.coverage.xml"
+			<formatter todir="${reportsdir}" outfile="phphunit.coverage.xml"
 				type="clover" />
 			<batchtest>
 				<fileset dir="tests">
@@ -64,10 +64,14 @@
 			<arg file="${codesnifferfilename}" />
 		</exec>
 	</target>
+	
+	<target name="createreportsdirectory" description="Creates the reports directory">
+		<mkdir dir="${reportsdir}" />
+	</target>
 
 	<target name="clean" description="Cleanup build artifacts">
 		<delete dir="${vendordir}" />
-		<delete dir="${reportdir}" />
+		<delete dir="${reportsdir}" />
 		<delete file="${composerlockpath}" />
 	</target>
 
