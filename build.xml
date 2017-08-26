@@ -7,6 +7,7 @@
 	<property name="vendordir" value="${project.basedir}/vendor" />
 	<property name="vendorbindir" value="${vendordir}/bin" />
 	<property name="reportsdir" value="${project.basedir}/reports" />
+	<property name="phpreportsdir" value="${reportsdir}/php" />
 	<property name="autoloaderpath" value="${vendordir}/autoload.php" />
 	<property name="phpunitbootstrappath" value="${project.basedir}/tests/bootstrap.php" />
 
@@ -33,9 +34,9 @@
 		</coverage-setup>
 		<phpunit printsummary="true" codecoverage="true"
 			bootstrap="${phpunitbootstrappath}">
-			<formatter todir="${reportsdir}" outfile="phphunit.xml"
+			<formatter todir="${phpreportsdir}" outfile="phphunit.xml"
 				type="xml" />
-			<formatter todir="${reportsdir}" outfile="phphunit.coverage.xml"
+			<formatter todir="${phpreportsdir}" outfile="phphunit.coverage.xml"
 				type="clover" />
 			<batchtest>
 				<fileset dir="tests">
@@ -66,7 +67,7 @@
 	</target>
 	
 	<target name="createreportsdirectory" description="Creates the reports directory">
-		<mkdir dir="${reportsdir}" />
+		<mkdir dir="${phpreportsdir}" />
 	</target>
 
 	<target name="clean" description="Cleanup build artifacts">
