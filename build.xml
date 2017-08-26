@@ -26,6 +26,7 @@
 				<patternset>
 					<include name="**/*.php" />
 					<exclude name="vendor/**" />
+					<exclude name="tests/**" />
 					<exclude name="*.js" />
 					<exclude name="*.css" />
 					<exclude name="*-display.php" />
