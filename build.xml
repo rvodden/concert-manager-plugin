@@ -27,6 +27,7 @@
 					<include name="**/*.php" />
 					<exclude name="vendor/**" />
 					<exclude name="tests/**" />
+					<exclude name="features/**" />
 					<exclude name="*.js" />
 					<exclude name="*.css" />
 					<exclude name="*-display.php" />
