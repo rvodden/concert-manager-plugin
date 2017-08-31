@@ -26,4 +26,9 @@ default:
         admin:
           username: 'testadmin'
           password: '*zlGWWiHumMK1L8e5fqy4(NA'
-
+ci:
+  extensions:
+    Behat\MinkExtension:
+      base_url: http://wordpress.dev
+      sauce_labs:
+        browser: chrome

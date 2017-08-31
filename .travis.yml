@@ -57,6 +57,7 @@ install:
 
 script:
   - phing citest
+  - behat -p ci
   
 after_script:
   - travis_retry php vendor/bin/coveralls --verbose --coverage_clover=reports/php/phpunit.coverage.xml
