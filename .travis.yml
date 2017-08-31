@@ -56,7 +56,7 @@ install:
   - sudo /etc/init.d/apache2 restart
 
 script:
-  - phing
+  - phing citest
   
 after_script:
   - travis_retry php vendor/bin/coveralls --verbose --coverage_clover=reports/php/phpunit.coverage.xml

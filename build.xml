@@ -16,6 +16,11 @@
 		<phingcall target="codesniffer" />
 		<phingcall target="featuretest" />
 	</target>
+	
+	<target name="citest" depends="autoloader" description="Runs continuous integration tests">
+		<phingcall target="unittest" />
+		<phingcall target="codesniffer" />
+	</target>
 
 	<target name="autoloader" description="Loads composer autoloader">
 		<autoloader autoloaderpath="${autoloaderpath}" />
