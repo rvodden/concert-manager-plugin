@@ -20,7 +20,7 @@ addons:
     secure: "j4epCGJJhbZEHkL/dJsyycg+l/GHgDWFVyELkZOOVfH42+OhXnILAlY6xqp3cQNLg17LUlzIBA0Kc8PEtmZINJyhaEkSgo3TMfR5G75jizedu22yhzrfmZICyNxiK/bAQ2jbZ124odhuYyN6HtNfQiqlCL5Y1H2GP5v1ogfBss+wO1j2FkBSUduA3gU6VgvfcDyPEpByUnmaSa9ki0I8PrXPxl6gdFqT7rp/kAWWOn/1gsq7Fwzt4qncI+DCTxqOs3e0Q128ZeLnBerO3ZUMBZXM8TMYldXvX7o12PrVbji///KkpsVm83GrjNeA4wL8PWmhPxjIwuaOaI6a2RfiAUrnrqwTiniQdylfIZX5QuAm/jaBBzzX9TZAKLZ63n5VJk+ZXkmrvzz3JWdGJbxYJIQV5+YUip0aJSbBjurO0L4r5OV6GJI6ggtZ10yiJI3z6hL+6AbSFu1mVbD17gpHTPg1Q20vwyjQaoJT87p/urDNr44qZyJKYWk9ISthQf+HuXUnxH2ba6nyFeKfcLn3cjDH99Oz5cm5vxcpdR3KjCElf9C/CNoKA526atOK7C3tZTkKmpGgfBno/0yt8CgoqAjw+lRQQrhCoAxjSq1qLhdo4jlJ73j8KwD4HfjwYDOgIJZw3KQizvqJmzzRHzPtqG97VYvGXSgxyiZWflo/htg="
 
 php:
-  - 7.0
+  - 7.0.22
   
 env:
   - WP_VERSION=latest WP_MULTISITE=0
