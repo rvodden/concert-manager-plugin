@@ -32,3 +32,6 @@ ci:
       base_url: http://wordpress.dev
       sauce_labs:
         browser: chrome
+    PaulGibbs\WordpressBehatExtension:
+      path: /tmp/wordpress/
+
