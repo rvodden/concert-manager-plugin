@@ -30,14 +30,14 @@ before_install:
   - export PATH="$(pwd)/vendor/bin:$PATH"
   - sudo apt-get update
   - mysql -u root -e 'CREATE DATABASE wordpress;'
-  - mysql -u root -e "CREATE USER 'travis'@'localhost' IDENTIFIED BY 'travis';"
-  - mysql -u root -e "GRANT ALL ON wordpress.* TO 'travis'@'localhost';"
+  - mysql -u root -e "CREATE USER 'travis'@'127.0.0.1' IDENTIFIED BY 'travis';"
+  - mysql -u root -e "GRANT ALL ON wordpress.* TO 'travis'@'127.0.0.1';"
   
 install:
   - composer install
   # install wordpress
   - wp core download  --path=/tmp/wordpress
-  - wp core config --dbname=wordpress --dbuser=travis --dbhost=localhost --path=/tmp/wordpress
+  - wp core config --dbname=wordpress --dbuser=travis --dbhost=127.0.0.1 --dbpass= --path=/tmp/wordpress
   - wp core install --admin_name=admin --admin_password=admin --admin_email=admin@example.com --url=http://wordpress.dev --title=WordPress --path=/tmp/wordpress
   # link plugin in to the wordpress location
   - ln -s $(pwd) /tmp/wordpress/wp-content/plugins/concert-manager
