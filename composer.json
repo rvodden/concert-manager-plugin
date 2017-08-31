@@ -49,8 +49,5 @@
 			"uk\\org\\brentso\\concertmanagement\\features\\" : "features",
 			"uk\\org\\brentso\\concertmanagement\\tests\\" : "tests"
 		}
-	},
-	"scripts" : {
-		"post-install-cmd" : "vendor/bin/phing"
 	}
 }
