@@ -1,5 +1,3 @@
-dist: trusty
-
 language: php
 
 notifications:
@@ -31,7 +29,7 @@ before_install:
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
   - export PATH="$(pwd)/vendor/bin:$PATH"
   - sudo apt-get update
-  - mysql -e 'CREATE DATABASE wordpress;'
+  - mysql -u travis -e 'CREATE DATABASE wordpress;'
   
 install:
   - composer install
