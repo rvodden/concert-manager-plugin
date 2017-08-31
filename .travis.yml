@@ -30,7 +30,7 @@ before_install:
   - export PATH="$(pwd)/vendor/bin:$PATH"
   - sudo apt-get update
   - mysql -u root -e 'CREATE DATABASE wordpress;'
-  - mysql -u root -e "CREATE USER 'travis'@'127.0.0.1' IDENTIFIED BY 'travis';"
+  - mysql -u root -e "CREATE USER 'travis'@'127.0.0.1' IDENTIFIED BY '';"
   - mysql -u root -e "GRANT ALL ON wordpress.* TO 'travis'@'127.0.0.1';"
   
 install:
