@@ -29,7 +29,9 @@ before_install:
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
   - export PATH="$(pwd)/vendor/bin:$PATH"
   - sudo apt-get update
-  - mysql -u travis -e 'CREATE DATABASE wordpress;'
+  - mysql -u root -e 'CREATE DATABASE wordpress;'
+  - mysql -u root -e "CREATE USER 'travis'@'localhost' IDENTIFIED BY 'travis';"
+  - mysql -u root -e "GRANT ALL ON wordpress.* TO 'travis'@'localhost';"
   
 install:
   - composer install
