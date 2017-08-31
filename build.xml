@@ -14,6 +14,7 @@
 	<target name="test" depends="autoloader" description="Runs all tests">
 		<phingcall target="unittest" />
 		<phingcall target="codesniffer" />
+		<phingcall target="featuretest" />
 	</target>
 
 	<target name="autoloader" description="Loads composer autoloader">
@@ -22,8 +23,14 @@
 
 	<target name="unittest" depends="createreportsdirectory"
 		description="Run tests with PHPUnit">
-		<exec executable="${vendorbindir}/phpunit" passthru="true">
+		<exec executable="${vendorbindir}/phpunit" passthru="true" checkreturn="true">
 			<arg value="--colors" />
+		</exec>
+	</target>
+	
+	<target name="featuretest" depends="createreportsdirectory"
+		description="Run tests with Behat">
+		<exec executable="${vendorbindir}/behat" passthru="true" checkreturn="true">
 		</exec>
 	</target>
 
@@ -41,7 +48,7 @@
 
 	<target name="codesniffer-onefile" description="Sniff php code format of single file">
 		<echo message="${codesnifferfilename}" />
-		<exec executable="vendor/bin/phpcs" logoutput="true">
+		<exec executable="vendor/bin/phpcs" passthru="true" checkreturn="true">
 			<arg value="--standard=phpcs.ruleset.xml" />
 			<arg file="${codesnifferfilename}" />
 		</exec>

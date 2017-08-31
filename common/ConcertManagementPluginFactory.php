@@ -9,7 +9,7 @@ use uk\org\brentso\concertmanagement\admin\Admin;
  * @author voddenr
  *
  */
-class ConcertManagementPluginFactory {
+class ConcertManagementPluginFactory implements PluginFactoryInterface {
 
 	public static function createPlugin() {
 		
