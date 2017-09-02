@@ -16,22 +16,16 @@ default:
         page: 
           - uk\org\brentso\concertmanagement\features\pages
     Behat\MinkExtension:
-      base_url: http://wordpress.dev:8081
-      selenium2: 
-         browser: chrome
+      base_url: http://localhost
+      sauce_labs: 
+        browser: chrome
+        customData:
+          commit: \%env(TRAVIS_COMMIT)
+           
     PaulGibbs\WordpressBehatExtension:
       default_driver: wpcli
-      path: /Users/voddenr/Sites/wordpress/
+      path: /tmp/wordpress/
       users:
         admin:
           username: 'testadmin'
           password: '*zlGWWiHumMK1L8e5fqy4(NA'
-ci:
-  extensions:
-    Behat\MinkExtension:
-      base_url: http://localhost
-      sauce_labs:
-        browser: chrome
-    PaulGibbs\WordpressBehatExtension:
-      path: /tmp/wordpress/
-
