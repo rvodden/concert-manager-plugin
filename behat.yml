@@ -15,17 +15,46 @@ default:
       namespaces:
         page: 
           - uk\org\brentso\concertmanagement\features\pages
-    Behat\MinkExtension:
-      base_url: http://localhost
-      sauce_labs: 
-        browser: chrome
-        customData:
-          commit: \%env(TRAVIS_COMMIT)
-           
     PaulGibbs\WordpressBehatExtension:
       default_driver: wpcli
-      path: /tmp/wordpress/
       users:
         admin:
           username: 'testadmin'
-          password: '*zlGWWiHumMK1L8e5fqy4(NA'
+          password: 'Password123!'
+    Behat\MinkExtension:
+      sessions:
+        selenium_session:
+          selenium2:
+            browser: "chrome"
+            wd_host: http://127.0.0.1:9515
+            capabilities:
+              platform: MAC
+              browser: chrome
+        sauce_labs_session:
+          sauce_labs:
+              capabilities:
+                browser: chrome
+                custom-data:
+                  commit: %env(TRAVIS_COMMIT)
+ci:
+  extensions:
+    Behat\MinkExtension:
+      default_session: sauce_labs_session
+      base_url: http://wordpress.dev
+    PaulGibbs\WordpressBehatExtension:
+      path: /tmp/wordpress
+      users:
+        admin:
+          username: 'testadmin'
+          password: 'Password123!'
+local:
+  extensions:
+    Behat\MinkExtension:
+      default_session: selenium_session
+      base_url: http://wordpress.dev:8081
+    PaulGibbs\WordpressBehatExtension:
+      path: /Users/voddenr/Sites/wordpress
+      users:
+        admin:
+          username: 'testadmin'
+          password: 'Password123!'

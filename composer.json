@@ -34,7 +34,7 @@
 		"dealerdirect/phpcodesniffer-composer-installer" : "*",
 		"behat/behat" : "*",
 		"behat/mink" : "*",
-		"behat/mink-extension" : "*",
+		"behat/mink-extension" : "~2",
 		"behat/mink-selenium2-driver" : "*",
 		"symfony/debug" : "*",
 		"paulgibbs/behat-wordpress-extension" : "^0.7.0",

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7aad536ea26e168753d80aeb81429eac",
+    "content-hash": "da475b6fce925b0aad055201388e4214",
     "packages": [],
     "packages-dev": [
         {
@@ -291,16 +291,16 @@
         },
         {
             "name": "behat/mink-extension",
-            "version": "v2.2",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Behat/MinkExtension.git",
-                "reference": "5b4bda64ff456104564317e212c823e45cad9d59"
+                "reference": "ba90463fab1e92fbdb3b16f25cc106634d373878"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Behat/MinkExtension/zipball/5b4bda64ff456104564317e212c823e45cad9d59",
-                "reference": "5b4bda64ff456104564317e212c823e45cad9d59",
+                "url": "https://api.github.com/repos/Behat/MinkExtension/zipball/ba90463fab1e92fbdb3b16f25cc106634d373878",
+                "reference": "ba90463fab1e92fbdb3b16f25cc106634d373878",
                 "shasum": ""
             },
             "require": {
@@ -346,7 +346,7 @@
                 "test",
                 "web"
             ],
-            "time": "2016-02-15T07:55:18+00:00"
+            "time": "2016-11-17T11:38:25+00:00"
         },
         {
             "name": "behat/mink-selenium2-driver",
@@ -5797,7 +5797,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "behat/mink-extension": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
