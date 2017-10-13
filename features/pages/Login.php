@@ -17,7 +17,7 @@ class Login extends Page {
 	);
 
 	private $adminUser = 'testadmin';
-	private $adminPassword = 'Password123!';
+	private $adminPassword = 'RuU7AXuKye44aQF8';
 
 	public function login() {
 		$this->getElement('Username Field')->setValue($this->adminUser);
