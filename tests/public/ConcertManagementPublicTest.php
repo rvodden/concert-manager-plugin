@@ -20,7 +20,7 @@ class ConcertManagementPublicTest extends ConcertTestCase {
 	/**
 	 * Prepares the environment before running a test.
 	 */
-	protected function setUp() {
+	protected function setUp() : void {
 		parent::setUp();
 		WP_Mock::setUp();
 	}
@@ -28,7 +28,7 @@ class ConcertManagementPublicTest extends ConcertTestCase {
 	/**
 	 * Cleans up the environment after running a test.
 	 */
-	protected function tearDown() {
+	protected function tearDown() : void {
 		parent::tearDown();
 		WP_Mock::setUp();
 	}
@@ -37,8 +37,6 @@ class ConcertManagementPublicTest extends ConcertTestCase {
 	 * Tests ConcertManagementPublic->enqueueStyles()
 	 */
 	public function testEnqueueStyles() {
-		// TODO Auto-generated
-		// ConcertManagementPublicTest->testEnqueueStyles()
 		$this->concertManagementPublic = new concertManagementPublic( 'Mock Plugin', '0.0.1' );
 		WP_Mock::userFunction( 'wp_enqueue_style', array(
 			'times' => 1,

@@ -5,11 +5,11 @@
  * @package Concert_Management
  */
 
-require_once 'vendor/autoload.php';
+require_once dirname(__DIR__).'/vendor/autoload.php';
 
 
 WP_Mock::activateStrictMode();
-WP_Mock::setUsePatchwork( true );
+// WP_Mock::setUsePatchwork(true);
 WP_Mock::bootstrap();
 
 ini_set( 'error_log', '/dev/null' );

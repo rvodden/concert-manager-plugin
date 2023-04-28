@@ -8,8 +8,8 @@ namespace uk\org\brentso\concertmanagement\common;
  * Loads and defines the internationalization files for this plugin
  * so that it is ready for translation.
  *
- * @link       http://example.com
- * @since      1.0.0
+ * @link  http://example.com
+ * @since 1.0.0
  *
  * @package    Plugin_Name
  * @subpackage Plugin_Name/common
@@ -26,18 +26,20 @@ namespace uk\org\brentso\concertmanagement\common;
  * @subpackage Plugin_Name/common
  * @author     Your Name <email@example.com>
  */
-class I18n {
+class I18n
+{
 
-	/**
-	 * Load the plugin text domain for translation.
-	 *
-	 * @since    1.0.0
-	 */
-	public function loadPluginTextdomain() {
-		load_plugin_textdomain(
-			'plugin-name',
-			false,
-			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
-		);
-	}
+    /**
+     * Load the plugin text domain for translation.
+     *
+     * @since 1.0.0
+     */
+    public function loadPluginTextdomain()
+    {
+        load_plugin_textdomain(
+            'plugin-name',
+            false,
+            dirname(dirname(plugin_basename(__FILE__))) . '/languages/'
+        );
+    }
 }

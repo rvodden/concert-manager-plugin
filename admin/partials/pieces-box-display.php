@@ -1,35 +1,11 @@
-<table id="pieces-table">
-	<thead>
-		<tr>
-			<td>Order</td>
-			<td>Composer</td>
-			<td>Piece</td>
-		</tr>
-	</thead>
-	<tbody>
-	</tbody>
-</table>
-<input name="concert-pieces" id="concert-pieces" type="hidden"
-	value='
 <?php
-	echo isset( $metadata['concert-pieces'] ) ? $metadata['concert-pieces'] : '';
-?>
-' />
-<a id="open-dialog">add piece...</a>
 
-<div id="dialog" title="Add a piece to the concert...">
-	<dl>
-		<dt>
-			<label for="composer">Composer: </label>
-		</dt>
-		<dd>
-			<input name="composer" id="composer" />
-		</dd>
-		<dt>
-			<label for="piece">Piece: </label>
-		</dt>
-		<dd>
-			<input name="piece" id="piece" />
-		</dd>
-	</dl>
-</div>
+namespace uk\org\brentso\concertmanagement\admin;
+
+$pieces = isset($metadata['concert-pieces']) ? $metadata['concert-pieces'] : null;
+
+$concert_pieces_table = new PiecesTable($_GET['post']);
+$concert_pieces_table->prepare_items();
+$concert_pieces_table->display();
+
+?>

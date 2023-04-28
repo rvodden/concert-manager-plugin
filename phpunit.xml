@@ -1,43 +1,42 @@
 <?xml version="1.0"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/5.7.4/phpunit.xsd"
-	bootstrap="tests/bootstrap.php"
-	backupGlobals="false" colors="true"
-	convertErrorsToExceptions="true"
-	convertNoticesToExceptions="true"
-	convertWarningsToExceptions="true"
-	beStrictAboutOutputDuringTests="true"
-	beStrictAboutTestSize="true"
-	beStrictAboutTestsThatDoNotTestAnything="true"
-	beStrictAboutTodoAnnotatedTests="true"
-	>
-	<testsuites>
-		<testsuite name="Concert Managemet Test Suite">
-			<directory suffix="Test.php">./tests/*</directory>
-			<directory suffix="Test.php">./tests/admin/*</directory>
-			<directory suffix="Test.php">./tests/common/*</directory>
-			<directory suffix="Test.php">./tests/public/*</directory>
-		</testsuite>
-	</testsuites>
-	<filter>
-		<whitelist>
-			<directory suffix=".php">./</directory>
-			<exclude>
-				<directory>./vendor</directory>
-				<directory>./admin/css</directory>
-				<directory>./admin/js</directory>
-				<directory>./admin/partials</directory>
-				<directory>./common/css</directory>
-				<directory>./common/js</directory>
-				<directory>./common/partials</directory>
-				<directory>./features</directory>
-				<directory>./tests</directory>
-			</exclude>
-		</whitelist>
-	</filter>
-	<logging>
-		<log type="coverage-clover" target="reports/php/phpunit.coverage.xml" />
-		<log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
-		<log type="junit" target="reports/php/phpunit.xml" logIncompleteSkipped="true" />
-	</logging>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.1/phpunit.xsd" 
+	bootstrap="tests/bootstrap.php" 
+	backupGlobals="false" 
+	colors="true" 
+	beStrictAboutOutputDuringTests="true" 
+	beStrictAboutTestsThatDoNotTestAnything="true" 
+	beStrictAboutTodoAnnotatedTests="true">
+  <testsuites>
+    <testsuite name="Concert Managemet Test Suite">
+      <directory suffix="Test.php">./tests/*</directory>
+      <directory suffix="Test.php">./tests/admin/*</directory>
+      <directory suffix="Test.php">./tests/common/*</directory>
+      <directory suffix="Test.php">./tests/public/*</directory>
+    </testsuite>
+  </testsuites>
+  <coverage>
+    <report>
+      <clover outputFile="reports/php/phpunit.coverage.xml"/>
+      <text outputFile="php://stdout" showUncoveredFiles="false"/>
+    </report>
+  </coverage>
+  <logging>
+    <junit outputFile="reports/php/phpunit.xml"/>
+  </logging>
+  <source>
+    <include>
+      <directory suffix=".php">./</directory>
+    </include>
+    <exclude>
+      <directory>./vendor</directory>
+      <directory>./admin/css</directory>
+      <directory>./admin/js</directory>
+      <directory>./admin/partials</directory>
+      <directory>./common/css</directory>
+      <directory>./common/js</directory>
+      <directory>./common/partials</directory>
+      <directory>./features</directory>
+      <directory>./tests</directory>
+    </exclude>
+  </source>
 </phpunit>

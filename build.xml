@@ -14,7 +14,6 @@
 	<target name="test" depends="autoloader" description="Runs all tests">
 		<phingcall target="unittest" />
 		<phingcall target="codesniffer" />
-		<phingcall target="featuretest" />
 	</target>
 	
 	<target name="citest" depends="autoloader" description="Runs continuous integration tests">
@@ -33,12 +32,6 @@
 		</exec>
 	</target>
 	
-	<target name="featuretest" depends="createreportsdirectory"
-		description="Run tests with Behat">
-		<exec executable="${vendorbindir}/behat" passthru="true" checkreturn="true">
-		</exec>
-	</target>
-
 	<target name="codesniffer" description="Sniff php code format of single file">
 		<foreach param="codesnifferfilename" target="codesniffer-onefile">
 			<fileset dir=".">

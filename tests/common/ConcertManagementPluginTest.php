@@ -16,7 +16,7 @@ class ConcertManagementPluginTest extends ConcertTestCase {
 	 */
 	private $concertManagementPlugin;
 	
-	public function setUp() {
+	public function setUp() : void {
 		\WP_Mock::setUp();
 	}
 
@@ -24,7 +24,7 @@ class ConcertManagementPluginTest extends ConcertTestCase {
 	 * Tests ConcertManagementPlugin->init()
 	 */
 	public function testInit() {
-		$loader = $this->getMockBuilder( Loader::class )->setMethods( [ 'addAction' ] )->getMock();
+		$loader = $this->getMockBuilder( Loader::class )->onlyMethods( [ 'addAction' ] )->getMock();
 		$admin = $this->getMockBuilder( Admin::class )->setConstructorArgs( [ 'Mock Plugin', '0.0.1' ] )->getMock();
 		$concertManagementPublic = $this
 			->getMockBuilder( ConcertManagementPublic::class )
@@ -41,13 +41,15 @@ class ConcertManagementPluginTest extends ConcertTestCase {
 			$postType
 		);
 		
-		$loader->expects( $this->exactly( 6 ) )->method( 'addAction' )->withConsecutive(
-			[ 'plugins_loaded', $i18n, 'loadPluginTextdomain' ],
-			[ 'admin_enqueue_scripts', $admin, 'enqueueStyles' ],
-			[ 'admin_enqueue_scripts', $admin, 'enqueueScripts' ],
-			[ 'admin_menu', $admin, 'addOptionsPage' ],
-			[ 'wp_enqueue_scripts', $concertManagementPublic, 'enqueueStyles' ],
-			[ 'wp_enqueue_scripts', $concertManagementPublic, 'enqueueScripts' ]
+		$loader->expects( $this->exactly( 6 ) )->method( 'addAction' )->willReturnCallback( fn( $arg1, $arg2, $arg3) =>
+			match([$arg1, $arg2, $arg3]) {
+				[ 'plugins_loaded', $i18n, 'loadPluginTextdomain' ] => null,
+				[ 'admin_enqueue_scripts', $admin, 'enqueueStyles' ] => null,
+				[ 'admin_enqueue_scripts', $admin, 'enqueueScripts' ] => null,
+				[ 'admin_menu', $admin, 'addOptionsPage' ] => null,
+				[ 'wp_enqueue_scripts', $concertManagementPublic, 'enqueueStyles' ] => null,
+				[ 'wp_enqueue_scripts', $concertManagementPublic, 'enqueueScripts' ] => null
+			}
 		);
 		
 		$this->concertManagementPlugin->init();
@@ -57,7 +59,7 @@ class ConcertManagementPluginTest extends ConcertTestCase {
 	 * Tests ConcertManagementPlugin->run()
 	 */
 	public function testRun() {
-		$loader = $this->getMockBuilder( Loader::class )->setMethods( [ 'run' ] )->getMock();
+		$loader = $this->getMockBuilder( Loader::class )->onlyMethods( [ 'run' ] )->getMock();
 		$admin = $this->getMockBuilder( Admin::class )->setConstructorArgs( [ 'Mock Plugin', '0.0.1' ] )->getMock();
 		$concertManagementPublic = $this
 			->getMockBuilder( ConcertManagementPublic::class )
@@ -78,7 +80,7 @@ class ConcertManagementPluginTest extends ConcertTestCase {
 		$this->concertManagementPlugin->run();
 	}
 	
-	public function tearDown() {
+	public function tearDown() : void {
 		\WP_Mock::tearDown();
 	}
 }

@@ -5,8 +5,8 @@ namespace uk\org\brentso\concertmanagement\common;
 /**
  * Fired during plugin activation
  *
- * @link       http://brentso.org.uk/
- * @since      0.0.1
+ * @link  http://brentso.org.uk/
+ * @since 0.0.1
  *
  * @package    concert_management
  * @subpackage concert_management\common
@@ -22,15 +22,17 @@ namespace uk\org\brentso\concertmanagement\common;
  * @subpackage concert_management\common
  * @author     Your Name <email@example.com>
  */
-class Activator {
+class Activator
+{
 
-	/**
-	 * Short Description. (use period)
-	 *
-	 * Long Description.
-	 *
-	 * @since    0.0.1
-	 */
-	public static function activate() {
-	}
+    /**
+     * Short Description. (use period)
+     *
+     * Long Description.
+     *
+     * @since 0.0.1
+     */
+    public static function activate()
+    {
+    }
 }

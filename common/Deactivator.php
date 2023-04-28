@@ -5,8 +5,8 @@ namespace uk\org\brentso\concertmanagement\common;
 /**
  * Fired during plugin deactivation
  *
- * @link       http://brentso.org.uk
- * @since      0.0.1
+ * @link  http://brentso.org.uk
+ * @since 0.0.1
  *
  * @package    concert_management
  * @subpackage concert_management/common
@@ -22,15 +22,17 @@ namespace uk\org\brentso\concertmanagement\common;
  * @subpackage concert_management/common
  * @author     Richard Vodden <richard@vodden.com>
  */
-class Deactivator {
+class Deactivator
+{
 
-	/**
-	 * Short Description. (use period)
-	 *
-	 * Long Description.
-	 *
-	 * @since    0.0.1
-	 */
-	public static function deactivate() {
-	}
+    /**
+     * Short Description. (use period)
+     *
+     * Long Description.
+     *
+     * @since 0.0.1
+     */
+    public static function deactivate()
+    {
+    }
 }

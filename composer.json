@@ -16,12 +16,6 @@
 			"role" : "Creator"
 		}
 	],
-	"repositories": [  
-        {  
-            "type": "vcs",  
-            "url": "https://github.com/rvodden/behat-wordpress-extension"  
-        }  
-    ],
 	"keywords" : [
 		"WordPress",
 		"plugins",
@@ -33,30 +27,28 @@
 	"require-dev" : {
 		"phpunit/phpunit" : "*",
 		"respect/validation" : "*",
-		"satooshi/php-coveralls" : "*",
-		"10up/wp_mock" : "0.2.*",
-		"wp-coding-standards/wpcs" : "~0.13",
-		"squizlabs/php_codesniffer" : "2.*",
+		"php-coveralls/php-coveralls" : "*",
+		"10up/wp_mock" : "*",
+		"wp-coding-standards/wpcs" : "*",
+		"squizlabs/php_codesniffer" : "*",
 		"dealerdirect/phpcodesniffer-composer-installer" : "*",
-		"behat/behat" : "*",
-		"behat/mink" : "*",
-		"behat/mink-extension" : "~2",
-		"behat/mink-selenium2-driver" : "*",
-		"symfony/debug" : "*",
-		"phing/phing" : "~2.16",
-		"wp-cli/wp-cli" : "~1.3",
-		"paulgibbs/behat-wordpress-extension" : "dev-dev",
+		"symfony/error-handler" : "*",
+		"phing/phing" : "*",
 		"roave/security-advisories" : "dev-master"
 	},
 	"autoload" : {
-		"psr-4" : {
-			"uk\\org\\brentso\\concertmanagement\\" : "public",
-			"uk\\org\\brentso\\concertmanagement\\admin\\" : "admin",
-			"uk\\org\\brentso\\concertmanagement\\common\\" : "common",
-			"uk\\org\\brentso\\concertmanagement\\features\\" : "features",
-			"uk\\org\\brentso\\concertmanagement\\tests\\" : "tests"
-		}
+		"classmap": [
+			"admin/",
+			"common/",
+			"public/",
+			"tests/"
+		]
 	},
 	"minimum-stability" : "dev",
-	"prefer-stable" : true
+	"prefer-stable" : true,
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	}
 }

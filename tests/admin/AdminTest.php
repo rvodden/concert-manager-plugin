@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 namespace uk\org\brentso\concertmanagement\admin;
 
 use uk\org\brentso\concertmanagement\tests\helpers;
@@ -22,7 +22,7 @@ class AdminTest extends helpers\ConcertTestCase {
 
 	private $undertest;
 
-	public function setUp() {
+	public function setUp() : void {
 		\WP_Mock::setUp();
 
 		\WP_Mock::userFunction( '__', array(
@@ -77,7 +77,7 @@ class AdminTest extends helpers\ConcertTestCase {
 		$this->undertest->displayOptionsPage();
 	}
 
-	public function tearDown() {
+	public function tearDown() : void {
 		\WP_Mock::tearDown();
 	}
 }

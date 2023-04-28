@@ -1,7 +1,7 @@
 #open-dialog {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 .piece-up, .piece-down, .piece-delete {
-	cursor: pointer;
+    cursor: pointer;
 }

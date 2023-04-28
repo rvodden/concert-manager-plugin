@@ -1,0 +1,10 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 2,
+    "version": "0.1.0",
+    "title": "Concert Manager: Next Concert Block",
+    "name": "concert-manager/next-concert-block",
+    "icon": "tickets-alt",
+    "category": "widgets",
+    "editorScript": "file:./next_concert_block.js"
+}

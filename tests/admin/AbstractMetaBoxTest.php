@@ -1,73 +1,130 @@
 <?php
 
+declare(strict_types=1);
+
 namespace uk\org\brentso\concertmanagement\admin;
 
 use WP_Scripts;
 use uk\org\brentso\concertmanagement\common;
 use uk\org\brentso\concertmanagement\tests\helpers;
 
-class AbstractMetaBoxTest extends helpers\ConcertTestCase {
+class MockMetaBox extends AbstractMetaBox {
+	protected $calls;
 
-	private $under_test;
+	public function __construct($loader, $title, $post_type)
+	{
+		$this->calls = 0;
+		parent::__construct($loader, $title, $post_type);
+	}
 
-	public function setUp() {
+	public function getCalls()
+	{
+		return $this->calls;
+	}
+	
+	protected function configurePostMetadata()
+	{
+	}	
+	
+	protected function getStyleUrl()
+	{
+	}
+
+	protected function getStyleTag()
+	{
+	}
+
+	protected function getScriptUrl()
+	{
+	}
+
+	protected function getScriptTag()
+	{
+	}
+
+	protected function getTag()
+	{
+	}
+
+	protected function getNonceName()
+	{
+	}
+
+	protected function getDisplayFilePath()
+	{
+	}
+}
+
+class AbstractMetaBoxTest extends helpers\ConcertTestCase
+{
+	private $loader;
+
+
+	public function setUp(): void
+	{
 		\WP_Mock::setUp();
+		$this->loader = $this->getMockBuilder(common\Loader::class)->onlyMethods(['addAction'])->getMock();
 	}
 
-	public function testDefineAdminHooks() {
-		$loader = $this->getMockBuilder( common\Loader::class )->setMethods( [ 'addAction' ] )->getMock();
+	public function testDefineAdminHooks()
+	{
+		$under_test = new class($this->loader, 'Mock Title', 'mock_post_type') extends MockMetaBox
+		{
 
-		$this->under_test = $this->getMockForAbstractClass(
-			AbstractMetaBox::class,
-			array( $loader, 'Mock Title', 'mock_post_type' )
+			protected function configurePostMetadata()
+			{
+				$this->calls++;
+			}
+
+		};
+
+		$this->loader->expects($this->exactly(4))->method('addAction')->willReturnCallback(
+			fn ($arg1, $arg2, $arg3, $arg4, $arg5) =>
+			match ([$arg1, $arg2, $arg3, $arg4, $arg5]) {
+				['add_meta_boxes_mock_post_type', $under_test, 'add', 10, 1] => null,
+				['save_post_mock_post_type', $under_test, 'save', 10, 2] => null,
+				['admin_enqueue_scripts', $under_test, 'enqueueScripts', 10, 1] => null,
+				['admin_enqueue_scripts', $under_test, 'enqueueStyles', 10, 1] => null
+			}
 		);
 
-		$this->under_test->expects( $this->once() )->method( 'configurePostMetadata' );
-
-		$loader->expects( $this->exactly( 4 ) )->method( 'addAction' )->withConsecutive(
-			[ 'add_meta_boxes_mock_post_type', $this->under_test, 'add', 10, 1 ],
-			[ 'save_post_mock_post_type', $this->under_test, 'save', 10, 2 ],
-			[ 'admin_enqueue_scripts', $this->under_test, 'enqueueScripts', 10, 1 ],
-			[ 'admin_enqueue_scripts', $this->under_test, 'enqueueStyles', 10, 1 ]
-		);
-
-		$this->under_test->init();
+		$under_test->init();
+		$this->assertEquals($under_test->getCalls(), 1);
 	}
 
-	public function testAdd() {
-		$loader = $this->getMockBuilder( common\Loader::class )->setMethods( [ 'getTag' ] )->getMock();
+	public function testAdd()
+	{
 
-		$this->under_test = $this->getMockForAbstractClass(
-			AbstractMetaBox::class,
-			array( $loader, 'Mock Title', 'mock_post_type' )
-		);
-		$this->under_test->method( 'getTag' )->willReturn( 'mock_tag' );
+		$under_test = new class($this->loader, 'Mock Title', 'mock_post_type') extends MockMetaBox {
+			protected function getTag() {
+				return 'mock_tag';
+			}
+		};
 
-		\WP_Mock::userFunction( 'add_meta_box', array(
+		\WP_Mock::userFunction('add_meta_box', array(
 			'times' => 1,
 			'args' => array(
 				'mock_tag',
 				'Mock Title',
-				array( $this->under_test, 'display' ),
+				array($under_test, 'display'),
 				'mock_post_type',
 				'normal',
 				'default',
 			),
 		));
 
-		$this->under_test->add();
+		$under_test->add();
 	}
 
-	public function testStylesAreEnqueuedIfOnPostTypeEditPage() {
-		$loader = $this->getMockBuilder( common\Loader::class )->setMethods( [ 'getTag' ] )->getMock();
+	public function testStylesAreEnqueuedIfOnPostTypeEditPage()
+	{
+		$under_test = new class($this->loader, 'Mock Title', 'mock_post_type') extends MockMetaBox {
+			protected function getStyleTag() {
+				return 'mock_post_type';
+			}			
+		};
 
-		$this->under_test = $this->getMockForAbstractClass(
-			AbstractMetaBox::class,
-			array( $loader, 'Mock Title', 'mock_post_type' )
-		);
-		$this->under_test->method( 'getStyleTag' )->willReturn( 'mock_post_type' );
-
-		$screen = $this->getMockBuilder( WP_Scripts::class )->getMock();
+		$screen = $this->getMockBuilder(WP_Scripts::class)->getMock();
 		$screen->post_type = 'mock_post_type';
 
 		\WP_Mock::userFunction('get_current_screen', array(
@@ -78,19 +135,18 @@ class AbstractMetaBoxTest extends helpers\ConcertTestCase {
 			'times' => '1',
 		));
 
-		$this->under_test->enqueueStyles( 'post.php' );
+		$under_test->enqueueStyles('post.php');
 	}
 
-	public function testStylesAreNotEnqueuedIfNotOnPostTypeEditPage() {
-		$loader = $this->getMockBuilder( common\Loader::class )->setMethods( [ 'getTag' ] )->getMock();
+	public function testStylesAreNotEnqueuedIfNotOnPostTypeEditPage()
+	{
+		$under_test = new class($this->loader, 'Mock Title', 'mock_post_type') extends MockMetaBox {
+			protected function getStyleTag() {
+				return 'wrong_post_type';
+			}
+		}; 
 
-		$this->under_test = $this->getMockForAbstractClass(
-			AbstractMetaBox::class,
-			array( $loader, 'Mock Title', 'mock_post_type' )
-		);
-		$this->under_test->method( 'getStyleTag' )->willReturn( 'wrong_post_type' );
-
-		$screen = $this->getMockBuilder( WP_Scripts::class )->getMock();
+		$screen = $this->getMockBuilder(WP_Screen::class)->getMock();
 		$screen->post_type = 'wrong_post_type';
 
 		\WP_Mock::userFunction('get_current_screen', array(
@@ -101,19 +157,18 @@ class AbstractMetaBoxTest extends helpers\ConcertTestCase {
 			'times' => '0',
 		));
 
-		$this->under_test->enqueueStyles( 'post.php' );
+		$under_test->enqueueStyles('post.php');
 	}
 
-	public function testScriptsAreEnqueuedIfOnPostTypeEditPage() {
-		$loader = $this->getMockBuilder( common\Loader::class )->setMethods( [ 'getTag' ] )->getMock();
+	public function testScriptsAreEnqueuedIfOnPostTypeEditPage()
+	{
+		$under_test = new class($this->loader, 'Mock Title', 'mock_post_type') extends MockMetaBox {
+			protected function getStyleTag() {
+				return 'mock_post_type';
+			}
+		};
 
-		$this->under_test = $this->getMockForAbstractClass(
-			AbstractMetaBox::class,
-			array( $loader, 'Mock Title', 'mock_post_type' )
-		);
-		$this->under_test->method( 'getStyleTag' )->willReturn( 'mock_post_type' );
-
-		$screen = $this->getMockBuilder( WP_Scripts::class )->getMock();
+		$screen = $this->getMockBuilder(WP_Scrreen::class)->getMock();
 		$screen->post_type = 'mock_post_type';
 
 		\WP_Mock::userFunction('get_current_screen', array(
@@ -124,60 +179,53 @@ class AbstractMetaBoxTest extends helpers\ConcertTestCase {
 			'times' => '1',
 		));
 
-		$this->under_test->enqueueScripts( 'post.php' );
+		$under_test->enqueueScripts('post.php');
 	}
 
-	public function testThatAddedPostMetadataIsLoaded() {
-		$loader = $this->getMockBuilder( common\Loader::class )->setMethods( [ 'getTag' ] )->getMock();
+	public function testThatAddedPostMetadataIsLoaded()
+	{
+		$under_test = new MockMetaBox($this->loader, 'Mock Title', 'mock_post_type');
 
-		$this->under_test = $this->getMockForAbstractClass(
-			AbstractMetaBox::class,
-			array( $loader, 'Mock Title', 'mock_post_type' )
-		);
-
-		$metadata_mock = $this->getMockForAbstractClass( common\PostMetadataInterface::class );
-		$metadata_mock->method( 'getKey' )->willReturn( 'mock_key' );
-		$metadata_mock->method( 'read' )->willReturn( 'mock_value' );
+		$metadata_mock = $this->getMockBuilder(common\PostMetadataInterface::class)->getMock();
+		$metadata_mock->method('getKey')->willReturn('mock_key');
+		$metadata_mock->method('read')->willReturn('mock_value');
 
 		$metadata_array = array(
 			'mock_key' => 'mock_value',
 		);
 
-		$this->under_test->addPostMetadata( $metadata_mock );
+		$under_test->addPostMetadata($metadata_mock);
 
-		$metadata_return = $this->under_test->loadPostMetadata( 1 );
+		$metadata_return = $under_test->loadPostMetadata(1);
 
-		$this->assertEquals( $metadata_array, $metadata_return );
+		$this->assertEquals($metadata_array, $metadata_return);
 	}
 
-	public function testThatSavedPostMetadataHasNewValueWhenLoaded() {
-		$loader = $this->getMockBuilder( common\Loader::class )->setMethods( [ 'get_tag' ] )->getMock();
+	public function testThatSavedPostMetadataHasNewValueWhenLoaded()
+	{
+		$under_test = new MockMetaBox($this->loader, 'Mock Title', 'mock_post_type');
 
-		$this->under_test = $this->getMockForAbstractClass(
-			AbstractMetaBox::class,
-			array( $loader, 'Mock Title', 'mock_post_type' )
-		);
-
-		$metadata_mock = $this->getMockForAbstractClass( common\PostMetadataInterface::class );
-		$metadata_mock->method( 'getKey' )->willReturn( 'mock_key' );
-		$metadata_mock->method( 'read' )->willReturn( 'mock_value' );
-		$metadata_mock->expects( $this->once() )
-			->method( 'updateFromArray' )
-			->willReturn( 'mock_value' );
+		$metadata_mock = $this->getMockBuilder(common\PostMetadataInterface::class)->getMock();
+		$metadata_mock->method('getKey')->willReturn('mock_key');
+		$metadata_mock->method('read')->willReturn('mock_value');
+		$metadata_mock->expects($this->once())
+			->method('updateFromArray')
+			->willReturn('mock_value');
 
 		$metadata_array = array(
 			'mock_key' => 'mock_value_2',
 		);
 
-		$this->under_test->addPostMetadata( $metadata_mock );
+		$under_test->addPostMetadata($metadata_mock);
+		$under_test->savePostMetadata(1, $metadata_array);
 
-		$this->under_test->savePostMetadata( 1, $metadata_array );
-
-		$metadata_return = $this->under_test->loadPostMetadata( 1 );
+		$metadata_return = $under_test->loadPostMetadata(1);
+		// assert metadata is correct
 	}
 
 
-	public function tearDown() {
+	public function tearDown(): void
+	{
 		\WP_Mock::tearDown();
 	}
 }
