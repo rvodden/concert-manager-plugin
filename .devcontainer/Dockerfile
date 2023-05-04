@@ -1,10 +1,11 @@
-FROM mcr.microsoft.com/devcontainers/php:0-8.2
+FROM mcr.microsoft.com/devcontainers/php:0-7.4
 ARG USERNAME=rvodden
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
 # Remove the existing vscode user
 RUN deluser vscode
+RUN rm /etc/apt/sources.list.d/yarn.list
 
 # Create the user
 RUN groupadd --gid $USER_GID $USERNAME \

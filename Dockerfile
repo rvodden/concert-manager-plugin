@@ -1,5 +1,5 @@
 # Dockerfile
-FROM wordpress
+FROM wordpress:php7.4
 
 ARG PLUGIN_NAME=concert-manager-plugin
 
@@ -24,3 +24,5 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
         && echo "su www-data -c \"/usr/local/bin/composer.phar --working-dir=/var/www/html/wp-content/plugins/${PLUGIN_NAME} \$*\"" >> /usr/local/bin/composer \
         && chmod ugo+x /usr/local/bin/composer \
         && echo "*** composer command installed"
+
+COPY custom.ini $PHP_INI_DIR/conf.d/

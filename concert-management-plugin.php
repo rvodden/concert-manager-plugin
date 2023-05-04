@@ -1,9 +1,10 @@
 <?php
 
+namespace uk\org\brentso\concertmanagement;
+
 use uk\org\brentso\concertmanagement\common;
 
 require_once __DIR__ . '/vendor/autoload.php';
-
 
 /*
  * Plugin Name: Concert Manager
@@ -26,8 +27,8 @@ if ( ! defined( 'WP_DEBUG' ) ) {
 }
 
 define( 'CONCERT_TEXT_DOMAIN', 'concert-management' );
-define( 'CONCERT_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
-define( 'CONCERT_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+define( 'CONCERT_PLUGIN_PATH', plugin_dir_path( __FILE__ . "/src" ) );
+define( 'CONCERT_PLUGIN_URL', plugin_dir_url( __FILE__ ) . "/src" );
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {

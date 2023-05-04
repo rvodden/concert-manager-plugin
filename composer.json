@@ -37,12 +37,9 @@
 		"roave/security-advisories" : "dev-master"
 	},
 	"autoload" : {
-		"classmap": [
-			"admin/",
-			"common/",
-			"public/",
-			"tests/"
-		]
+		"psr-4": {
+			"uk\\org\\brentso\\concertmanagement\\": "src/"
+		}
 	},
 	"minimum-stability" : "dev",
 	"prefer-stable" : true,
